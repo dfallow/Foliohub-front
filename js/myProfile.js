@@ -15,7 +15,7 @@ const displayPersonalProjects = async () => {
         };
         const response = await fetch(url + '/project/personal', fetchOptions);
         const projects = await response.json();
-        div.innerHTML += projects;
+        div.innerHTML = projects;
     } catch (e) {
         console.log(e.message);
     }
