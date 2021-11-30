@@ -25,6 +25,6 @@ loginForm.addEventListener('submit', async (evt) => {
         // save token
         sessionStorage.setItem('token', json.token);
         sessionStorage.setItem('user', JSON.stringify(json.user));
-        location.href = '../html/home.html';
+        location.href = 'http://10.114.32.29/~public/foliohub-front/html/home.html';
     }
 });
