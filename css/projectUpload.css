@@ -1,0 +1,19 @@
+.projectUpload {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 50px;
+}
+
+#uploadLeft {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+}
+
+#uploadRight {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+}

@@ -1,0 +1,21 @@
+.projects {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#logo {
+    width: 48px;
+    height: 48px;
+}
+
+#profilePic {
+    width: 48px;
+    height: 48px;
+}
+
+#searchBar {
+    text-align: center;
+    width: 200px;
+}
