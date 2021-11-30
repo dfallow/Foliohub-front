@@ -12,7 +12,6 @@ const createProjectCard = (projects) => {
 }
 
 const displayPersonalProjects = async () => {
-
     try {
         const fetchOptions = {
             headers: {
@@ -26,5 +25,4 @@ const displayPersonalProjects = async () => {
         console.log(e.message);
     }
 };
-
 displayPersonalProjects();
