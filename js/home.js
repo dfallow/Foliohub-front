@@ -51,7 +51,7 @@ getProject();
 
 profilePic.addEventListener('click', (evt) => {
     evt.preventDefault();
-    location.href = 'myProfile.js.html';
+    location.href = 'myProfile.html';
 })
 
 
