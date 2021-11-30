@@ -49,8 +49,9 @@ const getProject = async () => {
 };
 getProject();
 
-profilePic.addEventListener('click', () => {
-    location.href = 'accountCreate.html';
+profilePic.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    location.href = 'myProfile.js.html';
 })
 
 
