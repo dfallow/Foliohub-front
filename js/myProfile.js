@@ -5,6 +5,12 @@ const div = document.querySelector('.personal');
 
 const currentUser = JSON.parse(sessionStorage.getItem('user'));
 
+const createProjectCard = (projects) => {
+    projects.forEach((project) => {
+        div.innerHTML += project.id;
+    })
+}
+
 const displayPersonalProjects = async () => {
 
     try {
@@ -15,7 +21,7 @@ const displayPersonalProjects = async () => {
         };
         const response = await fetch(url + '/project/personal', fetchOptions);
         const projects = await response.json();
-        div.innerHTML = projects;
+        createProjectCard(projects);
     } catch (e) {
         console.log(e.message);
     }
