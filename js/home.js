@@ -3,6 +3,7 @@ const url = 'http://10.114.32.29/foliohub'; //should be server address
 
 //selecting html element
 const ul = document.querySelector('#projectList');
+const profilePic = document.querySelector('#profilePic');
 
 //creating list of projects
 const createProjectList = (projects) => {
@@ -47,3 +48,9 @@ const getProject = async () => {
     }
 };
 getProject();
+
+profilePic.addEventListener('click', () => {
+    location.href = 'accountCreate.html';
+})
+
+
