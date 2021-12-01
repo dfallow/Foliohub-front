@@ -295,3 +295,6 @@ $RECYCLE.BIN/
 # except one (empty) file to have the folder in version control
 !*/uploads/.gitkeep
 !*/thumbnails/.gitkeep
+/.idea/.gitignore
+/.idea/modules.xml
+/.idea/vcs.xml
