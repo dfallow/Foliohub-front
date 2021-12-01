@@ -1,5 +1,5 @@
 'use strict';
-const url = 'http://10.114.32.29/foliohub';
+const url = window.GLOBAL_URL;
 
 const div = document.querySelector('.personal');
 

@@ -1,8 +1,10 @@
 'use strict';
-const url = 'http://10.114.32.29/foliohub'; // change url when uploading to server
+const url = window.GLOBAL_URL;
 
 // select existing html elements
 const loginForm = document.querySelector('#login');
+
+loginForm.action = `${url}/auth/login`;
 
 // login
 loginForm.addEventListener('submit', async (evt) => {

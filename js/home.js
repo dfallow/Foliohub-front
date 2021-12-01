@@ -1,5 +1,5 @@
 'use strict';
-const url = 'http://10.114.32.29/foliohub'; //should be server address
+const url = window.GLOBAL_URL; //should be server address
 
 //selecting html element
 const ul = document.querySelector('#projectList');
