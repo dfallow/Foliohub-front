@@ -11,25 +11,30 @@
 <div class="container">
 
     <div class="menu">
-        <img id="logo" src="../images/logo.png">
-        <h1>FolioHub</h1>
-        <img id="profilePic" src="../images/profilePic.png">
+        <img id="logo" src="../images/logo.png" alt="logo">
+        <h2 id="title">Register</h2>
     </div>
 
-    <h2>Register</h2>
 
     <form id="register">
-        <div id="regLeft">
-            <input type="text" placeholder="Enter Username" name="username">
-            <input type="text" placeholder="Enter Title" name="title">
-            <input type="email" placeholder="Enter Email" name="email">
-            <input type="email" placeholder="Confirm Email" name="emailC">
-            <input type="password" placeholder="Enter Password" name="password">
-            <input type="password" placeholder="Confirm Password" name="passwordC">
+        <div id="regProfilePic">
+            <label for="image-upload" class="custom-file-upload">
+                <i></i> +
+            </label>
+            <input id="image-upload" type="file" placeholder="Photo" name="profilePic">
         </div>
-        <div id="regRight">
-            <input id="image" type="file" placeholder="Photo" name="profilePic">
+        <div id="regForm">
+            <input type="text" placeholder="Enter Username..." name="username">
+            <input type="text" placeholder="Enter Title..." name="title">
+            <input type="email" placeholder="Enter Email..." name="email">
+            <input type="email" placeholder="Confirm Email..." name="emailC">
+            <input type="password" placeholder="Enter Password..." name="password">
+            <input type="password" placeholder="Confirm Password..." name="passwordC">
+            <textarea maxlength="150" id="description" placeholder="Short description..." name="description"></textarea>
+            <input type="text" placeholder="GitHub" name="github...">
+            <input type="text" placeholder="Add Tags" name="personalTags...">
         </div>
+        <div class="button">Save</div>
     </form>
 
 </div>

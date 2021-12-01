@@ -1,22 +1,155 @@
-#register {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.menu {
+    margin-bottom: 40px;
+    margin-top: 10px;
 }
 
-#regLeft {
-    width: 50%;
+h2 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+}
+
+.container {
     display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: 2vh auto;
+    width: 98vw;
+    height: 96vh;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    max-width: none;
+}
+
+#register {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 75vh;
+    flex-direction: column;
+}
+
+#regForm {
+    width: 80%;
+    display: flex;
+    align-items: center;
     flex-direction: column;
     margin: 10px;
 }
 
-#regRight {
-    width:40%;
+#regForm input, #regForm textarea {
+    background-color: #E5E5E5;
+    height: 25px;
+    border-radius: 8px;
+    border: none;
+    padding-left: 6px;
+    margin: 5px 0;
+    text-align: justify;
+}
+
+#regForm textarea {
+    resize: none;
+    width: 80%;
+    height: 40px;
+    overflow: hidden;
+}
+
+#regProfilePic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    background-color: white;
+    height: 200px;
+    border: 2px solid #cbcbcb;
+    border-radius: 50%;
+    margin-bottom: 40px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: xx-large;
+    font-weight: bolder;
+    background-color: #E5E5E5;
+    border-radius: 200%;
+    cursor: pointer;
+    width: 46px;
+    height: 46px;
+}
+
+.button {
+    background-color: #c4c4c4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    margin-bottom: 20px;
 }
 
 input {
     margin-top: 20px;
     width: 80%;
+}
+
+@media screen and (max-aspect-ratio: 12/16) {
+
+    #logo {
+        width: 8vw;
+        height: 8vw;
+    }
+
+    #title {
+        font-size: 3rem;
+    }
+
+    #regProfilePic {
+        /*height: 30vw;*/
+        /*width: 30vw;*/
+        margin-bottom: 60px;
+    }
+
+    .custom-file-upload {
+        height: 8vw;
+        width: 8vw;
+    }
+
+    .button {
+        height: 8vh;
+        width: 20vw;
+        font-size: 2vh;
+        border-radius: 250px;
+    }
+
+    #regForm {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+
+    #regForm input, #regForm textarea {
+        height: 90px;
+        margin-top: 10px;
+        font-size: 2vh;
+        border-radius: 15px;
+        padding: 5px 15px;
+    }
+
+    #regForm textarea {
+        width: 80%;
+        height: 120px;
+    }
+
 }
