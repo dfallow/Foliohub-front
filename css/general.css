@@ -3,10 +3,10 @@
     font-family: "Arial", serif;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-}
+/*body {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
 
 .container {
     padding-left: 0.5em;
@@ -21,8 +21,8 @@ body {
 }
 
 .menu {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+    /*padding-left: 0.5em;*/
+    /*padding-right: 0.5em;*/
     width: 100%;
     display: flex;
     flex-direction: row;

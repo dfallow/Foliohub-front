@@ -8,37 +8,42 @@
 </head>
 <body>
 
-    <div class="container">
-
-        <div class="menu">
-            <img id="logo" src="../images/logo.png">
-            <h1>FolioHub</h1>
-            <img id="profilePic" src="../images/profilePic.png">
+<div class="menuMobile">
+    <div class="menuTopRow">
+        <div class="menuButton">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
         </div>
-
-        <input type="text" placeholder="Search..." id="searchBar">
-
-        <ul id="tags">
-            <li id="all">All</li>
-            <li id="android">Android</li>
-            <li id="ios">iOS</li>
-            <li id="web">Web</li>
-            <li id="windows">Windows</li>
-            <li id="mac">Mac</li>
-            <li id="linux">Linux</li>
-            <li id="other">Other</li>
-        </ul>
-
-        <div class="projects">
-            <h2>Projects</h2>
-            <ul id="projectList">
-                <!-- home.js creates project list here-->
-            </ul>
-
-        </div>
-
+        <img id="logo" src="../images/logo.png">
+        <img id="profilePic" src="../images/profilePic.png">
     </div>
-    <script src="../constants.js"></script>
-    <script src="../js/home.js"></script>
+    <input type="text" placeholder="Search..." id="searchBar"></input>
+</div>
+
+
+
+<div class="scrollmenu">
+    <input type="checkbox" id="a"></input><label for="a">All</label>
+    <input type="checkbox" id="b"></input><label for="b">Android</label>
+    <input type="checkbox" id="c"></input><label for="c">iOS</label>
+    <input type="checkbox" id="d"></input><label for="d">Web</label>
+    <input type="checkbox" id="e"></input><label for="e">Windows</label>
+    <input type="checkbox" id="f"></input><label for="f">Mac</label>
+    <input type="checkbox" id="g"></input><label for="g">Linux</label>
+    <input type="checkbox" id="h"></input><label for="h">Other</label>
+</div>
+
+
+<div class="projects">
+    <h2>Projects</h2>
+    <ul id="projectList">
+        <!-- home.js creates project inputs here-->
+    </ul>
+
+</div>
+
+<script src="../constants.js"></script>
+<script src="../js/home.js"></script>
 </body>
 </html>

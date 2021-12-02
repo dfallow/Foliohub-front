@@ -21,15 +21,17 @@
         </div>
         <div id="regForm">
             <input required class="mainMobileInput" type="text" placeholder="Enter Username..." name="username">
-            <input class="mainMobileInput" type="text" placeholder="Enter Title...">
+            <input class="mainMobileInput" type="text" placeholder="Enter Title..." name="title">
             <textarea class="mainMobileInput" id="descTextArea"  maxlength="60" id="description" placeholder="Short description..." name="description"></textarea>
-            <input class="mainMobileInput" type="text" placeholder="GitHub" name="github...">
-            <input class="mainMobileInput" type="text" placeholder="Add Tags" name="personalTags...">
+            <input class="mainMobileInput" type="text" placeholder="GitHub" name="github">
+            <input class="mainMobileInput" type="text" placeholder="Add Tags" name="tags">
         </div>
-        <div class="mainMobileButton">Save</div>
+        <button type="submit" class="mainMobileButton">Save</button>
     </form>
 
 
-<script src="../constants.js"></script>
+    <script src="../constants.js"></script>
+    <script src="../js/serialize.js"></script>
+    <script src="../js/accountCreateExtra.js"></script>
 </body>
 </html>
