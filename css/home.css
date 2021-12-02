@@ -1,9 +1,3 @@
-.projects {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-}
 
 #logo {
     width: 48px;
@@ -17,5 +11,76 @@
 
 #searchBar {
     text-align: center;
+    width: 90%;
+    border-radius: 10px;
+}
+
+#tags {
+    width: 100%;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+#tags li {
+    border: 1px solid black;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.projects {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#projectList {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    list-style-type: none;
+    padding: 0;
+}
+
+#projectCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
     width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    margin: 2px;
+    border-radius: 10px;
+}
+
+img {
+    width: 125px;
+    height: 125px;
+    margin-top: 3px;
+}
+
+h3 {
+    margin: 1px;
+    padding: 0 2px;
+    text-align: center;
+    word-break: break-word;
+}
+
+a, a:hover, a:visited, a:active {
+    color: inherit;
+    text-decoration: none;
+}
+
+.button {
+    background-color: white;
+    color: black;
+    align-self: center;
+    margin-bottom: 5px;
 }

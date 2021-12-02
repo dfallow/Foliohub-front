@@ -8,36 +8,53 @@ const profilePic = document.querySelector('#profilePic');
 //creating list of projects
 const createProjectList = (projects) => {
     //clear ul element
-    ul.innerHTML = '';
+    for (let i = 0; i < 20; i++) {
+        if (i === 0) {
+            ul.innerHTML = '';
+        }
+        projects.forEach((project) => {
+            //creating li element with DOM methods
+            let figure;
+            const img = document.createElement('img');
+            console.log(project.images);
+            if (project.images) {
+                img.src = url + '/' + project.images;
+                img.alt = project.name;
 
-    projects.forEach((project) => {
-        //creating li element with DOM methods
-        //const img = document.createElement('img');
-        //img.src = url + '/' + project.filename;
-        //img.alt = project.name;
+            } else {
+                img.src = "../images/logo.png"
+                img.alt = "No image found"
 
-        //const figure = document.createElement('figure').appendChild(img);
+            }
+            figure = document.createElement('figure').appendChild(img);
 
-        const h3 = document.createElement('h3');
-        h3.innerHTML = project.name;
+            const h3 = document.createElement('h3');
+            h3.innerHTML = project.name;
 
-        //view button
-        const viewBtn = document.createElement('a');
-        viewBtn.innerHTML = 'View';
-        viewBtn.href = `../html/projectDetails.html?id=${project.id}`
-        viewBtn.classList.add('button');
+            //view button
+            //const viewBtn = document.createElement('a');
+            //viewBtn.id = "viewBtn";
+            //viewBtn.innerHTML = 'View';
+            //viewBtn.href = `../html/projectDetails.html?id=${project.id}`
+            //viewBtn.classList.add('button');
 
-        const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = `../html/projectDetails.html?id=${project.id}`;
 
-        //li.appendChild(figure);
-        li.appendChild(h3);
-        li.appendChild(viewBtn);
-        ul.appendChild(li);
-    });
+            const li = document.createElement('li');
+            li.id = "projectCard"
+
+            li.appendChild(figure);
+            li.appendChild(h3);
+            //li.appendChild(viewBtn);
+            a.appendChild(li);
+            ul.appendChild(a);
+        });
+    }
 };
 
 //AJAX call
-const getProject = async () => {
+const getProjects = async () => {
     try {
         const response = await fetch(url + '/project');
         const projects = await response.json();
@@ -47,7 +64,7 @@ const getProject = async () => {
         console.log(e.message);
     }
 };
-getProject();
+getProjects();
 
 profilePic.addEventListener('click', (evt) => {
     evt.preventDefault();
