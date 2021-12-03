@@ -8,59 +8,59 @@
 </head>
 <body>
 
-    <header class="normal-header">
-        <div class="column">
-            <div class="row">
-                <div class="menu-icon">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </div>
-                <img class="header-logo" src="">
-
-            </div>
-
+<div class="menuMobile">
+    <div class="menuTopRow">
+        <div class="menuButton">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
         </div>
-    </header>
-
-    <div class="container">
-
-        <div class="menu">
-            <img id="logo" src="../images/logo.png">
-            <h1>FolioHub</h1>
-            <img id="profilePic" src="../images/profilePic.png">
-        </div>
-
-        <h2>Project Upload</h2>
-
-        <div class="projectUpload">
-
-            <div id="uploadLeft">
-                <form id="upload" action=""> <!-- TODO action to do -->
-                    <h4>Project Name:</h4>
-                    <input type="text">
-                    <h4>Outline</h4>
-                    <input type="text">
-                    <h4>Description (500 char)</h4>
-                    <textarea></textarea>
-                    <h4>Tags</h4>
-                    <input placeholder="tags go here">
-                </form>
-            </div>
-
-            <div id="uploadRight">
-                <h4>Project Images</h4>
-                <input type="file" name="projectImages" accept="image/*" placeholder="Choose Photos">
-                <h4>Project Videos</h4>
-                <input type="file" name="projectVideos" accept="video/*" placeholder="Choose Videos">
-                <h4>Project Logo</h4>
-                <input type="file" name="projectLogo" accept="image/*" placeholder="Chose Logo">
-            </div>
-
-        </div>
-
+        <img id="logo" src="../images/logo.png">
+        <img id="profilePic" src="../images/profilePic.png">
+    </div>
 </div>
 
-    <script src="../constants.js"></script>
+<form id="uploadDetails" action=""> <!-- TODO action to do -->
+
+    <div id="regProjectPic">
+        <label for="image-upload" class="custom-file-upload">
+            <i></i> +
+        </label>
+        <input id="image-upload" type="file" placeholder="Photo" name="projectPic">
+    </div>
+    <input class="mainMobileInput" id="projectName" type="text" placeholder="Project Name">
+    <textarea class="mainMobileInput" maxlength="60" id="shortDescTextArea"
+              placeholder="Short description"></textarea>
+    <input class="mainMobileInput" placeholder="Add tags">
+
+    <h3>Add a video</h3>
+
+    <div id="projectVideo">
+        <label for="image-upload" class="custom-file-upload">
+            <i></i> +
+        </label>
+        <input id="video-upload" type="file" placeholder="Photo" name="projectPic">
+    </div>
+
+    <h3>Add pictures</h3>
+
+    <div id="projectPictures">
+        <label for="image-upload" class="custom-file-upload">
+            <i></i> +
+        </label>
+        <input id="pictures-upload" type="file" placeholder="Photo" name="projectPic">
+    </div>
+
+    <div id="uploadedPictures">
+        <!-- Uploaded images show up here -->
+    </div>
+
+    <textarea class="mainMobileInput" id="longDescTextArea" placeholder="Longer description"></textarea>
+
+    <button class="mainMobileButton" type="submit">Create</button>
+
+</form>
+
+<script src="../constants.js"></script>
 </body>
 </html>
