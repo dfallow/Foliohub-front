@@ -3,6 +3,8 @@ const url = window.GLOBAL_URL;
 
 let currentUrl = window.location.href;
 const projectId = currentUrl.split('=').pop();
+const drawer = document.querySelector('#side-menu');
+
 
 //selecting html elements
 const projectDetails = document.querySelector('.projectDetails');
@@ -82,3 +84,14 @@ const getProject = async () => {
     }
 };
 getProject();
+
+function openDrawer() {
+    drawer.style.visibility = 'visible';
+    drawer.style.width = '70vw';
+}
+
+function closeDrawer() {
+    drawer.style.visibility = 'hidden';
+    drawer.style.width = '0';
+
+}

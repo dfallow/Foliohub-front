@@ -5,6 +5,7 @@ const url = window.GLOBAL_URL; //should be server address
 const ul = document.querySelector('#projectList');
 const profilePic = document.querySelector('#profilePic');
 const loadMore = document.querySelector('#load-more');
+const drawer = document.querySelector('#side-menu');
 let projectsExample;
 
 //creating list of projects
@@ -66,6 +67,17 @@ const createProjectList = (projects) => {
         });
     }
 };
+
+function openDrawer() {
+    drawer.style.visibility = 'visible';
+    drawer.style.width = '70vw';
+}
+
+function closeDrawer() {
+    drawer.style.visibility = 'hidden';
+    drawer.style.width = '0';
+
+}
 
 //AJAX call
 const getProjects = async () => {

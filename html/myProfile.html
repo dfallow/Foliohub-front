@@ -3,12 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <title>User Profile</title>
+    <link href="../css/general.css" rel="stylesheet">
+    <link href="../css/myProfile.css" rel="stylesheet">
 </head>
 <body>
 
-<div class="personal"></div>
+<div class="menuMobile">
+    <div class="menuTopRow">
+        <div class="menuButton">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <img id="logo" src="../images/logo.png">
+    </div>
+</div>
 
-    <script src="../constants.js"></script>
-    <script src="../js/myProfile.js"></script>
+<div class="user">
+    <img id="userImg" src="../images/profilePic.png">
+
+    <div id="userInfo">
+        <p id="userName">User Name</p>
+        <p id="developerType">Type of Developer</p>
+        <p id="memberSince">Member Since</p>
+    </div>
+
+    <div id="userIcon"></div>
+
+    <p id="userDesc"></p>
+
+</div>
+
+
+<div id="tags">
+    <!-- Tags will display here -->
+</div>
+
+<div class="searchFilter">
+    <input type="text" placeholder="Search..." id="searchBar">
+
+    <div class="filterMenu">
+        <button onclick="myFunction()" class="filterBtn">Filter</button>
+        <div id="myDropdown" class="filterOptions">
+            <a href="">Newest</a>
+            <a href="">Oldest</a>
+            <a href="">A-Z</a>
+            <a href="">Z-A</a>
+        </div>
+    </div>
+</div>
+
+<ul id="userProjects">
+    <!-- User projects are loaded here -->
+</ul>
+
+
+<script src="../constants.js"></script>
+<script src="../js/myProfile.js"></script>
+
+<script>
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+        if (!event.target.matches('.filterBtn')) {
+            let dropdowns = document.getElementsByClassName("filterOptions");
+            let i;
+            for (i = 0; i < dropdowns.length; i++) {
+                let openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
 </body>
 </html>

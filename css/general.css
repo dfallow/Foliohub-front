@@ -3,10 +3,11 @@
     font-family: "Arial", serif;
 }
 
-/*body {*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*}*/
+body {
+    margin: 0;
+    padding: 3vw;
+    background-color: rgba(1, 4, 9, 0.06);
+}
 
 .container {
     padding-left: 0.5em;
@@ -53,4 +54,134 @@
     border: none;
     margin: 5px 0;
     text-align: justify;
+}
+
+#searchBar {
+    text-align: center;
+    height: 5vh;
+    width: 100%;
+    border-radius: 100px;
+    border: none;
+    align-self: center;
+    font-size: 2vh;
+    margin: 0.5vh 0;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 10vw;
+    width: 10vw;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.bar {
+    width: 80%;
+    height: 5%;
+    background-color: black;
+    opacity: 70%;
+    margin: 6px 0;
+    border-radius: 20px;
+}
+
+.menuTopRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menuMobile {
+    height: 15vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+#logo {
+    width: 10vw;
+    height: 10vw;
+}
+
+#profilePic {
+    height: 80%;
+    width: 80%;
+    opacity: 70%;
+}
+
+#side-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #cbcbcb;
+    height: 100vh;
+    border-radius: 0 50px 50px 0;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    overflow-x: hidden;
+    padding: 4vw 5vw;
+    transition: 0.1s;
+    opacity: 0.9;
+}
+
+#drawer-user-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10vw;
+}
+
+#drawer-user-info h1 {
+    font-size: 2vh;
+}
+
+#drawer-pic {
+    border-radius: 200px;
+    width: 18vw;
+    height: 18vw;
+    margin-right: 5vw;
+    border: 1px solid black;
+    opacity: 1;
+}
+
+.drawer-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 3vh;
+    margin: 1.5vh 0;
+}
+
+.drawer-item p {
+    font-size: 2.5vh;
+}
+
+.drawer-item-logo {
+    width: 10vw;
+    height: 10vw;
+    margin-right: 1.5vh;
+    opacity: 1;
+}
+
+.drawer-settings {
+    margin-top: auto;
+}
+
+#btn-close {
+    align-self: end;
+    justify-self: start;
+    font-size: 5vh;
+    height: 5vh;
+}
+
+#drawer-settings {
+    justify-self: end;
+    margin-top: auto;
 }
