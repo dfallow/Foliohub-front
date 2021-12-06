@@ -1,5 +1,8 @@
 body {
     max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .menuButton {
@@ -109,13 +112,13 @@ input[type="file"] {
 #shortDescTextArea {
     resize: none;
     border-radius: 50px;
-    width: 95%;
+    width: 100%;
     height: 12vh;
     overflow: hidden;
 }
 
 .mainMobileInput {
-    width: 95%;
+    width: 100%;
     align-self: center;
     margin: 10px 0 10px 0;
 }
@@ -152,3 +155,28 @@ img {
 button {
     margin: auto;
 }
+
+#div-private {
+    height: 10vh;
+    width: 15vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 20px;
+
+}
+
+#private {
+    width: 100%;
+    height: 70px;
+    margin: 0;
+    padding: 0;
+}
+
+#checkbox-text {
+    font-size: 3vh;
+    margin: 0;
+    padding: 0;
+}
+

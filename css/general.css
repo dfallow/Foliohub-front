@@ -129,6 +129,7 @@ body {
     padding: 4vw 5vw;
     transition: 0.1s;
     opacity: 0.9;
+    z-index: 9000;
 }
 
 #drawer-user-info {
@@ -184,4 +185,9 @@ body {
 #drawer-settings {
     justify-self: end;
     margin-top: auto;
+}
+
+a, a:hover, a:visited, a:active {
+    color: inherit;
+    text-decoration: none;
 }
