@@ -17,14 +17,17 @@
             <label for="image-upload" class="custom-file-upload">
                 <i></i> +
             </label>
-            <input id="image-upload" type="file" placeholder="Photo" name="profilePic">
+            <input id="image-upload" type="file" placeholder="Photo" accept="image/*" name="profilePic">
         </div>
         <div id="regForm">
             <input required class="mainMobileInput" type="text" placeholder="Enter Username..." name="username">
             <input class="mainMobileInput" type="text" placeholder="Enter Title..." name="title">
-            <textarea class="mainMobileInput" id="descTextArea"  maxlength="60" id="description" placeholder="Short description..." name="description"></textarea>
+            <textarea class="mainMobileInput" id="descTextArea"  maxlength="60" placeholder="Short description..." name="description"></textarea>
             <input class="mainMobileInput" type="text" placeholder="GitHub" name="github">
             <input class="mainMobileInput" type="text" placeholder="Add Tags" name="tags">
+            <input id="dateInput" class="hidden-input" type="text" name="creationDate">
+            <input id="usernameInput" class="hidden-input" type="text" name="email">
+            <input id="passwordInput" class="hidden-input" type="text" name="password">
         </div>
         <button type="submit" class="mainMobileButton">Save</button>
     </form>

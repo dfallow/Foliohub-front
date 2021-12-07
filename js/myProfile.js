@@ -11,8 +11,11 @@ const userDesc = document.querySelector('#userDesc');
 const currentUser = JSON.parse(sessionStorage.getItem('user'));
 console.log('Current user: ', currentUser);
 
+// const userId = currentUser.userId;
+console.log(currentUser.profilePic);
 if (currentUser.profilePic) {
-    userImg.src = currentUser.profilePic;
+    userImg.src = url + '/uploads/user/' + currentUser.profilePic;
+    userImg.alt = "user profile pic";
 }
 username.innerHTML = currentUser.username;
 developerType.innerHTML = currentUser.title;
@@ -21,6 +24,30 @@ userDesc.innerHTML = currentUser.description;
 
 const userProjects = document.querySelector('#userProjects');
 
+// const getUserInfo = async (userId) => {
+//
+//     try {
+//         const fetchOptions = {
+//             headers: {
+//                 Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+//             },
+//         };
+//         const response = await fetch(url + `/user/personal/${userId}`, fetchOptions);
+//         const user = await response.json();
+//         updateUserCard(user);
+//     } catch (e) {
+//         console.log(e.message);
+//     }
+// }
+//
+// const updateUserCard = (user) => {
+//     userImg.src = url + '/uploads/' + user.profilePic;
+//     userImg.alt = 'user profile pic';
+//     username.innerHTML = user.username;
+//     developerType.innerHTML = user.title;
+//     memberSince.innerHTML = user.creationDate;
+//     userDesc.innerHTML = user.description;
+// }
 
 const createProjectCard = (projects) => {
     //clear user projects
@@ -97,3 +124,4 @@ const displayPersonalProjects = async () => {
     }
 };
 displayPersonalProjects();
+// getUserInfo(userId);

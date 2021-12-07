@@ -6,7 +6,14 @@ const ul = document.querySelector('#projectList');
 const profilePic = document.querySelector('#profilePic');
 const loadMore = document.querySelector('#load-more');
 const drawer = document.querySelector('#side-menu');
+const settingsBtn = document.querySelector('.drawer-settings')
 let projectsExample;
+
+settingsBtn.href = 'accountCreateExtra.html'
+
+if (JSON.parse(sessionStorage.getItem('user'))) {
+    sessionStorage.setItem('modifying-profile', 'true')
+}
 
 //creating list of projects
 const createProjectList = (projects) => {

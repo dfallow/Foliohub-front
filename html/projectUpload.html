@@ -63,10 +63,10 @@
         </label>
         <input id="image-upload" type="file" placeholder="Photo" name="projectPic">
     </div>
-    <input class="mainMobileInput" id="projectName" type="text" placeholder="Project Name">
+    <input class="mainMobileInput" id="projectName" type="text" placeholder="Project Name" name="name">
     <textarea class="mainMobileInput" maxlength="60" id="shortDescTextArea"
-              placeholder="Short description"></textarea>
-    <input class="mainMobileInput" placeholder="Add tags">
+              placeholder="Short description" name="description"></textarea>
+    <input class="mainMobileInput" placeholder="Add tags" name="tags">
 
     <h3>Add a video</h3>
 
@@ -74,7 +74,7 @@
         <label for="image-upload" class="custom-file-upload">
             <i></i> +
         </label>
-        <input id="video-upload" type="file" placeholder="Photo" name="projectPic">
+        <input id="video-upload" type="file" placeholder="Photo" name="video">
     </div>
 
     <h3>Add pictures</h3>
@@ -83,7 +83,7 @@
         <label for="image-upload" class="custom-file-upload">
             <i></i> +
         </label>
-        <input id="pictures-upload" type="file" placeholder="Photo" name="projectPic">
+        <input id="pictures-upload" type="file" placeholder="Photo" name="images">
     </div>
 
     <div id="uploadedPictures">
@@ -92,10 +92,16 @@
 
     <textarea class="mainMobileInput" id="longDescTextArea" placeholder="Longer description"></textarea>
 
+    <div id="div-private">
+        <input type="checkbox" id="private"/><label id="checkbox-text" for="private">Private</label>
+    </div>
+
     <button class="mainMobileButton" type="submit">Create</button>
 
 </form>
 
 <script src="../constants.js"></script>
+<script src="../js/serialize.js"></script>
+<script src="../js/projectUpload.js"></script>
 </body>
 </html>

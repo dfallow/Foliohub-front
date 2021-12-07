@@ -80,6 +80,10 @@ input[type="file"] {
     margin-left: 10px;
 }
 
+.hidden-input {
+    visibility: collapse;
+}
+
 
 @media screen and (min-aspect-ratio: 16/12) {
 
@@ -120,5 +124,4 @@ input[type="file"] {
         width: 80%;
         height: 120px;
     }
-
 }
