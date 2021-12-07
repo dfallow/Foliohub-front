@@ -3,6 +3,7 @@ const url = window.GLOBAL_URL;
 
 const userImg = document.getElementById("userImg");
 const div = document.querySelector('.personal');
+const drawer = document.querySelector('#side-menu');
 const username = document.querySelector('#userName');
 const developerType = document.querySelector('#developerType');
 const memberSince = document.querySelector('#memberSince');
@@ -125,3 +126,14 @@ const displayPersonalProjects = async () => {
 };
 displayPersonalProjects();
 // getUserInfo(userId);
+
+function openDrawer() {
+    drawer.style.visibility = 'visible';
+    drawer.style.width = '70vw';
+}
+
+function closeDrawer() {
+    drawer.style.visibility = 'hidden';
+    drawer.style.width = '0';
+
+}
