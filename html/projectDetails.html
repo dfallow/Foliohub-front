@@ -8,44 +8,85 @@
 </head>
 <body>
 
-    <div class="container">
-
-        <div class="menu">
-            <img id="logo" src="../images/logo.png" alt="FolioHub Logo">
-            <h1>FolioHub</h1>
-            <img id="profilePic" src="../images/profilePic.png" alt="User Profile Pic">
+<div class="menuMobile">
+    <div class="menuTopRow">
+        <div class="logo-container" onclick="openDrawer()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
         </div>
-
-        <div class="projectDetails">
-            <!-- projectDetails.js creates elements here -->
-            <div id="appOverview">
-                <!-- Initial card that shows Logo, Name, Votes, Tags, Author, Short Description -->
-                <div id="appOverviewTop">
-                    <!-- Logo, Name, Votes, Tags, Author -->
-                </div>
-                <div id="appOverviewBottom">
-                    <!-- description and dowload -->
-                </div>
-
-            </div>
-
-            <div id="media">
-                <!-- section for app videos and images -->
-            </div>
-
-            <div id="comments">
-                <!-- section for app comments -->
-            </div>
-
-            <div id="moreInfo">
-                <!-- shows additional information -->
-            </div>
+        <img id="logo" src="../images/logo.png">
+        <div class="logo-container">
+            <img id="profilePic" src="../images/login.png">
         </div>
 
     </div>
+    <input type="text" placeholder="Search..." id="searchBar"></input>
+</div>
 
-    <script src="../js/projectDetails.js"></script>
+<div id="side-menu" class="side-nav">
+    <a href="#" id="btn-close" onclick="closeDrawer()">&times;</a>
+    <div id="drawer-user-info">
+        <img id="drawer-pic" src="../images/login.png" alt="drawer-pic">
+        <h1>Username</h1>
+    </div>
 
-    <script src="../constants.js"></script>
+    <a href="myProfile.html">
+        <div class="drawer-item">
+            <img class="drawer-item-logo" src="../images/portfolio.png" alt="">
+            <p>My projects</p>
+        </div>
+    </a>
+    <a href="projectUpload.html">
+        <div class="drawer-item">
+            <img class="drawer-item-logo" src="../images/upload.png" alt="">
+            <p>Upload project</p>
+        </div>
+    </a>
+    <a href="#">
+        <div class="drawer-item">
+            <img class="drawer-item-logo" src="../images/share.png" alt="">
+            <p>Share project</p>
+        </div>
+    </a>
+    <a class="drawer-settings" href="#">
+        <div class="drawer-item">
+            <img class="drawer-item-logo" src="../images/settings.png" alt="">
+            <p>Settings & Account</p>
+        </div>
+    </a>
+</div>
+
+<div id="app-info-card">
+
+    <div id="card-top-row">
+        <img id="card-logo"
+             src="https://cdn.dribbble.com/users/7102209/screenshots/15496443/media/6689a1b6ac4a47c1b94cab5702e10bd9.png?compress=1&resize=400x300"
+             alt="logo">
+        <div id="card-details">
+            <h2>Title</h2>
+            <p>Author</p>
+            <div id="card-tags">
+                <!--                tags to be added here-->
+            </div>
+        </div>
+        <div id="card-likes">
+            <img id="arrow-up" src="../images/arrow-up.png" alt="up-arrow"/>
+            <div id="card-like-count">9999</div>
+            <img id="arrow-down" src="../images/arrow-down.png" alt="down-arrow"/>
+        </div>
+    </div>
+    <div id="card-bottom-row">
+        <h5>Description</h5>
+        <p id="projectShortDesc"></p>
+    </div>
+</div>
+<div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<script src="../js/projectDetails.js"></script>
+
+<script src="../constants.js"></script>
 </body>
 </html>

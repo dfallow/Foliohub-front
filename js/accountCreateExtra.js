@@ -16,19 +16,21 @@ const date = `${year}-${month}-${day}`;
 form.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const data = serializeJson(form);
-    data.creationDate = date;
-    data.email = dataJSON.email;
-    data.password = dataJSON.password;
+    //data.creationDate = date;
+    //data.email = dataJSON.email;
+    //data.password = dataJSON.password;
     const fetchOptions = {
         method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }
+        body: data,
+    };
+
+
+
+    console.log(data);
 
     const response = await fetch(url + '/user', fetchOptions);
     const json = await response.json();
+    alert(json.message);
 
     location.href = 'userLogin.html';
 })
