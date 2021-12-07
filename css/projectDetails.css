@@ -5,15 +5,48 @@ body {
     align-items: center;
 }
 
-#app-info-card {
+#projectDetails {
+    width: 100%;
+}
+
+#appOverview, #app-info-card {
     background-color: white;
     width: 100%;
     border-radius: 20px;
-    height: 25vh;
+    min-height: 25vh;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     padding: 1vh;
 }
+
+#appOverviewTop {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#nameAuthor {
+    width: 70%;
+}
+
+#appOverviewBottom {
+    margin-top: 40px;
+}
+
+#cardTags {
+    border: 1px solid black;
+    height: 4vh;
+}
+
+#shortDesc {
+    margin-top: 40px;
+    background-color: #E5E5E5;
+    border-radius: 20px;
+    padding: 15px 15px;
+    height: 20vw;
+}
+
 
 #card-top-row {
     display: flex;

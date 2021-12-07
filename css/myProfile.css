@@ -68,6 +68,8 @@ img {
     width: 20vw;
     border: 2px solid black;
     border-radius: 50%;
+    background-position: center center;
+    object-fit: cover;
 }
 
 #userInfo {
