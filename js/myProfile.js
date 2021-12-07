@@ -1,5 +1,6 @@
 'use strict';
 const url = window.GLOBAL_URL;
+console.log(url);
 
 const userImg = document.getElementById("userImg");
 const div = document.querySelector('.personal');
