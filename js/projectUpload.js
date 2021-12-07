@@ -4,9 +4,18 @@ const url = window.GLOBAL_URL;
 const form = document.querySelector('#uploadDetails')
 const checkbox = document.querySelector('#private');
 const drawer = document.querySelector('#side-menu');
+//images
 const picturesUpload = document.querySelector('#pictures-upload');
 const uploadedPics = document.querySelector('#uploadedPictures');
 const imageUpload = document.querySelector('#image-upload');
+const regProjectsPic = document.querySelector('#regProjectPic');
+const customFileUpload = document.querySelector('.custom-file-upload');
+//video
+const addVideoBtn = document.querySelector('#add-youtube-video');
+const removeVideoBtn = document.querySelector('#remove-youtube-video');
+const videoWrapper = document.querySelector('.video-wrapper');
+const videoUpload = document.querySelector('#video-upload');
+const iframe = document.querySelector('iframe');
 
 const today = new Date();
 const year = today.getFullYear();
@@ -16,13 +25,26 @@ const date = `${year}-${month}-${day}`;
 
 const picturesArray = [];
 
+const modifyingProject = sessionStorage.getItem('modifying-project') === 'true';
+
+if (modifyingProject) {
+    
+}
+
 form.addEventListener('submit',  async (evt) => {
     evt.preventDefault();
+    let imageFiles = new DataTransfer();
+    picturesArray.forEach((file) => {
+        imageFiles.items.add(file)
+    })
+    picturesUpload.files = imageFiles.files;
+    if (videoUpload.value) {
+        const urlSplit = (videoUpload.value).split('=');
+        videoUpload.value = urlSplit[urlSplit.length - 1];
+    }
     const data = new FormData(form);
-    data.delete('pictures');
     data.append('date', date);
     data.append('private', (checkbox.checked) ? '1' : '0');
-    data.append('pictures', picturesArray.toString());
 
     const fetchOptions = {
         method: 'POST',
@@ -32,11 +54,9 @@ form.addEventListener('submit',  async (evt) => {
         body: data,
     }
 
-    // for (let [key, value] of data.entries()) {
-    //     console.log(key, value);
-    // }
-
-    console.log(JSON.stringify(jsonData))
+    for (let [key, value] of data.entries()) {
+        console.log(key, value);
+    }
 
     const response = await fetch(url + '/project/personal', fetchOptions);
     const json = await response.json();
@@ -54,11 +74,29 @@ function closeDrawer() {
     drawer.style.width = '0';
 }
 
+addVideoBtn.addEventListener('click', () => {
+    const urlSplit = (videoUpload.value).split('=');
+    const urlEnding = urlSplit[urlSplit.length - 1];
+    console.log('url ending: ',urlEnding);
+    addVideoBtn.style.display = 'none';
+    videoUpload.style.display = 'none';
+    videoWrapper.innerHTML = `<iframe width="100%" height="100%"  src="https://www.youtube.com/embed/${urlEnding}" title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+    removeVideoBtn.style.display = 'block';
+    videoWrapper.style.display = 'block';
+})
+
+removeVideoBtn.addEventListener('click', () => {
+    removeVideoBtn.style.display = 'none';
+    videoWrapper.style.display = 'none';
+    addVideoBtn.style.display = 'block';
+    videoUpload.style.display = 'block';
+    videoUpload.value = '';
+})
+
 
 picturesUpload.addEventListener('change', () => {
-    console.log('test');
     const images = picturesUpload.files;
-    console.log(images);
     const arraySelected = Array.from(images);
     if (picturesArray.length + arraySelected.length > 6) {
         alert('Please add 6 images in total');
@@ -66,17 +104,13 @@ picturesUpload.addEventListener('change', () => {
         arraySelected.forEach((item) => {
             picturesArray.push(item)
         });
-        console.log(picturesArray);
-        picturesArray.forEach(file => console.log('files', file.name));
         updatePictures();
-
     }
 })
 
 function updatePictures() {
     uploadedPics.innerHTML = '';
     picturesArray.forEach((pic, index) => {
-        console.log(pic);
         const url = URL.createObjectURL(pic);
         // uploadedPics.innerHTML += `<div id="uploaded-container"><img class="uploaded-pic" src="${url}"><div id="delete-image">X</div></div>`;
         uploadedPics.innerHTML += `<img class="uploaded-pic" src="${url}" onclick="remove(${index})">`;
@@ -88,7 +122,18 @@ function remove(index) {
     updatePictures();
 }
 
-
 imageUpload.addEventListener('change', (evt) => {
-    console.log('test');
+    const image = imageUpload.files[0];
+    const url = URL.createObjectURL(image);
+    displayProjectLogo(url);
 })
+
+function displayProjectLogo(url) {
+    regProjectsPic.style.backgroundImage = `url(${url})`
+    regProjectsPic.style.backgroundSize = 'cover';
+    regProjectsPic.style.backgroundPosition = 'center center';
+    customFileUpload.style.opacity = '0';
+    customFileUpload.style.height = '35vw';
+    customFileUpload.style.borderRadius = '50%';
+    customFileUpload.style.width = '35vw';
+}

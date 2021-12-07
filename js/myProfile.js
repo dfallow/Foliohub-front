@@ -55,51 +55,30 @@ const createProjectCard = (projects) => {
     userProjects.innerHTML = '';
 
     projects.forEach((project) => {
-        let figure;
-        const projectImg = document.createElement('img');
-        if (project.images) {
-            projectImg.src = url + '/' + project.images;
-            projectImg.alt = project.name;
+        const logoURL = url + '/uploads/project/' + project.logo;
 
-        } else {
-
-            projectImg.src = "../images/logo.png"
-            projectImg.alt = "No image found"
-
-        }
-        figure = document.createElement('figure').appendChild(projectImg);
-        figure.id = "projectImg"
-
-        const name = document.createElement('h3');
-        name.id = "projectName";
-        name.innerHTML = project.name;
-
-        const shortDesc = document.createElement('p')
-        shortDesc.id = "shortDesc"
-        shortDesc.innerHTML = project.description;
-
-        const date = document.createElement('p')
-        date.id = "date"
-        date.innerHTML = project.date;
-
-        const a = document.createElement('a');
-        a.href = `../html/projectDetails.html?id=${project.id}`;
-
-        const li = document.createElement('li');
-        li.id = "projectCard"
-
-        const projectDetailDiv = document.createElement('div');projectDetailDiv.id = "projectDetailDiv"
-
-        projectDetailDiv.appendChild(name);
-        projectDetailDiv.appendChild(shortDesc);
-        projectDetailDiv.appendChild(date);
-        li.appendChild(figure);
-        li.appendChild(projectDetailDiv);
-        a.appendChild(li);
-        userProjects.appendChild(a);
-
-
+        userProjects.innerHTML +=
+            `<div id="project-card-container">
+                <a id="card-link" href="../html/projectDetails.html?id=${project.id}">
+                    <li id="projectCard">
+                        <figure id="projectImg">
+                            <img src="${logoURL}" alt="project.name">
+                        </figure>
+                        <div id="projectDetailDiv">
+                            
+                            <h3 id="projectName">${project.name}</h3>
+                            <p id="shortDesc">${project.description}</p>
+                            <p id="date">${project.date}</p>
+                        </div>
+                    </li>
+                </a>
+                <button id="editBtn" onclick="toEditProject(${project.id})">Edit</button>
+            </div>`
     });
+}
+
+function toEditProject (projectId) {
+    location.href = `../html/projectUpload.html?id=${projectId}`
 }
 
 function author(project) {
