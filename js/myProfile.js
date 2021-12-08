@@ -7,6 +7,7 @@ const username = document.querySelector('#userName');
 const developerType = document.querySelector('#developerType');
 const memberSince = document.querySelector('#memberSince');
 const userDesc = document.querySelector('#userDesc');
+const githubLink = document.querySelector('#github');
 
 const currentUser = JSON.parse(sessionStorage.getItem('user'));
 console.log('Current user: ', currentUser);
@@ -22,32 +23,31 @@ developerType.innerHTML = currentUser.title;
 memberSince.innerHTML = currentUser.creationDate;
 userDesc.innerHTML = currentUser.description;
 
-const userProjects = document.querySelector('#userProjects');
 
-// const getUserInfo = async (userId) => {
-//
-//     try {
-//         const fetchOptions = {
-//             headers: {
-//                 Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-//             },
-//         };
-//         const response = await fetch(url + `/user/personal/${userId}`, fetchOptions);
-//         const user = await response.json();
-//         updateUserCard(user);
-//     } catch (e) {
-//         console.log(e.message);
-//     }
-// }
-//
-// const updateUserCard = (user) => {
-//     userImg.src = url + '/uploads/' + user.profilePic;
-//     userImg.alt = 'user profile pic';
-//     username.innerHTML = user.username;
-//     developerType.innerHTML = user.title;
-//     memberSince.innerHTML = user.creationDate;
-//     userDesc.innerHTML = user.description;
-// }
+console.log('github', currentUser.github.includes('github'));
+console.log('github', currentUser.github.includes('gitlab'));
+console.log('github', currentUser.github);
+if (!currentUser.github) {
+    githubLink.style.visibility = 'hidden';
+} else {
+    githubLink.style.backgroundSize = 'cover';
+    if (!currentUser.github.includes('http')) {
+        githubLink.href = 'http://' + currentUser.github;
+    } else {
+        githubLink.href = currentUser.github;
+    }
+    if (currentUser.github.includes('github')) {
+        githubLink.style.backgroundImage = "url('../images/github.png')"
+    } else if (currentUser.github.includes('gitlab')) {
+        githubLink.style.backgroundImage = "url('../images/gitlab.png')"
+    } else {
+        githubLink.style.backgroundImage = "url('../images/idk.png')"
+    }
+
+}
+
+
+const userProjects = document.querySelector('#userProjects');
 
 const createProjectCard = (projects) => {
     //clear user projects

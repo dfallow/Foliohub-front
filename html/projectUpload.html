@@ -11,7 +11,7 @@
 
 <div class="menuMobile">
     <div class="menuTopRow">
-        <div class="logo-container" onclick="openDrawer()">
+        <div id="menuBtn" class="logo-container" onclick="openDrawer()">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
@@ -57,7 +57,7 @@
     <a class="drawer-settings" href="#">
         <div class="drawer-item">
             <img class="drawer-item-logo" src="../images/settings.png" alt="">
-            <p>Settings & Account</p>
+            <p>Account settings</p>
         </div>
     </a>
 </div>
@@ -109,12 +109,14 @@
         <input type="checkbox" id="private"/><label id="checkbox-text" for="private">Private</label>
     </div>
 
+    <div class="buttons">
     <button id="submit-btn" class="mainMobileButton" type="submit">Create</button>
-
+    <button class="mainMobileButton" id="deleteBtn">Delete</button>
+    </div>
 </form>
 
-<script src="../js/general.js"></script>
 <script src="../constants.js"></script>
+<script src="../js/general.js"></script>
 <script src="../js/serialize.js"></script>
 <script src="../js/projectUpload.js"></script>
 </body>

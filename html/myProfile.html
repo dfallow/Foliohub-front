@@ -11,7 +11,7 @@
 
 <div class="menuMobile">
     <div class="menuTopRow">
-        <div class="logo-container" onclick="openDrawer()">
+        <div id="menuBtn" class="logo-container" onclick="openDrawer()">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
@@ -54,7 +54,7 @@
     <a class="drawer-settings" href="#">
         <div class="drawer-item">
             <img class="drawer-item-logo" src="../images/settings.png" alt="">
-            <p>Settings & Account</p>
+            <p>Account settings</p>
         </div>
     </a>
 </div>
@@ -68,12 +68,11 @@
         <p id="memberSince">Member Since</p>
     </div>
 
-    <div id="userIcon"></div>
+    <a href="" id="github"></a>
 
     <p id="userDesc"></p>
 
 </div>
-
 
 <div id="tags">
     <!-- Tags will display here -->
@@ -110,8 +109,8 @@
     <!-- User projects are loaded here -->
 </ul>
 
-<script src="../js/general.js"></script>
 <script src="../constants.js"></script>
+<script src="../js/general.js"></script>
 <script src="../js/myProfile.js"></script>
 
 <script>

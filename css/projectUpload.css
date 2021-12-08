@@ -216,8 +216,19 @@ img {
     margin-top: 3px;
 }
 
+.buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
 button {
     margin: auto;
+}
+
+#deleteBtn {
+    display: none;
 }
 
 #div-private {

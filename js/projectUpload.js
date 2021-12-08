@@ -16,6 +16,7 @@ const videoWrapper = document.querySelector('.video-wrapper');
 const videoUpload = document.querySelector('#video-upload');
 
 const submitBtn = document.querySelector('#submit-btn');
+const deleteBtn = document.querySelector('#deleteBtn');
 
 const today = new Date();
 const year = today.getFullYear();
@@ -109,6 +110,9 @@ if (modifyingProject) {
         inputs[5].checked = currentProject.private === 1;
     })
     submitBtn.innerHTML = 'Update';
+    deleteBtn.style.display = 'block';
+    deleteBtn.style.backgroundColor = 'red';
+    deleteBtn.style.color = 'white';
 }
 
 form.addEventListener('submit', (evt => {
@@ -244,4 +248,26 @@ function displayProjectLogo(url) {
     customFileUpload.style.height = '35vw';
     customFileUpload.style.borderRadius = '50%';
     customFileUpload.style.width = '35vw';
+}
+
+deleteBtn.addEventListener('click', async (evt) => {
+    evt.preventDefault();
+
+    if (window.confirm('Do you really want to delete this project?')) {
+        const fetchOptions = {
+            method: 'DELETE',
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+            }
+        }
+        const response = await fetch(url + '/project/personal/' + currentProject.id, fetchOptions);
+        console.log(response.json());
+        sessionStorage.removeItem('modifying-project');
+        window.location.replace('myProfile.html');
+    }
+})
+
+window.onbeforeunload = () => {
+    location.href = 'myProfile.html'
+    sessionStorage.removeItem('modifying-project');
 }

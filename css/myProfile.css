@@ -62,11 +62,10 @@ img {
     align-items: center;
 }
 
-#userIcon, #userImg {
+#github, #userImg {
     background-color: white;
     height: 20vw;
     width: 20vw;
-    border: 2px solid black;
     border-radius: 50%;
     background-position: center center;
     object-fit: cover;
