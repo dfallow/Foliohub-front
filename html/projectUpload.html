@@ -80,7 +80,7 @@
     <div id="projectVideo">
         <div class="add-youtube-search">
             <input class="mainMobileInput"  id="video-upload" type="text" placeholder="Add a youtube video URL" name="video">
-            <button class="mainMobileButton" id="add-youtube-video">Check</button>
+            <button class="mainMobileButton" id="check-youtube-video">Check</button>
             <button class="mainMobileButton" id="remove-youtube-video">Remove</button>
         </div>
 
@@ -109,10 +109,11 @@
         <input type="checkbox" id="private"/><label id="checkbox-text" for="private">Private</label>
     </div>
 
-    <button class="mainMobileButton" type="submit">Create</button>
+    <button id="submit-btn" class="mainMobileButton" type="submit">Create</button>
 
 </form>
 
+<script src="../js/general.js"></script>
 <script src="../constants.js"></script>
 <script src="../js/serialize.js"></script>
 <script src="../js/projectUpload.js"></script>

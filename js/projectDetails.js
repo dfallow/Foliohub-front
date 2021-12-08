@@ -1,41 +1,45 @@
 'use strict';
 const url = window.GLOBAL_URL;
-console.log(url);
+const yTubeUrl = "https://www.youtube.com/embed/"
 
 let currentUrl = window.location.href;
 const projectId = currentUrl.split('=').pop();
-const drawer = document.querySelector('#side-menu');
-
 
 //selecting html elements
 const projectDetails = document.querySelector('#projectDetails');
 
 const appOverview = document.querySelector('#appOverview');
 
-const media = document.querySelector('#media');
+const vidMedia = document.querySelector('#videoMedia')
+const imgMedia = document.querySelector('#imageMedia');
 const comments = document.querySelector('#comments');
+const longDescription = document.querySelector('#appLongDescription');
 const moreInfo = document.querySelector('#moreInfo');
 
 let upArrow;
 let downArrow;
 
-const createAppOverview = (project) => {
+const createAppOverview = (project, author) => {
 
     projectDetails.innerHTML = '';
 
-    const src = (project.images) ? url + '/' + project.images : "../images/logo.png";
-    const alt = (project.images) ? project.name : 'no picture';
+    const src = (project.logo) ? url + '/uploads/project/' + project.logo : "../images/logo.png";
+    const alt = (project.logo) ? project.name : 'no picture';
     const img = document.createElement('img');
-    img.src = src;
+    img.src = url;
     img.alt = alt;
+
+    const nameInCaps = convertNameToCaps(project.name);
+    const outline = project.outline;
+    const shortDesc = outline.charAt(0).toUpperCase() + outline.slice(1);
 
     appOverview.innerHTML = '';
     appOverview.innerHTML +=
         `<div id="appOverviewTop">
-            <img src="${src}" alt="${alt}">
+            <img src="${src}" alt="${alt}" id="projectLogo">
             <div id="nameAuthor">
-                <h2>${project.name}</h2>
-                <p>Author</p>
+                <h2>${nameInCaps}</h2>
+                <p>${author}</p>
             </div>
             <div id="card-likes">
                 <img id="arrow-up" src="../images/arrow-up.png" alt="up-arrow" onclick="upVote()"/>
@@ -50,7 +54,7 @@ const createAppOverview = (project) => {
                     <!-- TODO tags to be added here -->
                     <p>Tags will go here</p>
             </div>
-            <p id="shortDesc">${project.description}</p>
+            <p id="shortDesc">${shortDesc}</p>
          </div>`
     projectDetails.appendChild(appOverview);
 
@@ -61,27 +65,33 @@ const createAppOverview = (project) => {
 
 const createAppMedia = (project) => {
     if (project.video) {
-        media.innerHTML +=
+        vidMedia.innerHTML +=
             `<div id="video">
-                <iframe width="560" height="315" src="${project.video}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="100%" height="100%" src="${yTubeUrl + project.video}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>`
+
+        projectDetails.appendChild(vidMedia);
     }
+
     if (project.images) {
-        const images = project.images;
-        images.forEach(
-            media.innerHTML +=
+        const images = project.images.split(',');
+        images.forEach((image) => {
+            const imgSrc = url + '/uploads/project/' + image;
+            imgMedia.innerHTML +=
                 `<div id="images">
-                
+                    <img src="${imgSrc}" alt="${project.name}" class="projectImg">
                 </div>`
-        );
+        });
+        projectDetails.appendChild(imgMedia);
 
     }
-
-    projectDetails.appendChild(media);
 }
 
 const createAppLongDescription = (project) => {
+    longDescription.innerHTML =
+        `<p>${project.description}</p>`
 
+    projectDetails.appendChild(longDescription);
 }
 
 const createAppComments = (project) => {
@@ -94,6 +104,14 @@ const createAppMoreInfo = (project) => {
 
 const createSimilarApps = (project) => {
 
+}
+
+const convertNameToCaps = (name) => {
+    const nameArr = name.split(" ");
+    for (let i = 0; i < nameArr.length; i++) {
+        nameArr[i] = nameArr[i].charAt(0).toUpperCase() + nameArr[i].slice(1);
+    }
+    return nameArr.join(" ");
 }
 
 const upVote = (project) => {
@@ -114,79 +132,19 @@ const downVote = (project) => {
     }
 }
 
-/*const createProjectDetails = (project) => {
-    //clear project details
-    //projectDetails.innerHTML = '';
-
-    const src = (project.images) ? url + '/' + project.images : "../images/logo.png";
-    const alt = (project.images) ? project.name : 'no picture';
-    //App logo in appOverview
-    const logo = document.createElement('img');
-
-    projectDetails.appendChild(logo);
-
-    const figure = document.createElement('figure').appendChild(logo);
-
-    const appName = document.createElement('h3');
-    appName.innerHTML = project.name;
-
-    const author = document.createElement('h4');
-    author.innerHTML = "Author";
-
-    const tags = document.createElement('ul');
-    // TODO tags need to be implemneted first
-    tags.innerHTML = '';
-
-    const votes = document.createElement('ul')
-    votes.id = "votes"
-
-    //const upVote = document.createElement()
-
-    const descriptionShort = document.createElement('p');
-    descriptionShort.innerHTML = project.description;
-
-    const downloadBtn = document.createElement('button')
-
-    appOverviewTop.appendChild(figure);
-    appOverviewTop.appendChild(appName);
-    appOverviewTop.appendChild(author);
-    appOverviewTop.appendChild(tags);
-    appOverviewTop.appendChild(votes);
-    appOverviewTop.appendChild(descriptionShort);
-    appOverviewTop.appendChild(downloadBtn);
-
-    appOverview.appendChild(appOverviewTop);
-    projectDetails.appendChild(appOverview);
-
-
-
-
-}*/
-
 //AJAX call
 const getProject = async () => {
     try {
         const response = await fetch(url + '/project/' + projectId);
         const project = await response.json();
-        console.log(project)
-        //const authorResponse = await fetch(url + '/user/' + project.author);
-        //const authorId = await authorResponse.json();
-        //console.log(authorId);
-        createAppOverview(project);
+        const authorResponse = await fetch(url + '/user/' + project.author);
+        const authorId = await authorResponse.json();
+        const author = authorId.username;
+        createAppOverview(project, author);
         createAppMedia(project);
+        createAppLongDescription(project);
     } catch (e) {
         console.log(e.message);
     }
 };
 getProject();
-
-function openDrawer() {
-    drawer.style.visibility = 'visible';
-    drawer.style.width = '70vw';
-}
-
-function closeDrawer() {
-    drawer.style.visibility = 'hidden';
-    drawer.style.width = '0';
-
-}

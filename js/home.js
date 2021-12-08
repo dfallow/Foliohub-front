@@ -5,13 +5,10 @@ const url = window.GLOBAL_URL; //should be server address
 const ul = document.querySelector('#projectList');
 const profilePic = document.querySelector('#profilePic');
 const loadMore = document.querySelector('#load-more');
-const drawer = document.querySelector('#side-menu');
-const settingsBtn = document.querySelector('.drawer-settings')
-const body = document.body;
+const settingsBtn = document.querySelector('.drawer-settings');
 let projectsExample;
 
 settingsBtn.href = 'accountCreateExtra.html'
-
 
 settingsBtn.addEventListener('click', () => {
     if (JSON.parse(sessionStorage.getItem('user'))) {
@@ -78,18 +75,6 @@ const createProjectList = (projects) => {
         });
     }
 };
-
-function openDrawer() {
-    drawer.style.visibility = 'visible';
-    drawer.style.width = '70vw';
-    body.style.overflow = 'hidden';
-}
-
-function closeDrawer() {
-    drawer.style.visibility = 'hidden';
-    drawer.style.width = '0';
-    body.style.overflow = 'auto';
-}
 
 //AJAX call
 const getProjects = async () => {
