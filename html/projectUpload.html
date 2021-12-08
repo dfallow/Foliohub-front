@@ -61,7 +61,7 @@
     </a>
 </div>
 
-<form id="uploadDetails" action=""> <!-- TODO action to do -->
+<form id="uploadDetails" enctype="multipart/form-data"> <!-- TODO action to do -->
 
     <div id="regProjectPic">
         <label for="image-upload" class="custom-file-upload">
@@ -89,7 +89,7 @@
         <label for="image-upload" class="custom-file-upload">
             <i></i> +
         </label>
-        <input id="pictures-upload" type="file" placeholder="Photo" name="images">
+        <input id="pictures-upload" type="file" placeholder="Photo" name="images" multiple>
     </div>
 
     <div id="uploadedPictures">

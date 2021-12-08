@@ -94,6 +94,10 @@ input[type="file"] {
     transform: translate(-50%, -50%);
 }
 
+.hidden-input {
+    visibility: collapse;
+}
+
 #uploadDetails {
     padding-top: 20px;
     margin: auto;

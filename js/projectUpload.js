@@ -5,6 +5,9 @@ const form = document.querySelector('#uploadDetails')
 const checkbox = document.querySelector('#private');
 const drawer = document.querySelector('#side-menu');
 
+form.action = url + '/project';
+form.method = 'post';
+
 const today = new Date();
 const year = today.getFullYear();
 const month = ((today.getMonth()+1) < 10) ? `0${today.getMonth()+1}` : today.getMonth()+1;
