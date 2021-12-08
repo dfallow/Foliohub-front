@@ -7,13 +7,17 @@ const profilePic = document.querySelector('#profilePic');
 const loadMore = document.querySelector('#load-more');
 const drawer = document.querySelector('#side-menu');
 const settingsBtn = document.querySelector('.drawer-settings')
+const body = document.body;
 let projectsExample;
 
 settingsBtn.href = 'accountCreateExtra.html'
 
-if (JSON.parse(sessionStorage.getItem('user'))) {
-    sessionStorage.setItem('modifying-profile', 'true')
-}
+
+settingsBtn.addEventListener('click', () => {
+    if (JSON.parse(sessionStorage.getItem('user'))) {
+        sessionStorage.setItem('modifying-profile', 'true')
+    }
+})
 
 //creating list of projects
 const createProjectList = (projects) => {
@@ -78,12 +82,13 @@ const createProjectList = (projects) => {
 function openDrawer() {
     drawer.style.visibility = 'visible';
     drawer.style.width = '70vw';
+    body.style.overflow = 'hidden';
 }
 
 function closeDrawer() {
     drawer.style.visibility = 'hidden';
     drawer.style.width = '0';
-
+    body.style.overflow = 'auto';
 }
 
 //AJAX call

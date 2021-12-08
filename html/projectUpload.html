@@ -5,6 +5,7 @@
     <title>Project Upload</title>
     <link href="../css/general.css" rel="stylesheet">
     <link href="../css/projectUpload.css" rel="stylesheet">
+    <link href="../images/favicon.ico" rel="icon" type="image/x-icon">
 </head>
 <body>
 
@@ -31,7 +32,7 @@
 
     <a href="home.html">
         <div class="drawer-item">
-            <img class="drawer-item-logo" src="../images/home" alt="">
+            <img class="drawer-item-logo" src="../images/home.png" alt="">
             <p>Home</p>
         </div>
     </a>
@@ -61,42 +62,48 @@
     </a>
 </div>
 
-<form id="uploadDetails" enctype="multipart/form-data"> <!-- TODO action to do -->
+<form id="uploadDetails" action=""> <!-- TODO action to do -->
 
     <div id="regProjectPic">
         <label for="image-upload" class="custom-file-upload">
             <i></i> +
         </label>
-        <input id="image-upload" type="file" placeholder="Photo" name="projectPic">
+        <input id="image-upload" type="file" placeholder="Photo" name="logo">
     </div>
     <input class="mainMobileInput" id="projectName" type="text" placeholder="Project Name" name="name">
     <textarea class="mainMobileInput" maxlength="60" id="shortDescTextArea"
-              placeholder="Short description" name="description"></textarea>
+              placeholder="Short description" name="outline"></textarea>
     <input class="mainMobileInput" placeholder="Add tags" name="tags">
 
     <h3>Add a video</h3>
 
     <div id="projectVideo">
-        <label for="image-upload" class="custom-file-upload">
-            <i></i> +
-        </label>
-        <input id="video-upload" type="file" placeholder="Photo" name="video">
+        <div class="add-youtube-search">
+            <input class="mainMobileInput"  id="video-upload" type="text" placeholder="Add a youtube video URL" name="video">
+            <button class="mainMobileButton" id="add-youtube-video">Check</button>
+            <button class="mainMobileButton" id="remove-youtube-video">Remove</button>
+        </div>
+
+        <div class="video-wrapper">
+
+        </div>
+
     </div>
 
     <h3>Add pictures</h3>
 
     <div id="projectPictures">
-        <label for="image-upload" class="custom-file-upload">
+        <label for="pictures-upload" class="custom-file-upload">
             <i></i> +
         </label>
-        <input id="pictures-upload" type="file" placeholder="Photo" name="images" multiple>
+        <input id="pictures-upload" type="file" multiple="multiple" placeholder="Photo" accept="image/*" name="images">
     </div>
 
     <div id="uploadedPictures">
         <!-- Uploaded images show up here -->
     </div>
 
-    <textarea class="mainMobileInput" id="longDescTextArea" placeholder="Longer description"></textarea>
+    <textarea class="mainMobileInput" id="longDescTextArea" placeholder="Longer description" name="description"></textarea>
 
     <div id="div-private">
         <input type="checkbox" id="private"/><label id="checkbox-text" for="private">Private</label>

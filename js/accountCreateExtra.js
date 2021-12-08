@@ -35,22 +35,42 @@ const displayPicture = (url) => {
     customFileUpload.style.borderRadius = '50%';
     customFileUpload.style.width = '55vw';
 }
-
+let user = JSON.parse(sessionStorage.getItem('user'));
 const modify = (sessionStorage.getItem('modifying-profile')) === 'true';
+
+const getUser = async () => {
+    const fetchOptions = {
+        method: 'GET',
+    }
+    try {
+        const response = await fetch(url + `/user/${user.userId}`, fetchOptions);
+        return await response.json();
+    } catch (e) {
+        console.log(e.message);
+    }
+}
+const setCurrentUser = async () => {
+    const fetchedUser = await getUser();
+    sessionStorage.setItem('user', JSON.stringify(fetchedUser));
+    // user = JSON.parse(sessionStorage.getItem('user'));
+}
 if (modify) {
-    const user = JSON.parse(sessionStorage.getItem('user'));
-    const inputs = form.querySelectorAll('input');
-    const textarea = form.querySelector('#descTextArea')
-    // inputs[0].value = user.profilePic;
-    inputs[1].value = user.username;
-    inputs[2].value = user.title;
-    textarea.value = (user.description === null) ? '' : user.description ;
-    inputs[3].value = (user.github === null) ? '' : user.github;
-    inputs[4].value = (user.tags === null) ? '' : user.tags;
-    inputs[5].value = user.creationDate;
-    inputs[6].value = user.email;
-    inputs[7].value = user.password;
-    displayPicture(url + '/uploads/user/' + user.profilePic);
+    setCurrentUser().then(() => {
+        const inputs = form.querySelectorAll('input');
+        const textarea = form.querySelector('#descTextArea')
+        // inputs[0].value = ;
+        inputs[1].value = user.username;
+        inputs[2].value = user.title;
+        textarea.value = (user.description === null) ? '' : user.description ;
+        inputs[3].value = (user.github === null) ? '' : user.github;
+        inputs[4].value = (user.tags === null) ? '' : user.tags;
+        displayPicture(url + '/uploads/user/' + user.profilePic);
+        for (let i of inputs) {
+            console.log(i.name, i.value);
+        }
+        form.method = 'put';
+    })
+
 }
 
 form.addEventListener('submit', (evt) => {
@@ -67,12 +87,24 @@ const putEventListener = async (evt) => {
         },
         body: data,
     }
+    console.log('body values:')
     for (let [key, value] of data.entries()) {
         console.log(key, value);
     }
     try {
         await fetch(url + '/user', fetchOptions);
-        location.href = 'userLogin.html';
+        // const json = await response.json();
+        // user.profilePic = data.get('profilePic');
+        // user.username = data.get('username');
+        // user.title = data.get('title');
+        // user.description = data.get('description');
+        // user.github = data.get('github');
+        // user.tags = data.get('tags');
+        // sessionStorage.removeItem('user');
+        // sessionStorage.setItem('user', JSON.stringify(json.user));
+        // user = JSON.parse(sessionStorage.getItem('user'));
+        await setCurrentUser();
+        location.href = 'home.html';
     } catch (e) {
         console.log(e.message)
     }
