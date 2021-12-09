@@ -4,6 +4,7 @@ body {
     overflow-x: hidden;
 }
 
+
 .menuButton {
     display: flex;
     flex-direction: column;
@@ -17,11 +18,9 @@ body {
 }
 
 .menuMobile {
-    height: 10vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: start;
+    height: auto;
+    margin-bottom: 2vh;
 }
 
 .menuTopRow {
@@ -184,6 +183,7 @@ a, a:hover, a:visited, a:active {
     margin: 0;
     align-items: center;
     justify-content: start;
+    flex-shrink: 0;
 }
 
 #projectImg img {
@@ -197,6 +197,7 @@ a, a:hover, a:visited, a:active {
 
 #projectDetailDiv {
     height: 100%;
+    width: 60%;
     margin-left: 1vw;
     padding: 8px 8px 16px 0;
     display: flex;
@@ -221,6 +222,10 @@ a, a:hover, a:visited, a:active {
     font-weight: bold;
     font-size: 2.8vh;
     margin: 0 0 1vh 0;
+
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #shortDesc {
@@ -229,6 +234,9 @@ a, a:hover, a:visited, a:active {
     margin: 0;
     padding: 0 2vw 0 0;
     flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 #date {

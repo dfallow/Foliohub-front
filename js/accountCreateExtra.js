@@ -35,7 +35,7 @@ const displayPicture = (url) => {
     customFileUpload.style.borderRadius = '50%';
     customFileUpload.style.width = '55vw';
 }
-let user = JSON.parse(sessionStorage.getItem('user'));
+// let user = JSON.parse(sessionStorage.getItem('user'));
 const modify = (sessionStorage.getItem('modifying-profile')) === 'true';
 
 const getUser = async () => {

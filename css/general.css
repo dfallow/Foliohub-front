@@ -96,11 +96,12 @@ body {
 }
 
 .menuMobile {
-    height: 15vh;
+    height: 12vh;
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    margin-bottom: 2vh;
 }
 
 #logo {
@@ -135,7 +136,9 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 10vw;
+    margin-bottom: 10px;
+    padding-bottom: 1.5vh;
+    border-bottom: 2px outset black;
 }
 
 #drawer-user-info h1 {

@@ -26,11 +26,13 @@ const imgMedia = document.querySelector('#imageMedia');
 const comments = document.querySelector('#comments');
 const longDescription = document.querySelector('#appLongDescription');
 const moreInfo = document.querySelector('#moreInfo');
+const userInfo = document.querySelector('.user');
+// const githubLink = document.querySelector('#github');
 
 let upArrow;
 let downArrow;
 
-const createAppOverview = (project, author) => {
+const createAppOverview = (project, authorId) => {
 
     projectDetails.innerHTML = '';
 
@@ -50,7 +52,7 @@ const createAppOverview = (project, author) => {
             <img src="${src}" alt="${alt}" id="projectLogo">
             <div id="nameAuthor">
                 <h2>${nameInCaps}</h2>
-                <p>${author}</p>
+                <p>${authorId.username}</p>
             </div>
             <div id="card-likes">
                 <img id="arrow-up" src="../images/arrow-up.png" alt="up-arrow" onclick="upVote()"/>
@@ -113,6 +115,44 @@ const createAppMoreInfo = (project) => {
 
 }
 
+const getGitLink = (user, githubLink) => {
+    if (!user.github) {
+        githubLink.style.visibility = 'hidden';
+    } else {
+        githubLink.style.backgroundSize = 'cover';
+        if (!user.github.includes('http')) {
+            githubLink.href = 'http://' + user.github;
+        } else {
+            githubLink.href = user.github;
+        }
+        if (user.github.includes('github')) {
+            githubLink.style.backgroundImage = "url('../images/github.png')"
+        } else if (user.github.includes('gitlab')) {
+            githubLink.style.backgroundImage = "url('../images/gitlab.png')"
+        } else {
+            githubLink.style.backgroundImage = "url('../images/idk.png')"
+        }
+    }
+}
+
+const userInformation = (user) => {
+    userInfo.innerHTML =
+        `<a href="myProfile.html">
+            <img id="userImg" src="${url + '/uploads/user/' + user.profilePic}">
+        </a> 
+        <div id="userInfo">
+            <p id="userName">${user.username}</p>
+            <p id="developerType">${user.title}</p>
+            <p id="memberSince">${user.creationDate}</p>
+        </div>
+
+        <a href="" id="github" target="_blank"></a>`
+
+    projectDetails.appendChild(userInfo)
+    const gitLink = document.querySelector('#github');
+    getGitLink(user, gitLink)
+}
+
 const createSimilarApps = (project) => {
 
 }
@@ -162,11 +202,12 @@ const getProject = async () => {
         console.log('get project response', project)
         const authorResponse = await fetch(url + '/user/' + project.author);
         const authorId = await authorResponse.json();
-        const author = authorId.username;
         //could check here if the author matches the current user!! And use the personal route always
-        createAppOverview(project, author);
+        createAppOverview(project, authorId);
+        console.log('author', authorId);
         createAppMedia(project);
         createAppLongDescription(project);
+        userInformation(authorId);
     } catch (e) {
         console.log(e.message);
     }
