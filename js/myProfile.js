@@ -8,7 +8,7 @@ const username = document.querySelector('#userName');
 const developerType = document.querySelector('#developerType');
 const memberSince = document.querySelector('#memberSince');
 const userDesc = document.querySelector('#userDesc');
-const githubLink = document.querySelector('#github');
+
 
 const currentUser = JSON.parse(sessionStorage.getItem('user'));
 console.log('Current user: ', currentUser);
@@ -25,27 +25,6 @@ memberSince.innerHTML = currentUser.creationDate;
 userDesc.innerHTML = currentUser.description;
 
 
-console.log('github', currentUser.github.includes('github'));
-console.log('github', currentUser.github.includes('gitlab'));
-console.log('github', currentUser.github);
-if (!currentUser.github) {
-    githubLink.style.visibility = 'hidden';
-} else {
-    githubLink.style.backgroundSize = 'cover';
-    if (!currentUser.github.includes('http')) {
-        githubLink.href = 'http://' + currentUser.github;
-    } else {
-        githubLink.href = currentUser.github;
-    }
-    if (currentUser.github.includes('github')) {
-        githubLink.style.backgroundImage = "url('../images/github.png')"
-    } else if (currentUser.github.includes('gitlab')) {
-        githubLink.style.backgroundImage = "url('../images/gitlab.png')"
-    } else {
-        githubLink.style.backgroundImage = "url('../images/idk.png')"
-    }
-
-}
 
 
 const userProjects = document.querySelector('#userProjects');
@@ -53,6 +32,8 @@ const userProjects = document.querySelector('#userProjects');
 const createProjectCard = (projects) => {
     //clear user projects
     userProjects.innerHTML = '';
+
+    //const orderedProjects = projects.
 
     projects.forEach((project) => {
         const logoURL = url + '/uploads/project/' + project.logo;
@@ -67,7 +48,7 @@ const createProjectCard = (projects) => {
                         <div id="projectDetailDiv">
                             
                             <h3 id="projectName">${project.name}</h3>
-                            <p id="shortDesc">${project.description}</p>
+                            <p id="shortDesc">${project.outline}</p>
                             <p id="date">${project.date}</p>
                         </div>
                     </li>
