@@ -29,10 +29,28 @@ if (settingsBtn) {
         if (JSON.parse(sessionStorage.getItem('user'))) {
             sessionStorage.setItem('modifying-profile', 'true')
         }
-    })
+    });
 }
 
-
+//logout button in drawer
+const logoutBtn = document.querySelector('.drawer-logout');
+if (logoutBtn) {
+    logoutBtn.href = "#";
+    logoutBtn.addEventListener('click', async () => {
+        try {
+            const response = await fetch(url + '/auth/logout');
+            const json = await response.json();
+            console.log(json);
+            //remove token
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('user');
+            alert('You have now been logged out');
+            location.href = 'userLogin.html';
+        } catch (e) {
+            console.log(e.message);
+        }
+    });
+}
 
 //profile pic
 const profilePic = document.querySelector('#profilePic');
