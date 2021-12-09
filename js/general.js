@@ -44,6 +44,7 @@ if (logoutBtn) {
             //remove token
             sessionStorage.removeItem('token');
             sessionStorage.removeItem('user');
+            sessionStorage.removeItem('modifying-profile');
             alert('You have now been logged out');
             location.href = 'userLogin.html';
         } catch (e) {
