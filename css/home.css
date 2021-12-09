@@ -6,18 +6,28 @@ body {
     align-items: center;
 }
 
-label {
-    margin: 10px;
-    padding: 10px 15px;
-    background: darkgray;
+.search-with-filter {
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3);
     border-radius: 50px;
 }
 
-label:focus {
-    background-color: deeppink;
-    color: white;
+#filter-btn {
+    height: 100%;
+    font-size: 2vh;
+    flex-grow: 1;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 0 50px 50px 0;
+    border: none;
 }
 
+#searchBar {
+    border-radius: 50px 0 0 50px;
+    padding: 0;
+    margin: 0;
+}
 
 .projects {
     width: 100%;
@@ -31,7 +41,8 @@ label:focus {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 6vw;
     list-style-type: none;
     padding: 0;
 }
@@ -65,10 +76,11 @@ label:focus {
     margin: 0;
 }
 
-.project-card-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#appLogo{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 40px 40px 0 0;
 }
 
 .project-card-title {
@@ -78,19 +90,6 @@ label:focus {
     height: 8.5vh;
     font-size: 1.5vh;
     padding: 0 2vw;
-}
-
-img {
-    width: 125px;
-    height: 125px;
-    margin-top: 3px;
-}
-
-h3 {
-    margin: 1px;
-    padding: 0 2px;
-    text-align: center;
-    word-break: break-word;
 }
 
 a, a:hover, a:visited, a:active {

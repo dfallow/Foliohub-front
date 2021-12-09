@@ -11,18 +11,22 @@
 
 <div class="menuMobile">
     <div class="menuTopRow">
-        <div class="logo-container" onclick="openDrawer()">
+        <div id="menuBtn" class="logo-container" onclick="openDrawer()">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
         </div>
         <img id="logo" src="../images/logo.png">
-        <div class="logo-container">
+        <div class="logo-container" id="profilePicContainer">
             <img id="profilePic" src="../images/login.png">
         </div>
 
     </div>
-    <input type="text" placeholder="Search..." id="searchBar"></input>
+    <div class="search-with-filter">
+        <input type="text" placeholder="Search..." id="searchBar">
+        <button id="filter-btn">Filter</button>
+    </div>
+
 </div>
 
 <div id="side-menu" class="side-nav">
@@ -59,24 +63,10 @@
     <a class="drawer-settings" href="#">
         <div class="drawer-item">
             <img class="drawer-item-logo" src="../images/settings.png" alt="">
-            <p>Settings & Account</p>
+            <p>Account settings</p>
         </div>
     </a>
 </div>
-
-
-<!--<div class="scrollmenu">-->
-<!--    <input type="checkbox" id="a"></input><label for="a">All</label>-->
-<!--    <input type="checkbox" id="b"></input><label for="b">Android</label>-->
-<!--    <input type="checkbox" id="c"></input><label for="c">iOS</label>-->
-<!--    <input type="checkbox" id="d"></input><label for="d">Web</label>-->
-<!--    <input type="checkbox" id="e"></input><label for="e">Windows</label>-->
-<!--    <input type="checkbox" id="f"></input><label for="f">Mac</label>-->
-<!--    <input type="checkbox" id="g"></input><label for="g">Linux</label>-->
-<!--    <input type="checkbox" id="h"></input><label for="h">JavaScript</label>-->
-<!--    <input type="checkbox" id="i"></input><label for="i">C</label>-->
-<!--    <input type="checkbox" id="j"></input><label for="j">Other</label>-->
-<!--</div>-->
 
 <div class="projects">
     <ul id="projectList">
@@ -88,6 +78,7 @@
 <button id="load-more">more projects</button>
 
 <script src="../constants.js"></script>
+<script src="../js/general.js"></script>
 <script src="../js/home.js"></script>
 </body>
 </html>

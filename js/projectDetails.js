@@ -4,7 +4,17 @@ const yTubeUrl = "https://www.youtube.com/embed/"
 
 let currentUrl = window.location.href;
 const projectId = currentUrl.split('=').pop();
-const drawer = document.querySelector('#side-menu');
+
+let isAuthor;
+
+const checkAuthor = async () => {
+    const author = await getProjectAuthor();
+    const currentUser = JSON.parse(sessionStorage.getItem('user'));
+    isAuthor = author === currentUser.userId;
+    console.log('is author', isAuthor);
+}
+
+
 
 //selecting html elements
 const projectDetails = document.querySelector('#projectDetails');
@@ -32,7 +42,7 @@ const createAppOverview = (project, author) => {
 
     const nameInCaps = convertNameToCaps(project.name);
     const outline = project.outline;
-    const shortDesc = outline.charAt(0).toUpperCase() + outline.slice(1);
+    const shortDesc = (outline) ? outline.charAt(0).toUpperCase() + outline.slice(1) : '';
 
     appOverview.innerHTML = '';
     appOverview.innerHTML +=
@@ -67,9 +77,9 @@ const createAppOverview = (project, author) => {
 const createAppMedia = (project) => {
     if (project.video) {
         vidMedia.innerHTML +=
-            `<div id="video">
-                <iframe width="560" height="315" src="${yTubeUrl + project.video}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>`
+            `<iframe width="100%" height="100%" src="${yTubeUrl + project.video}" title="YouTube video player" frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            `
 
         projectDetails.appendChild(vidMedia);
     }
@@ -82,7 +92,7 @@ const createAppMedia = (project) => {
                 `<div id="images">
                     <img src="${imgSrc}" alt="${project.name}" class="projectImg">
                 </div>`
-            });
+        });
         projectDetails.appendChild(imgMedia);
 
     }
@@ -136,11 +146,24 @@ const downVote = (project) => {
 //AJAX call
 const getProject = async () => {
     try {
-        const response = await fetch(url + '/project/' + projectId);
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+            }
+        }
+        if (sessionStorage.getItem('user')) {
+           await checkAuthor();
+        }
+        const route = (isAuthor) ? '/project/personal/' : '/project/';
+        console.log('route', route);
+        const response = await fetch(url + route + projectId, fetchOptions);
         const project = await response.json();
+        console.log('get project response', project)
         const authorResponse = await fetch(url + '/user/' + project.author);
         const authorId = await authorResponse.json();
         const author = authorId.username;
+        //could check here if the author matches the current user!! And use the personal route always
         createAppOverview(project, author);
         createAppMedia(project);
         createAppLongDescription(project);
@@ -148,4 +171,23 @@ const getProject = async () => {
         console.log(e.message);
     }
 };
+
+const getProjectAuthor = async () => {
+    try {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+            }
+        }
+        const response = await fetch(url + '/project/personal/' + projectId, fetchOptions);
+        const json = await response.json();
+        return json.author;
+
+    } catch (e) {
+        console.log(e.message);
+    }
+
+}
+
 getProject();
