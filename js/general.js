@@ -78,7 +78,9 @@ if (profilePic) {
 
 
 const menuBtn = document.querySelector('#menuBtn');
-
-if (!sessionStorage.getItem('user')) {
-    menuBtn.style.visibility = 'hidden';
+if (menuBtn) {
+    if (!sessionStorage.getItem('user')) {
+        menuBtn.style.visibility = 'hidden';
+    }
 }
+

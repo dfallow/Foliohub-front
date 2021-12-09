@@ -35,6 +35,27 @@ body {
 
 }
 
+.errorMessage {
+    border: 3px solid black;
+    background-color: red;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    width: 100%;
+    font-size: 2.5vh;
+    margin-bottom: 1vw;
+    padding: 10px;
+    display: none;
+}
+
+#errorPass {
+
+}
+
+#errorEmail {
+
+}
+
 #regForm {
     width: 80%;
     display: flex;
