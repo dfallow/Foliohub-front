@@ -5,6 +5,7 @@ const url = window.GLOBAL_URL; //should be server address
 const ul = document.querySelector('#projectList');
 const loadMore = document.querySelector('#load-more');
 
+const searchBar = document.querySelector('.searching');
 
 let projectsExample;
 
@@ -46,12 +47,10 @@ const getProjects = async () => {
 };
 getProjects();
 
-
-
-loadMore.addEventListener('click', (evt => {
-    evt.preventDefault();
-    createProjectList(projectsExample);
-}))
+// loadMore.addEventListener('click', (evt => {
+//     evt.preventDefault();
+//     createProjectList(projectsExample);
+// }))
 
 function filter(filterChoice) {
     ul.innerHTML = '';
@@ -82,8 +81,20 @@ function filter(filterChoice) {
     }
 }
 
-function searchBarFilter(string) {
+searchBar.addEventListener('input', (evt) => {
+    searchBarFilter(searchBar.value);
+})
 
+function searchBarFilter(string) {
+    let listClone = [...projects];
+    let appNames = listClone.map((project) => {
+        return project.name
+    });
+    console.log(appNames);
+    let filtered = appNames.map((el) => {
+        if (el.includes(string)) return el
+    });
+    createProjectList(filtered);
 }
 
 
