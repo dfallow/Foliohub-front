@@ -24,7 +24,15 @@
     </div>
     <div class="search-with-filter">
         <input type="text" placeholder="Search..." id="searchBar">
-        <button id="filter-btn">Filter</button>
+        <!--<button id="filter-btn">Filter</button>-->
+        <div class="filterMenu">
+            <select class="filterBtn" onchange=filter(this.value)>
+                <option value="newest">Filter: Newest</option>
+                <option value="oldest">Filter: Oldest</option>
+                <option value="aZ">Filter: A-Z</option>
+                <option value="zA">Filter: Z-A</option>
+            </select>
+        </div>
     </div>
 
 </div>

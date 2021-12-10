@@ -142,7 +142,6 @@ function filter(filterChoice) {
     switch (filterChoice) {
         case 'newest':
             createProjectCard(projectList);
-            console.log('newest');
             break;
         case 'oldest':
             createProjectCard(listClone.reverse());
@@ -153,7 +152,6 @@ function filter(filterChoice) {
                 if (a.name.toUpperCase() > b.name.toUpperCase()) {return  1;}
                 return 0;
             })
-            console.log('alpha', listClone);
             createProjectCard(listClone);
             break;
         case 'zA':
@@ -162,7 +160,6 @@ function filter(filterChoice) {
                 if (a.name.toUpperCase() < b.name.toUpperCase()) {return -1; }
                 return 0;
             })
-            console.log('reverse', listClone);
             createProjectCard(listClone.reverse());
             break;
     }

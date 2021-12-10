@@ -30,11 +30,13 @@ const createProjectList = (projects) => {
     });
 };
 
+let projects;
+
 //AJAX call
 const getProjects = async () => {
     try {
         const response = await fetch(url + '/project');
-        const projects = await response.json();
+        projects = await response.json();
         console.log(projects)
         projectsExample = projects;
         createProjectList(projects);
@@ -50,5 +52,34 @@ loadMore.addEventListener('click', (evt => {
     evt.preventDefault();
     createProjectList(projectsExample);
 }))
+
+function filter(filterChoice) {
+    ul.innerHTML = '';
+    let listClone = [...projects];
+    switch (filterChoice) {
+        case 'newest':
+            createProjectList(projects);
+            break;
+        case 'oldest':
+            createProjectList(listClone.reverse());
+            break;
+        case 'aZ':
+            listClone.sort(function (a,b){
+                if(a.name.toUpperCase() < b.name.toUpperCase()) {return -1; }
+                if (a.name.toUpperCase() > b.name.toUpperCase()) {return  1;}
+                return 0;
+            })
+            createProjectList(listClone);
+            break;
+        case 'zA':
+            listClone.sort(function (a,b){
+                if (a.name.toUpperCase() > b.name.toUpperCase()) {return 1; }
+                if (a.name.toUpperCase() < b.name.toUpperCase()) {return -1; }
+                return 0;
+            })
+            createProjectList(listClone.reverse());
+            break;
+    }
+}
 
 
