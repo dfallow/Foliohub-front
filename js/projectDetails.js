@@ -14,8 +14,6 @@ const checkAuthor = async () => {
     console.log('is author', isAuthor);
 }
 
-
-
 //selecting html elements
 const projectDetails = document.querySelector('#projectDetails');
 
@@ -63,7 +61,7 @@ const createAppOverview = (project, authorId) => {
          
          </div>
          <div id="appOverviewBottom">
-            <div id="cardTags">
+            <div style="display: none" id="cardTags">
                     <!-- TODO tags to be added here -->
                     <p>Tags will go here</p>
             </div>
@@ -73,6 +71,13 @@ const createAppOverview = (project, authorId) => {
 
     upArrow = document.querySelector('#arrow-up');
     downArrow = document.querySelector('#arrow-down');
+
+    const appOverviewBottom = document.querySelector('#appOverviewBottom');
+    if (!outline) {
+        appOverviewBottom.style.display = 'none';
+        appOverview.style.minHeight = 'auto';
+    };
+
 
 }
 
@@ -101,10 +106,10 @@ const createAppMedia = (project) => {
 }
 
 const createAppLongDescription = (project) => {
-    longDescription.innerHTML =
-        `<p>${project.description}</p>`
+        longDescription.innerHTML =
+            `<p>${project.description}</p>`
 
-    projectDetails.appendChild(longDescription);
+        projectDetails.appendChild(longDescription);
 }
 
 const createAppComments = (project) => {
@@ -137,8 +142,8 @@ const getGitLink = (user, githubLink) => {
 
 const userInformation = (user) => {
     userInfo.innerHTML =
-        `<a href="myProfile.html">
-            <img id="userImg" src="${url + '/uploads/user/' + user.profilePic}">
+        `<a href="../html/myProfile.html?id=${user.userId}">
+            <img id="userImg" src="${url + '/uploads/user/' + user.profilePic}" alt="users profile picture">
         </a> 
         <div id="userInfo">
             <p id="userName">${user.username}</p>
@@ -153,37 +158,8 @@ const userInformation = (user) => {
     getGitLink(user, gitLink)
 }
 
-const createSimilarApps = (project) => {
-
-}
-
-const convertNameToCaps = (name) => {
-    const nameArr = name.split(" ");
-    for (let i = 0; i < nameArr.length; i++) {
-        nameArr[i] = nameArr[i].charAt(0).toUpperCase() + nameArr[i].slice(1);
-    }
-    return nameArr.join(" ");
-}
-
-const upVote = (project) => {
-    if (upArrow.style.backgroundColor === "green") {
-        upArrow.style.backgroundColor = "white";
-    } else {
-        upArrow.style.backgroundColor = "green";
-        downArrow.style.backgroundColor = "white";
-    }
-}
-
-const downVote = (project) => {
-    if (downArrow.style.backgroundColor === "red") {
-        downArrow.style.backgroundColor = "white";
-    } else {
-        upArrow.style.backgroundColor = "white";
-        downArrow.style.backgroundColor = "red";
-    }
-}
-
 //AJAX call
+
 const getProject = async () => {
     try {
         const fetchOptions = {
@@ -206,13 +182,14 @@ const getProject = async () => {
         createAppOverview(project, authorId);
         console.log('author', authorId);
         createAppMedia(project);
-        createAppLongDescription(project);
+        if (project.description) {
+            createAppLongDescription(project, authorId);
+        }
         userInformation(authorId);
     } catch (e) {
         console.log(e.message);
     }
 };
-
 const getProjectAuthor = async () => {
     try {
         const fetchOptions = {
@@ -232,3 +209,30 @@ const getProjectAuthor = async () => {
 }
 
 getProject();
+
+const convertNameToCaps = (name) => {
+    const nameArr = name.split(" ");
+    for (let i = 0; i < nameArr.length; i++) {
+        nameArr[i] = nameArr[i].charAt(0).toUpperCase() + nameArr[i].slice(1);
+    }
+    return nameArr.join(" ");
+
+}
+const upVote = (project) => {
+    if (upArrow.style.backgroundColor === "green") {
+        upArrow.style.backgroundColor = "white";
+    } else {
+        upArrow.style.backgroundColor = "green";
+        downArrow.style.backgroundColor = "white";
+    }
+
+}
+const downVote = (project) => {
+    if (downArrow.style.backgroundColor === "red") {
+        downArrow.style.backgroundColor = "white";
+    } else {
+        upArrow.style.backgroundColor = "white";
+        downArrow.style.backgroundColor = "red";
+    }
+
+}

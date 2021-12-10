@@ -16,7 +16,7 @@
     <div id="regForm">
         <div class="errorMessage" id="errorEmail">Error</div>
         <div class="errorMessage" id="errorPass">Error</div>
-        <input required class="mainMobileInput" type="email"  placeholder="Enter Email..." name="email">
+        <input required class="mainMobileInput" type="email"  placeholder="Enter Email..." name="email" onfocusin="removeError()" onfocusout="checkEmail()">
         <input required class="mainMobileInput" type="email" placeholder="Confirm Email..." name="emailC">
         <input required class="mainMobileInput" type="password" placeholder="Enter Password..." minlength="6" name="password">
         <input required class="mainMobileInput" type="password" placeholder="Confirm Password..." minlength="6" name="passwordC">

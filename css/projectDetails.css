@@ -110,6 +110,7 @@ h5 {
     flex-direction: column;
     justify-content: space-around;
     padding: 1vh;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
 }
 
 #appOverviewTop {
@@ -180,6 +181,7 @@ h5 {
     justify-content: space-between;
     overflow-y: hidden;
     overflow-x: auto;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
 }
 
 #videoMedia {
@@ -204,11 +206,19 @@ iframe {
 
 .projectImg {
     margin: 5px 10px;
-    width: 25vh;
-    height: 15vh;
+    max-width: 90vw;
+    max-height: 60vh;
     border-radius: 15px;
     object-fit: contain;
 }
+
+/*.projectImg:hover {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: scale(3);*/
+
+/*}*/
 
 #appLongDescription {
     margin-top: 20px;

@@ -4,9 +4,9 @@
 }
 
 body {
+    height: 100%;
     margin: 0;
     padding: 3vw;
-    background-color: rgba(1, 4, 9, 0.06);
 }
 
 .container {
