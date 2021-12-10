@@ -46,14 +46,14 @@
 <div class="searchFilter">
     <input type="text" placeholder="Search..." id="searchBar">
 
+
     <div class="filterMenu">
-        <button onclick="myFunction()" class="filterBtn">Filter</button>
-        <div id="myDropdown" class="filterOptions">
-            <a href="">Newest</a>
-            <a href="">Oldest</a>
-            <a href="">A-Z</a>
-            <a href="">Z-A</a>
-        </div>
+        <select class="filterBtn" onchange=filter(this.value)>
+            <option value="newest">Filter: Newest</option>
+            <option value="oldest">Filter: Oldest</option>
+            <option value="aZ">Filter: A-Z</option>
+            <option value="zA">Filter: Z-A</option>
+        </select>
     </div>
 </div>
 
@@ -66,23 +66,6 @@
 <script src="../js/drawer.js"></script>
 <script src="../js/myProfile.js"></script>
 
-<script>
-    function myFunction() {
-        document.getElementById("myDropdown").classList.toggle("show");
-    }
 
-    window.onclick = function(event) {
-        if (!event.target.matches('.filterBtn')) {
-            let dropdowns = document.getElementsByClassName("filterOptions");
-            let i;
-            for (i = 0; i < dropdowns.length; i++) {
-                let openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
-            }
-        }
-    }
-</script>
 </body>
 </html>

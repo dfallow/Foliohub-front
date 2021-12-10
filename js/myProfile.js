@@ -87,6 +87,7 @@ const displayUserInfo = async () => {
     }
 }
 
+let projectList;
 
 const displayPersonalProjects = async () => {
     try {
@@ -100,6 +101,7 @@ const displayPersonalProjects = async () => {
         const projects = await response.json();
         console.log(projects);
         const userProjects = projects.filter(author);
+        projectList = userProjects;
         console.log('userProjects', userProjects);
         createProjectCard(userProjects);
     } catch (e) {
@@ -115,4 +117,53 @@ if (isOwnProfile) {
     displayUserInfo().then(() => {
         displayPersonalProjects();
     });
+}
+
+function filterBtn() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.filterBtn')) {
+        let dropdowns = document.getElementsByClassName("filterOptions");
+        let i;
+        for (i = 0; i < dropdowns.length; i++) {
+            let openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+}
+
+function filter(filterChoice) {
+    console.log(filterChoice);
+    let listClone = [...projectList];
+    switch (filterChoice) {
+        case 'newest':
+            createProjectCard(projectList);
+            console.log('newest');
+            break;
+        case 'oldest':
+            createProjectCard(listClone.reverse());
+            break;
+        case 'aZ':
+            listClone.sort(function (a,b){
+                if(a.name.toUpperCase() < b.name.toUpperCase()) {return -1; }
+                if (a.name.toUpperCase() > b.name.toUpperCase()) {return  1;}
+                return 0;
+            })
+            console.log('alpha', listClone);
+            createProjectCard(listClone);
+            break;
+        case 'zA':
+            listClone.sort(function (a,b){
+                if (a.name.toUpperCase() > b.name.toUpperCase()) {return 1; }
+                if (a.name.toUpperCase() < b.name.toUpperCase()) {return -1; }
+                return 0;
+            })
+            console.log('reverse', listClone);
+            createProjectCard(listClone.reverse());
+            break;
+    }
 }
