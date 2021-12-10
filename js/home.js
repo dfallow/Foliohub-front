@@ -81,7 +81,7 @@ function filter(filterChoice) {
     }
 }
 
-searchBar.addEventListener('input', (evt) => {
+/*searchBar.addEventListener('input', (evt) => {
     searchBarFilter(searchBar.value);
 })
 
@@ -95,6 +95,6 @@ function searchBarFilter(string) {
         if (el.includes(string)) return el
     });
     createProjectList(filtered);
-}
+}*/
 
 

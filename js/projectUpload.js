@@ -267,7 +267,11 @@ deleteBtn.addEventListener('click', async (evt) => {
         const response = await fetch(url + '/project/personal/' + currentProject.id, fetchOptions);
         console.log(response.json());
         sessionStorage.removeItem('modifying-project');
+<<<<<<< HEAD
         location.href(`../html/myProfile.html?id=${currentProject.author}`);
+=======
+        window.location.replace(`myProfile.html?id=${currentProject.author}`);
+>>>>>>> d607afbb8f20c98e43dbf0c0cd9d47ca5b9728a6
     }
 })
 
