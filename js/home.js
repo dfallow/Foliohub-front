@@ -8,8 +8,6 @@ const loadMore = document.querySelector('#load-more');
 
 let projectsExample;
 
-
-
 //creating list of projects
 const createProjectList = (projects) => {
     //clear ul element

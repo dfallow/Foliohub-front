@@ -122,8 +122,8 @@ input[type="file"] {
 #projectPictures .custom-file-upload {
     background-color: #c4c4c4;
     width: 30vw;
-    height: 15vw;
-    border-radius: 100px;
+    height: 7vh;
+    border-radius: 20px;
 }
 
 .hidden-input {
@@ -147,7 +147,7 @@ input[type="file"] {
 
 #shortDescTextArea {
     resize: none;
-    border-radius: 50px;
+    border-radius: 20px;
     width: 100%;
     height: 12vh;
     overflow: hidden;
@@ -249,5 +249,70 @@ button {
     font-size: 3vh;
     margin: 0;
     padding: 0;
+}
+
+@media screen and (min-aspect-ratio: 1/1) {
+    body {
+        width: 850px;
+        margin: 20px auto;
+        border-radius: 20px;
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .logo-container {
+        height: 80px;
+        width: 80px;
+    }
+
+    #logo {
+        height: 80px;
+        width: 80px;
+    }
+
+    #regProjectPic {
+        height: 300px;
+        width: 300px
+    }
+
+    .custom-file-upload {
+        height: 100px;
+        width: 100px;
+    }
+
+    #uploadDetails {
+        width: 80%;
+    }
+
+    .mainMobileInput {
+        font-size: 20px;
+    }
+
+    .mainMobileButton {
+        font-size: 20px;
+    }
+
+    #projectPictures .custom-file-upload {
+        font-size: 20px;
+        height: 60px;
+        width: 150px;
+    }
+
+    #longDescTextArea {
+        height: 300px;
+    }
+
+    .uploaded-pic {
+        max-height: 30vh;
+    }
+
+    #private {
+        width: 40px;
+    }
+
+    #checkbox-text {
+        font-size: 20px;
+        margin-left: 20px;
+    }
+
 }
 

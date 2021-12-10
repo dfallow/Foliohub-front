@@ -110,7 +110,7 @@ const createDrawer = () => {
 
 function openDrawer() {
     sideMenu.style.display = 'flex';
-    sideMenu.style.width = '70vw';
+    sideMenu.style.minWidth = '500px';
     body.style.overflow = 'hidden';
 }
 

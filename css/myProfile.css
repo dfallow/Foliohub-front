@@ -258,3 +258,48 @@ a, a:hover, a:visited, a:active {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
     border-radius: 20px;
 }
+
+@media screen and (min-aspect-ratio: 1/1) {
+
+    body {
+        padding: 0 200px;
+    }
+
+    .logo-container {
+        height: 80px;
+        width: 80px;
+    }
+
+    #logo {
+        height: 80px;
+        width: 80px;
+    }
+
+    .user {
+        padding: 20px 40px;
+    }
+
+    #github, #userImg{
+        height: 150px;
+        width: 150px;
+    }
+
+    #userInfo {
+        padding-left: 20px;
+        flex-grow: 1;
+    }
+
+    #userProjects {
+        width: 90%;
+        margin: auto;
+    }
+
+    #userDesc {
+        height: 150px;
+        margin: 30px;
+    }
+
+    .menuTopRow {
+        margin-bottom: 2vh;
+    }
+}

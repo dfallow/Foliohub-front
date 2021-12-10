@@ -201,7 +201,8 @@ checkVideoBtn.addEventListener('click', (evt) => {
     videoWrapper.style.display = 'block';
 })
 
-removeVideoBtn.addEventListener('click', () => {
+removeVideoBtn.addEventListener('click', (evt) => {
+    evt.preventDefault()
     removeVideoBtn.style.display = 'none';
     videoWrapper.style.display = 'none';
     checkVideoBtn.style.display = 'block';

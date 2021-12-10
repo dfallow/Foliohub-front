@@ -5,27 +5,37 @@ body {
     align-items: center;
 }
 
+.menuTopRow {
+    margin-bottom: 2vh;
+}
+
 .search-with-filter {
     display: flex;
     flex-direction: row;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3);
     border-radius: 50px;
+    align-items: center;
+    height: 5vh;
 }
 
 #filter-btn {
-    height: 100%;
     font-size: 2vh;
     flex-grow: 1;
+    height: 100%;
     padding-left: 50px;
     padding-right: 50px;
-    border-radius: 0 50px 50px 0;
+    border-radius: 0 20px 20px 0;
     border: none;
 }
 
 #searchBar {
-    border-radius: 50px 0 0 50px;
-    padding: 0;
+    border-radius: 20px 0 0 20px;
     margin: 0;
+    height: 100%;
+}
+
+#searchBar:focus {
+    outline: none;
 }
 
 .projects {
@@ -40,8 +50,7 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 5vw;
+    justify-content: space-between;
     list-style-type: none;
     padding: 0;
 }
@@ -54,7 +63,7 @@ body {
     width: 28vw;
     height: 43vw;
     margin: 15px 0;
-    border-radius: 40px;
+    border-radius: 20px;
     background-color: white;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
@@ -65,7 +74,7 @@ body {
 
 .project-card-fig {
     background: #c4c4c4;
-    border-radius: 40px 40px 0 0;
+    border-radius: 20px 20px 0 0;
     width: 28vw;
     height: 28vw;
     display: flex;
@@ -98,12 +107,6 @@ a, a:hover, a:visited, a:active {
     text-decoration: none;
 }
 
-.button {
-    background-color: white;
-    color: black;
-    align-self: center;
-    margin-bottom: 5px;
-}
 
 #load-more {
     font-size: 2vh;
@@ -116,4 +119,49 @@ a, a:hover, a:visited, a:active {
 
 #load-more:active {
     box-shadow: none;
+}
+
+@media screen and (min-aspect-ratio: 1/1) {
+
+    body {
+        padding: 0 200px;
+    }
+
+    .logo-container {
+        height: 80px;
+        width: 80px;
+    }
+
+    .menuTopRow {
+        margin-bottom: 2vh;
+    }
+
+    .search-with-filter {
+        width: 80%;
+        margin: auto;
+    }
+
+    .projects {
+
+    }
+
+    #projectList {
+        gap: 50px;
+
+    }
+
+
+    .project-card {
+        width: 200px;
+        height: 280px;
+    }
+
+    .project-card-fig {
+        width: 200px;
+        height: 200px;
+    }
+
+    #side-menu {
+        width: 20vw;
+    }
 }

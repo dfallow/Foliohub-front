@@ -235,3 +235,20 @@ iframe {
     min-height: 30vw;
     font-size: 4vw;
 }
+
+@media screen and (min-aspect-ratio: 1/1) {
+
+    body {
+        padding: 0 200px;
+    }
+
+    .logo-container {
+        height: 80px;
+        width: 80px;
+    }
+
+    #logo {
+        height: 80px;
+        width: 80px;
+    }
+}
