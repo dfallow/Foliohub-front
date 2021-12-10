@@ -10,28 +10,47 @@ h1 {
     align-items: center;
     justify-content: center;
     font-size: 4vh;
-    height: 30%;
+    height: auto;
 }
 
 body {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     height: 100vh;
     align-items: center;
     border-radius: 20px;
     background-color: white;
     max-width: none;
+    padding-top: 15vh;
 }
 
 #register {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 100%;
-    height: 70%;
     flex-direction: column;
-    padding-bottom: 10vh;
+}
+
+.errorMessage {
+    border: 3px solid black;
+    background-color: red;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    width: 100%;
+    font-size: 2.5vh;
+    margin-bottom: 1vw;
+    padding: 10px;
+    display: none;
+}
+
+#errorPass {
+
+}
+
+#errorEmail {
 
 }
 
@@ -40,18 +59,6 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-}
-
-#regForm input {
-    background-color: #E5E5E5;
-    height: 7vh;
-    width: 100%;
-    font-size: 3vh;
-    border-radius: 100px;
-    border: none;
-    padding-left: 40px;
-    margin: 5px 0;
-    text-align: justify;
 }
 
 .button {
@@ -67,11 +74,28 @@ body {
     border-radius: 100px;
 }
 #logo {
-    width: 15vw;
-    height: 15vw;
+    width: 15vh;
+    height: 15vh;
+}
+
+.mainMobileButton {
+    margin-top: 4vh;
+    width: 300px;
 }
 
 
-@media screen and (min-aspect-ratio: 16/12) {
+@media screen and (min-aspect-ratio: 1/1) {
+
+    body {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 90vh;
+        width: 850px;
+        margin: auto;
+        border-radius: 20px;
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+    }
 
 }

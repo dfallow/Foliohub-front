@@ -24,42 +24,7 @@
 </div>
 
 <div id="side-menu" class="side-nav">
-    <a href="#" id="btn-close" onclick="closeDrawer()">&times;</a>
-    <div id="drawer-user-info">
-        <img id="drawer-pic" src="../images/login.png" alt="drawer-pic">
-        <h1>Username</h1>
-    </div>
 
-    <a href="home.html">
-        <div class="drawer-item">
-            <img class="drawer-item-logo" src="../images/home.png" alt="">
-            <p>Home</p>
-        </div>
-    </a>
-    <a href="myProfile.html">
-        <div class="drawer-item">
-            <img class="drawer-item-logo" src="../images/portfolio.png" alt="">
-            <p>My projects</p>
-        </div>
-    </a>
-    <a href="projectUpload.html">
-        <div class="drawer-item">
-            <img class="drawer-item-logo" src="../images/upload.png" alt="">
-            <p>Upload project</p>
-        </div>
-    </a>
-    <a href="#">
-        <div class="drawer-item">
-            <img class="drawer-item-logo" src="../images/share.png" alt="">
-            <p>Share project</p>
-        </div>
-    </a>
-    <a class="drawer-settings" href="#">
-        <div class="drawer-item">
-            <img class="drawer-item-logo" src="../images/settings.png" alt="">
-            <p>Account settings</p>
-        </div>
-    </a>
 </div>
 
 <form id="uploadDetails" action=""> <!-- TODO action to do -->
@@ -70,10 +35,10 @@
         </label>
         <input id="image-upload" type="file" placeholder="Photo" name="logo">
     </div>
-    <input class="mainMobileInput" id="projectName" type="text" placeholder="Project Name" name="name">
+    <input required class="mainMobileInput" maxlength="30" id="projectName" type="text" placeholder="Project Name" name="name">
     <textarea class="mainMobileInput" maxlength="60" id="shortDescTextArea"
               placeholder="Short description" name="outline"></textarea>
-    <input class="mainMobileInput" placeholder="tag1,tag2,tag3,..." name="tags">
+    <input style="display: none" class="mainMobileInput" placeholder="tag1,tag2,tag3,..." type="text" pattern="^[.]+(,[.]+)*$" name="tags">
 
     <h3>Add a video</h3>
 
@@ -90,11 +55,10 @@
 
     </div>
 
-    <h3>Add pictures</h3>
-
     <div id="projectPictures">
+        <h3>Add pictures</h3>
         <label for="pictures-upload" class="custom-file-upload">
-            <i></i> +
+            <i></i> Add
         </label>
         <input id="pictures-upload" type="file" multiple="multiple" placeholder="Photo" accept="image/*" name="images">
     </div>
@@ -117,6 +81,7 @@
 
 <script src="../constants.js"></script>
 <script src="../js/general.js"></script>
+<script src="../js/drawer.js"></script>
 <script src="../js/serialize.js"></script>
 <script src="../js/projectUpload.js"></script>
 </body>

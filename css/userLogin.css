@@ -17,8 +17,8 @@ body {
 #logo {
     position: absolute;
     top: 20px;
-    width: 15vw;
-    height: 15vw;
+    width: 15vh;
+    height: 15vh;
 }
 h1 {
     font-size: 4vh;
@@ -42,10 +42,29 @@ a:hover {
     color: cornflowerblue;
 }
 
-button {
-    margin: 2vh 0;
+.mainMobileButton {
+    margin-top: 4vh;
+    width: 300px;
 }
 
-@media screen and (max-aspect-ratio: 16/12) {
+.mainMobileInput {
+    text-align: center;
+}
+
+@media screen and (min-aspect-ratio: 1/1) {
+
+
+
+    body {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 90vh;
+        width: 850px;
+        margin: auto;
+        border-radius: 20px;
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+    }
 
 }
