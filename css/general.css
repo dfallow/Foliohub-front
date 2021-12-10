@@ -110,7 +110,7 @@ body {
     overflow-x: hidden;
     padding: 4vh 5vh;
     transition: 0.1s;
-    opacity: 0.9;
+    opacity: 0.95;
     z-index: 9000;
 }
 
@@ -118,9 +118,15 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 100%;
     margin-bottom: 10px;
     padding-bottom: 1.5vh;
     border-bottom: 2px outset black;
+    cursor: pointer;
+}
+#drawer-user-info:hover,  #side-menu a:hover{
+    background-color: gray;
+    transition: 0.4s;
 }
 
 #drawer-user-info h1 {
@@ -162,9 +168,9 @@ body {
 
 #btn-close {
     align-self: end;
-    justify-self: start;
     font-size: 5vh;
     height: 5vh;
+    z-index: 9001;
 }
 
 #drawer-settings {
@@ -177,14 +183,31 @@ a, a:hover, a:visited, a:active {
     text-decoration: none;
 }
 
+#logo {
+    cursor: pointer;
+}
+
+#profilePic {
+    cursor: pointer;
+}
+
 @media screen and (min-aspect-ratio: 1/1) {
     #side-menu {
-        padding: 10px 10px;
+        padding: 0;
     }
 
     .drawer-item {
         font-size: 20px;
         margin: 20px 0;
+        padding-left: 10px;
+    }
+    #btn-close {
+        height: 0;
+        margin-right: 14px;
+    }
+
+    #drawer-user-info {
+        padding: 10px 0 10px 10px;
     }
 
     .drawer-item-logo {

@@ -46,7 +46,7 @@ const createProjectCard = (projects) => {
 
         userProjects.innerHTML +=
             `<div id="project-card-container">
-                <a id="card-link" href="../html/projectDetails.html?id=${project.id}" style="width: ${(isOwnProfile) ? '90%' : '100%'}">
+                <a id="card-link" href="../html/projectDetails.html?id=${project.id}" >
                     <li id="projectCard" ">
                         <figure id="projectImg">
                             <img src="${logoURL}" alt="project.name">
@@ -58,9 +58,49 @@ const createProjectCard = (projects) => {
                         </div>
                     </li>
                 </a>
-                <button id="editBtn" style="display: ${(isOwnProfile) ? 'block' : 'none'}" onclick="toEditProject(${project.id})">Edit</button>
+                <button id="editBtn" onclick="toEditProject(${project.id})"></button>
             </div>`
+
+        const cardContainer = document.querySelector('#project-card-container');
+        const cardLink = document.querySelector('#card-link');
+        const editBtn = document.querySelector('#editBtn');
+        if (isOwnProfile) {
+
+            cardContainer.addEventListener('mouseenter', () => {
+
+                cardLink.animate([
+                    { width: '100%' },
+                    { width: '80%' }
+                ], {
+                    duration: 200,
+                    fill: "forwards",
+                });
+                editBtn.style.display = 'block';
+                editBtn.style.flexGrow = '1';
+                setTimeout(() => {
+                    editBtn.innerHTML = 'Edit';
+                }, 190);
+            })
+
+            cardContainer.addEventListener('mouseleave', () => {
+
+                editBtn.innerHTML = '';
+                cardLink.animate([
+                    { width: '80%' },
+                    { width: '100%'}
+                ], {
+                    duration: 100,
+                    fill: "forwards"
+                });
+                editBtn.style.width = '0';
+            })
+        }
     });
+    // style="display: ${(isOwnProfile) ? 'block' : 'none'}" for edit btn
+    //style="width: ${(isOwnProfile) ? '90%' : '100%'}" for card link
+
+
+
 
 
 

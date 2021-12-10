@@ -193,14 +193,14 @@ a, a:hover, a:visited, a:active {
 
 #editBtn {
     background-color: lightgray;
-    /*box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);*/
     border: 0 solid black;
     border-radius: 0 20px 20px 0;
     font-size: 2vh;
-    flex-grow: 1;
+    /*flex-grow: 1;*/
     padding-left: 0;
     padding-right: 0;
 }
+
 
 #projectName {
     align-self: flex-start;
@@ -234,8 +234,9 @@ a, a:hover, a:visited, a:active {
 }
 
 #card-link {
-    width: 90%;
+    width: 100%;
 }
+
 
 #project-card-container {
     display: flex;
@@ -298,5 +299,12 @@ a, a:hover, a:visited, a:active {
 
     .menuTopRow {
         margin-bottom: 2vh;
+    }
+
+    #editBtn {
+        display: none;
+    }
+    #projectCard {
+        width: 100%;
     }
 }
