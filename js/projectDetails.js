@@ -141,14 +141,15 @@ const getGitLink = (user, githubLink) => {
 }
 
 const userInformation = (user) => {
+    const imgURL = (user.profilePic) ? url + '/uploads/user/' + user.profilePic : '../images/profilePic.png';
     userInfo.innerHTML =
         `<a href="../html/myProfile.html?id=${user.userId}">
-            <img id="userImg" src="${url + '/uploads/user/' + user.profilePic}" alt="users profile picture">
+            <img id="userImg" src="${imgURL}" alt="users profile picture">
         </a> 
         <div id="userInfo">
             <p id="userName">${user.username}</p>
             <p id="developerType">${user.title}</p>
-            <p id="memberSince">${user.creationDate}</p>
+            <p id="memberSince">Member since ${user.creationDate.split('-').shift()}</p>
         </div>
 
         <a href="" id="github" target="_blank"></a>`

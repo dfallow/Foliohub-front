@@ -152,7 +152,7 @@ const putEventListener = async (evt) => {
     const response = await fetch(url + '/project/personal/' + currentProject.id, fetchOptions);
     console.log(response);
 
-    location.href = 'myProfile.html';
+    location.href = `../html/myProfile.html?id=${currentProject.author}`;
 }
 
 const postEventListener = async (evt) => {

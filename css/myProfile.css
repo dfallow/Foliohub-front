@@ -86,31 +86,36 @@ img {
     text-align: justify;
 }
 
-.searchFilter {
-    margin: 50px auto;
+.search-with-filter {
+    margin-top: 40px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3);
+    border-radius: 50px;
     align-items: center;
-    /*width: 95%;*/
+    height: 5vh;
 }
 
 #searchBar {
-    font-size: 2vh;
-    width: 70%;
-    border-radius: 10px;
-    padding-left: 10px;
+    border-radius: 20px 0 0 20px;
+    margin: 0;
+    height: 100%;
+}
+
+#searchBar:focus {
+    outline: none;
 }
 
 .filterBtn {
     width: 100%;
     height: 100%;
-    background-color: #E5E5E5;
+    background-color: #EFEFEF;
     color: black;
-    padding: 16px 0 16px 2px;
+    padding: 4px 0 4px 3px;
     font-size: 1.8vh;
     border: none;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 0 20px 20px 0;
 }
 
 .filterBtn > option {
@@ -123,29 +128,6 @@ img {
     height: 100%;
     position: relative;
     display: inline-block;
-}
-
-.filterOptions {
-    border-radius: 10px;
-    font-size: 2vh;
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 100%;
-    overflow: auto;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
-    z-index: 1;
-}
-
-.filterOptions a {
-    color: black;
-    text-decoration: none;
-    display: block;
-    padding: 2vh;
-}
-
-.filterMenu a:hover {
-    background-color: #ddd;
 }
 
 .show {
@@ -268,6 +250,11 @@ a, a:hover, a:visited, a:active {
 
     body {
         padding: 0 200px;
+    }
+
+    .search-with-filter {
+        width: 90%;
+        margin: 30px auto;
     }
 
     .filterBtn > option {

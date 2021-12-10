@@ -242,6 +242,22 @@ iframe {
         padding: 0 200px;
     }
 
+    #nameAuthor > h2 {
+        font-size: 6vh;
+    }
+
+    #nameAuthor > p {
+        font-size: 3vh;
+    }
+
+    #shortDesc, #appLongDescription p {
+        font-size: 30px;
+    }
+
+    #appOverviewBottom, #shortDesc {
+        margin-top: 5px;
+    }
+
     .logo-container {
         height: 80px;
         width: 80px;
@@ -251,4 +267,17 @@ iframe {
         height: 80px;
         width: 80px;
     }
+
+    #userInfo {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    #user p{
+        font-size: 30px;
+
+    }
+
 }

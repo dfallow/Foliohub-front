@@ -26,7 +26,7 @@ function updateUserInfo(userInfo) {
     }
     username.innerHTML = userInfo.username;
     developerType.innerHTML = userInfo.title;
-    memberSince.innerHTML = userInfo.creationDate;
+    memberSince.innerHTML = `Member since ${userInfo.creationDate.split('-').shift()}`;
     if (!userInfo.description) {
         userDesc.style.display = 'none';
     }

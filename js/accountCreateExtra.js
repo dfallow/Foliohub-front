@@ -93,16 +93,6 @@ const putEventListener = async (evt) => {
     }
     try {
         await fetch(url + '/user', fetchOptions);
-        // const json = await response.json();
-        // user.profilePic = data.get('profilePic');
-        // user.username = data.get('username');
-        // user.title = data.get('title');
-        // user.description = data.get('description');
-        // user.github = data.get('github');
-        // user.tags = data.get('tags');
-        // sessionStorage.removeItem('user');
-        // sessionStorage.setItem('user', JSON.stringify(json.user));
-        // user = JSON.parse(sessionStorage.getItem('user'));
         await setCurrentUser();
         location.href = 'home.html';
     } catch (e) {

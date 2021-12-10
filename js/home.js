@@ -82,4 +82,8 @@ function filter(filterChoice) {
     }
 }
 
+function searchBarFilter(string) {
+
+}
+
 

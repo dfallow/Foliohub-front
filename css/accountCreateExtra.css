@@ -57,6 +57,7 @@ input[type="file"] {
     display: none;
 }
 
+
 .custom-file-upload {
     display: flex;
     align-items: center;
@@ -68,13 +69,16 @@ input[type="file"] {
     cursor: pointer;
     width: 7vh;
     height: 7vh;
+    max-width: 30vh;
 }
+
+
 #logo {
     position: absolute;
     top: 5px;
     left: 5px;
-    width: 15vh;
-    height: 15vh;
+    width: 125px;
+    height: 125px;
     margin-top: 10px;
     margin-left: 10px;
 }
