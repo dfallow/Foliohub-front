@@ -236,6 +236,45 @@ iframe {
     font-size: 4vw;
 }
 
+#comments {
+    background-color: white;
+    width: 100%;
+    border-radius: 20px;
+}
+
+#comments > ul {
+    list-style-type: none;
+    width: 100%;
+    background-color: white;
+    border-radius: 20px;
+    max-height: 50vh;
+    font-size: 4vw;
+    padding: 1vh;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+}
+
+.userComment {
+    background-color: #E5E5E5;
+    margin: 1vh 0;
+    padding: 0.5vh;
+    height: 10vh;
+}
+
+.userComment > #name {
+
+}
+
+.userComment > #name:hover {
+    text-underline: red;
+}
+
+.userComment > #comment {
+    font-size: 3rem;
+}
+
+
+
 @media screen and (min-aspect-ratio: 1/1) {
 
     body {

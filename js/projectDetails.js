@@ -21,7 +21,7 @@ const appOverview = document.querySelector('#appOverview');
 
 const vidMedia = document.querySelector('#videoMedia')
 const imgMedia = document.querySelector('#imageMedia');
-const comments = document.querySelector('#comments');
+const projectComments = document.querySelector('#comments');
 const longDescription = document.querySelector('#appLongDescription');
 const moreInfo = document.querySelector('#moreInfo');
 const userInfo = document.querySelector('.user');
@@ -112,7 +112,19 @@ const createAppLongDescription = (project) => {
         projectDetails.appendChild(longDescription);
 }
 
-const createAppComments = (project) => {
+const createAppComments = (comments) => {
+    const commentList = document.createElement('ul');
+    comments.forEach((comment) => {
+        commentList.innerHTML +=
+            `<li class="userComment">
+                <a href="../html/myProfile.html?id=${comment.userId}"><p id="name">${comment.userName}</p></a>
+                <p id="comment">${comment.comment}</p>
+            </li>`
+    });
+    projectComments.appendChild(commentList);
+    projectDetails.appendChild(projectComments);
+
+
 
 }
 
@@ -179,10 +191,14 @@ const getProject = async () => {
         console.log('get project response', project)
         const authorResponse = await fetch(url + '/user/' + project.author);
         const authorId = await authorResponse.json();
+        const commentResponse = await fetch(url + '/project/comments/' + projectId, fetchOptions);
+        const comments = await commentResponse.json();
+        console.log('comments', comments);
         //could check here if the author matches the current user!! And use the personal route always
         createAppOverview(project, authorId);
         console.log('author', authorId);
         createAppMedia(project);
+        createAppComments(comments);
         if (project.description) {
             createAppLongDescription(project, authorId);
         }
