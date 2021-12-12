@@ -112,21 +112,72 @@ const createAppLongDescription = (project) => {
         projectDetails.appendChild(longDescription);
 }
 
+const createAppCommentInput = () => {
+    if (sessionStorage.getItem('user')) {
+
+        const commentInput = document.createElement('div');
+        commentInput.innerHTML += `      
+            <input type="text" placeholder="New comment" id="add-comment-input">
+            <button id="add-comment-btn">Add</button>
+        `
+        projectComments.appendChild(commentInput);
+        projectDetails.appendChild(projectComments);
+
+        const input = document.querySelector('#add-comment-input');
+        const button = document.querySelector('#add-comment-btn');
+        button.addEventListener('click', (evt => {
+            evt.preventDefault();
+            if (input.value.length > 0) {
+                addComment(input.value).then(() => {
+                    input.value = '';
+                });
+            }
+        }))
+    }
+}
+
+async function addComment(comment) {
+    const data = {
+        "comment": comment,
+        "userId": user.userId,
+        "projectId": projectId
+    }
+    const fetchOptions = {
+        method: 'POST',
+        headers: {
+            Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    }
+
+    const response = await fetch(url + '/project/comments/', fetchOptions);
+    const json = await response.json();
+    console.log(json);
+
+    await getComments();
+}
+
 const createAppComments = (comments) => {
-    const commentList = document.createElement('ul');
-    comments.forEach((comment) => {
-        commentList.innerHTML +=
-            `<li class="userComment">
-                <a href="../html/myProfile.html?id=${comment.userId}"><p id="name">${comment.userName}</p></a>
+    const currentList = document.querySelector('#commentList');
+    if (currentList) {
+        currentList.remove();
+    }
+    if (comments.length > 0) {
+        const commentList = document.createElement('ul');
+        commentList.id = 'commentList';
+        comments.forEach((comment) => {
+            commentList.innerHTML +=
+                `<li class="userComment">
+                <a href="../html/myProfile.html?id=${comment.userId}"><p id="name">${comment.username}</p></a>
                 <p id="comment">${comment.comment}</p>
             </li>`
-    });
-    projectComments.appendChild(commentList);
-    projectDetails.appendChild(projectComments);
-
-
-
+        });
+        projectComments.appendChild(commentList);
+        projectDetails.appendChild(projectComments);
+    }
 }
+
 
 const createAppMoreInfo = (project) => {
 
@@ -191,14 +242,11 @@ const getProject = async () => {
         console.log('get project response', project)
         const authorResponse = await fetch(url + '/user/' + project.author);
         const authorId = await authorResponse.json();
-        const commentResponse = await fetch(url + '/project/comments/' + projectId, fetchOptions);
-        const comments = await commentResponse.json();
-        console.log('comments', comments);
-        //could check here if the author matches the current user!! And use the personal route always
         createAppOverview(project, authorId);
         console.log('author', authorId);
         createAppMedia(project);
-        createAppComments(comments);
+        createAppCommentInput();
+        await getComments();
         if (project.description) {
             createAppLongDescription(project, authorId);
         }
@@ -223,6 +271,22 @@ const getProjectAuthor = async () => {
         console.log(e.message);
     }
 
+}
+
+const getComments = async () => {
+    try {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+            }
+        }
+        const commentResponse = await fetch(url + '/project/comments/' + projectId, fetchOptions);
+        const comments = await commentResponse.json();
+        createAppComments(comments)
+    } catch (e) {
+        console.log(e.message);
+    }
 }
 
 getProject();

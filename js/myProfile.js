@@ -97,12 +97,13 @@ const createProjectCard = (projects) => {
     });
     // style="display: ${(isOwnProfile) ? 'block' : 'none'}" for edit btn
     //style="width: ${(isOwnProfile) ? '90%' : '100%'}" for card link
-    const container = document.querySelectorAll('.project-card-container0');
 }
 
 function toEditProject(projectId) {
-    sessionStorage.setItem('modifying-project', 'true');
-    location.href = `../html/projectUpload.html?id=${projectId}`
+    if(isOwnProfile) {
+        sessionStorage.setItem('modifying-project', 'true');
+        location.href = `../html/projectUpload.html?id=${projectId}`
+    }
 }
 
 function author(project) {
