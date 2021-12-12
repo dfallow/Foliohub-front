@@ -196,7 +196,7 @@ a, a:hover, a:visited, a:active {
     border: 0 solid black;
     border-radius: 0 20px 20px 0;
     font-size: 2vh;
-    /*flex-grow: 1;*/
+    flex-grow: 1;
     padding-left: 0;
     padding-right: 0;
 }
@@ -303,8 +303,31 @@ a, a:hover, a:visited, a:active {
 
     #editBtn {
         display: none;
+        color: transparent;
     }
     #projectCard {
         width: 100%;
+        transition: display 200ms linear;
+    }
+
+    .animatedContainer:hover > #card-link {
+        animation-name: cardLinkHover;
+        animation-duration: 200ms;
+        animation-fill-mode: forwards;
+    }
+
+    .animatedContainer:hover #editBtn {
+        display: block;
+        flex-grow: 1;
+        color: black;
+    }
+}
+
+@keyframes cardLinkHover {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 90%;
     }
 }

@@ -45,9 +45,9 @@ const createProjectCard = (projects) => {
         const logoURL = (project.logo) ? url + '/uploads/project/' + project.logo : '../images/logo.png';
 
         userProjects.innerHTML +=
-            `<div id="project-card-container">
+            `<div id="project-card-container" class=${(isOwnProfile) ? 'animatedContainer' : ''}>
                 <a id="card-link" href="../html/projectDetails.html?id=${project.id}" >
-                    <li id="projectCard" ">
+                    <li id="projectCard">
                         <figure id="projectImg">
                             <img src="${logoURL}" alt="project.name">
                         </figure>
@@ -58,55 +58,49 @@ const createProjectCard = (projects) => {
                         </div>
                     </li>
                 </a>
-                <button id="editBtn" onclick="toEditProject(${project.id})"></button>
+                <button id="editBtn" onclick="toEditProject(${project.id})">Edit</button>
             </div>`
 
         const cardContainer = document.querySelector('#project-card-container');
         const cardLink = document.querySelector('#card-link');
         const editBtn = document.querySelector('#editBtn');
-        if (isOwnProfile) {
+        // if (isOwnProfile) {
 
-            cardContainer.addEventListener('mouseenter', () => {
-
-                cardLink.animate([
-                    { width: '100%' },
-                    { width: '80%' }
-                ], {
-                    duration: 200,
-                    fill: "forwards",
-                });
-                editBtn.style.display = 'block';
-                editBtn.style.flexGrow = '1';
-                setTimeout(() => {
-                    editBtn.innerHTML = 'Edit';
-                }, 190);
-            })
-
-            cardContainer.addEventListener('mouseleave', () => {
-
-                editBtn.innerHTML = '';
-                cardLink.animate([
-                    { width: '80%' },
-                    { width: '100%'}
-                ], {
-                    duration: 100,
-                    fill: "forwards"
-                });
-                editBtn.style.width = '0';
-            })
-        }
+            // cardContainer.addEventListener('mouseenter', () => {
+            //
+            //     cardLink.animate([
+            //         {width: '100%'},
+            //         {width: '80%'}
+            //     ], {
+            //         duration: 200,
+            //         fill: "forwards",
+            //     });
+            //     editBtn.style.display = 'block';
+            //     editBtn.style.flexGrow = '1';
+            //     setTimeout(() => {
+            //         editBtn.innerHTML = 'Edit';
+            //     }, 190);
+            // })
+            // cardContainer.addEventListener('mouseleave', () => {
+            //
+            //     editBtn.innerHTML = '';
+            //     cardLink.animate([
+            //         {width: '80%'},
+            //         {width: '100%'}
+            //     ], {
+            //         duration: 100,
+            //         fill: "forwards"
+            //     });
+            //     editBtn.style.width = '0';
+            // })
+        // }
     });
     // style="display: ${(isOwnProfile) ? 'block' : 'none'}" for edit btn
     //style="width: ${(isOwnProfile) ? '90%' : '100%'}" for card link
-
-
-
-
-
-
+    const container = document.querySelectorAll('.project-card-container0');
 }
 
-function toEditProject (projectId) {
+function toEditProject(projectId) {
     sessionStorage.setItem('modifying-project', 'true');
     location.href = `../html/projectUpload.html?id=${projectId}`
 }
@@ -163,7 +157,7 @@ function filterBtn() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
 
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (!event.target.matches('.filterBtn')) {
         let dropdowns = document.getElementsByClassName("filterOptions");
         let i;
@@ -187,17 +181,25 @@ function filter(filterChoice) {
             createProjectCard(listClone.reverse());
             break;
         case 'aZ':
-            listClone.sort(function (a,b){
-                if(a.name.toUpperCase() < b.name.toUpperCase()) {return -1; }
-                if (a.name.toUpperCase() > b.name.toUpperCase()) {return  1;}
+            listClone.sort(function (a, b) {
+                if (a.name.toUpperCase() < b.name.toUpperCase()) {
+                    return -1;
+                }
+                if (a.name.toUpperCase() > b.name.toUpperCase()) {
+                    return 1;
+                }
                 return 0;
             })
             createProjectCard(listClone);
             break;
         case 'zA':
-            listClone.sort(function (a,b){
-                if (a.name.toUpperCase() > b.name.toUpperCase()) {return 1; }
-                if (a.name.toUpperCase() < b.name.toUpperCase()) {return -1; }
+            listClone.sort(function (a, b) {
+                if (a.name.toUpperCase() > b.name.toUpperCase()) {
+                    return 1;
+                }
+                if (a.name.toUpperCase() < b.name.toUpperCase()) {
+                    return -1;
+                }
                 return 0;
             })
             createProjectCard(listClone.reverse());
