@@ -4,7 +4,6 @@ body {
     overflow-x: hidden;
 }
 
-
 .menuButton {
     display: flex;
     flex-direction: column;
@@ -33,7 +32,6 @@ body {
 .bar {
     width: 80%;
     height: 7%;
-    background-color: black;
     margin: 6px 0;
     border-radius: 20px;
 }
@@ -59,19 +57,25 @@ img {
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
+    background-color: rgba(0,0,0,0.7);
 }
 
 #github, #userImg {
-    background-color: white;
     height: 20vw;
     width: 20vw;
-    border-radius: 50%;
-    background-position: center center;
+    border-radius: 200px;
     object-fit: cover;
+    background: white center center;
+}
+
+#github {
+    border: white 2px solid;
 }
 
 #userInfo {
     font-size: 2vh;
+    color: white;
+    opacity: 0.8;
 }
 
 #userDesc {
@@ -84,6 +88,7 @@ img {
     margin: 40px auto;
     height: 17vw;
     text-align: justify;
+    opacity: 0.8;
 }
 
 .search-with-filter {
@@ -100,6 +105,7 @@ img {
     border-radius: 20px 0 0 20px;
     margin: 0;
     height: 100%;
+    opacity: 80%;
 }
 
 #searchBar:focus {
@@ -116,6 +122,10 @@ img {
     border: none;
     cursor: pointer;
     border-radius: 0 20px 20px 0;
+}
+
+.filterBtn:focus {
+    outline: none;
 }
 
 .filterBtn > option {
@@ -155,10 +165,13 @@ a, a:hover, a:visited, a:active {
     list-style-type: none;
     display: flex;
     flex-direction: row;
+    color: white;
     width: 100%;
     height: 15vh;
     border-radius: 20px 0 0 20px ;
     align-items: center;
+    background-color: rgba(0,0,0,0.7);
+    overflow: hidden;
 }
 
 #projectImg {
@@ -179,6 +192,7 @@ a, a:hover, a:visited, a:active {
     margin: 0;
     object-fit: cover;
     background-position: center center;
+    opacity: 100%;
 }
 
 #projectDetailDiv {
@@ -197,8 +211,8 @@ a, a:hover, a:visited, a:active {
     border-radius: 0 20px 20px 0;
     font-size: 2vh;
     flex-grow: 1;
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 
@@ -208,7 +222,7 @@ a, a:hover, a:visited, a:active {
     font-weight: bold;
     font-size: 2.8vh;
     margin: 0 0 1vh 0;
-
+    opacity: 0.8;
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -221,6 +235,7 @@ a, a:hover, a:visited, a:active {
     padding: 0 2vw 0 0;
     flex-grow: 1;
     overflow: hidden;
+    opacity: 0.8;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
@@ -229,6 +244,7 @@ a, a:hover, a:visited, a:active {
     font-size: 1.5vh;
     margin-bottom: 1vh;
     position: absolute;
+    opacity: 0.8;
     bottom: 1vh;
     right: 2vh;
 }
@@ -304,23 +320,45 @@ a, a:hover, a:visited, a:active {
     #editBtn {
         display: none;
         color: transparent;
+        border-radius: 0 0 0 0;
+    }
+
+    #deleteBtn {
+        display: none;
+        color: transparent;
+        border: none;
+
     }
     #projectCard {
         width: 100%;
         transition: display 200ms linear;
+        border-radius: 20px;
     }
 
     .animatedContainer:hover > #card-link {
-        animation-name: cardLinkHover;
-        animation-duration: 200ms;
-        animation-fill-mode: forwards;
+        animation: cardLinkHover 200ms forwards;
+    }
+
+    .animatedContainer:hover #projectCard {
+        border-radius: 20px 0 0 20px;
     }
 
     .animatedContainer:hover #editBtn {
         display: block;
         flex-grow: 1;
         color: black;
+        cursor: pointer;
     }
+    .animatedContainer:hover #deleteBtn {
+        display: block;
+        background-color: #ff1515;
+        flex-grow: 1;
+        color: white;
+        cursor: pointer;
+        border-radius: 0 20px 20px 0;
+    }
+
+
 }
 
 @keyframes cardLinkHover {
@@ -328,6 +366,6 @@ a, a:hover, a:visited, a:active {
         width: 100%;
     }
     to {
-        width: 90%;
+        width: 85%;
     }
 }

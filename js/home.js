@@ -81,20 +81,33 @@ function filter(filterChoice) {
     }
 }
 
-/*searchBar.addEventListener('input', (evt) => {
-    searchBarFilter(searchBar.value);
+searchBar.addEventListener('input', (evt) => {
+    setTimeout(() => {
+        searchBarFilter(searchBar.value);
+    }, 500)
 })
 
 function searchBarFilter(string) {
+    ul.innerHTML = '';
     let listClone = [...projects];
-    let appNames = listClone.map((project) => {
-        return project.name
-    });
-    console.log(appNames);
-    let filtered = appNames.map((el) => {
-        if (el.includes(string)) return el
-    });
-    createProjectList(filtered);
-}*/
+    if (string.length === 0) {
+        createProjectList(projects)
+    } else {
+        const filtered = listClone.filter(project => project.name.toLowerCase().includes(string.toLowerCase()));
+        if (filtered.length === 0) {
+            ul.style.display = 'flex';
+            ul.style.flexDirection = 'column';
+            ul.style.alignItems = 'center';
+            ul.innerHTML = `
+                <p style="font-size: 100px; margin: 0">👻</p>
+                <p id="not-found" style="color: rgba(255,255,255,0.7); font-size: 30px">No result found for '${string}'</p>
+            `
+        } else {
+            ul.style.display = 'grid';
+            ul.style.flexDirection = 'row';
+            createProjectList(filtered);
+        }
+    }
+}
 
 

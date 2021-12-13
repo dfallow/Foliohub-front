@@ -11,6 +11,8 @@ const username = document.querySelector('#userName');
 const developerType = document.querySelector('#developerType');
 const memberSince = document.querySelector('#memberSince');
 const userDesc = document.querySelector('#userDesc');
+const searchBar = document.querySelector('#searchBar');
+
 
 const currentUser = JSON.parse(sessionStorage.getItem('user'));
 
@@ -39,8 +41,6 @@ const createProjectCard = (projects) => {
     //clear user projects
     userProjects.innerHTML = '';
 
-    //const orderedProjects = projects.
-
     projects.forEach((project) => {
         const logoURL = (project.logo) ? url + '/uploads/project/' + project.logo : '../images/logo.png';
 
@@ -54,46 +54,13 @@ const createProjectCard = (projects) => {
                         <div id="projectDetailDiv">
                             <h3 id="projectName">${project.name}</h3>
                             <p id="shortDesc">${project.outline}</p>
-                            <p id="date">${project.date}</p>
+                            <p id="date">${project.date.split(' ').shift()}</p>
                         </div>
                     </li>
                 </a>
                 <button id="editBtn" onclick="toEditProject(${project.id})">Edit</button>
+                <button id="deleteBtn" onclick="deleteProject(${project.id})">Delete</button>
             </div>`
-
-        const cardContainer = document.querySelector('#project-card-container');
-        const cardLink = document.querySelector('#card-link');
-        const editBtn = document.querySelector('#editBtn');
-        // if (isOwnProfile) {
-
-            // cardContainer.addEventListener('mouseenter', () => {
-            //
-            //     cardLink.animate([
-            //         {width: '100%'},
-            //         {width: '80%'}
-            //     ], {
-            //         duration: 200,
-            //         fill: "forwards",
-            //     });
-            //     editBtn.style.display = 'block';
-            //     editBtn.style.flexGrow = '1';
-            //     setTimeout(() => {
-            //         editBtn.innerHTML = 'Edit';
-            //     }, 190);
-            // })
-            // cardContainer.addEventListener('mouseleave', () => {
-            //
-            //     editBtn.innerHTML = '';
-            //     cardLink.animate([
-            //         {width: '80%'},
-            //         {width: '100%'}
-            //     ], {
-            //         duration: 100,
-            //         fill: "forwards"
-            //     });
-            //     editBtn.style.width = '0';
-            // })
-        // }
     });
     // style="display: ${(isOwnProfile) ? 'block' : 'none'}" for edit btn
     //style="width: ${(isOwnProfile) ? '90%' : '100%'}" for card link
@@ -106,13 +73,31 @@ function toEditProject(projectId) {
     }
 }
 
+const deleteProject = async (projectId) => {
+    //somehow get the button reference here...
+
+    if (window.confirm('Do you really want to delete this project?')) {
+        const fetchOptions = {
+            method: 'DELETE',
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+            }
+        }
+        console.log('projectList', projectId);
+        const response = await fetch(url + '/project/personal/' + projectId, fetchOptions);
+        console.log(response.json());
+        // window.location.replace(`myProfile.html?id=${currentUser.userId}`);
+    }
+}
+
 function author(project) {
+
     if (project.author === wantedUserId) {
         return project
     }
 }
-
 const displayUserInfo = async () => {
+
     try {
         const response = await fetch(url + '/user/' + wantedUserId);
         const userInfo = await response.json();
@@ -121,10 +106,10 @@ const displayUserInfo = async () => {
         console.log()
     }
 }
-
 let projectList;
 
 const displayPersonalProjects = async () => {
+
     try {
         const fetchOptions = {
             headers: {
@@ -143,6 +128,7 @@ const displayPersonalProjects = async () => {
         console.log(e.message);
     }
 };
+
 
 
 if (isOwnProfile) {
@@ -207,3 +193,29 @@ function filter(filterChoice) {
             break;
     }
 }
+
+searchBar.addEventListener('input', (evt) => {
+    setTimeout(() => {
+        searchBarFilter(searchBar.value);
+    }, 500)
+})
+
+function searchBarFilter(string) {
+    let listClone = [...projectList];
+    if (string.length === 0) {
+        createProjectCard(projectList)
+    } else {
+        const filtered = listClone.filter(project => project.name.toLowerCase().includes(string.toLowerCase()));
+        if (filtered.length === 0) {
+            userProjects.innerHTML = `
+                <p style="font-size: 100px; margin: 0">🔍</p>
+                <p id="not-found" style="color: rgba(255,255,255,0.7); font-size: 30px">No result found for '${string}'</p>
+            `
+        } else {
+            createProjectCard(filtered);
+        }
+    }
+}
+
+
+

@@ -107,7 +107,7 @@ const createAppMedia = (project) => {
 
 const createAppLongDescription = (project) => {
         longDescription.innerHTML =
-            `<p>${project.description}</p>`
+            `${project.description}`
 
         projectDetails.appendChild(longDescription);
 }
@@ -117,23 +117,63 @@ const createAppCommentInput = () => {
 
         const commentInput = document.createElement('div');
         commentInput.innerHTML += `      
-            <input type="text" placeholder="New comment" id="add-comment-input">
-            <button id="add-comment-btn">Add</button>
+            <button id="add-comment-btn" onclick="ShowPopup()">
+                <p id="comment-add-text">Add Comment</p> 
+                <img id="comment-bubble" src="../images/comment.png">
+            </button>
+            <div id="inputPopup" class="popup">
+                <div class="inputOutline">
+                    <h2>Add a comment</h2>
+                    <button id="closeBtn">&times</button>
+                    <textarea id="input" placeholder="Tell us what is on your mind..." name="addComment" required></textarea>
+                    <button id="addBtn">Add</button>
+                </div>
+            </div>
         `
+
         projectComments.appendChild(commentInput);
         projectDetails.appendChild(projectComments);
 
-        const input = document.querySelector('#add-comment-input');
-        const button = document.querySelector('#add-comment-btn');
-        button.addEventListener('click', (evt => {
+        const popupInput = document.querySelector('#input');
+        popupInput.autofocus = true;
+        const popupBtnClose = document.querySelector('#closeBtn');
+        const popupBtnAdd = document.querySelector('#addBtn');
+        popupBtnClose.addEventListener('click', (evt => {
+            evt.preventDefault()
+            document.getElementById('inputPopup').style.display=''
+            popupInput.value='';
+            body.style.overflowY = 'visible';
+        }));
+        popupBtnAdd.addEventListener('click', (evt => {
             evt.preventDefault();
-            if (input.value.length > 0) {
-                addComment(input.value).then(() => {
-                    input.value = '';
+            if (popupInput.value.length > 0) {
+                document.getElementById('inputPopup').style.display=''
+                addComment(popupInput.value).then(() => {
+                    popupInput.value = '';
+                    body.style.overflowY = 'visible';
                 });
             }
-        }))
+        }));
+        popupInput.addEventListener("keydown", (evt => {
+            if (evt.keyCode === 13){
+                evt.preventDefault();
+                if (popupInput.value.length > 0) {
+                    document.getElementById('inputPopup').style.display = ''
+                    addComment(popupInput.value).then(() => {
+                        popupInput.value = '';
+                        body.style.overflowY = 'visible';
+                    });
+                }
+            }
+        }));
+
     }
+}
+
+function ShowPopup () {
+    const inputPopup = document.getElementById('inputPopup');
+    inputPopup.style.display='flex';
+    body.style.overflowY = 'hidden';
 }
 
 async function addComment(comment) {
@@ -169,20 +209,28 @@ const createAppComments = (comments) => {
         const commentList = document.createElement('ul');
         commentList.id = 'commentList';
         comments.forEach((comment) => {
+        const isAuthor = user.userId === comment.userId;
+        console.log('is author', isAuthor);
+            commentList.style.backgroundColor = "transparent";
             commentList.innerHTML +=
                 `<li class="userComment">
-                <a href="../html/myProfile.html?id=${comment.userId}"><p id="name">${comment.userName}</p></a>
-                <p id="comment">${comment.comment}</p>
+                    <a href="../html/myProfile.html?id=${comment.userId}"><img id="comment-pic" src=${url + '/uploads/user/' + comment.profilePic} alt="profile picture of commenter"></a>
+                    <div id="comment-info">
+                        <p id="name" onclick="toProfile(${comment.userId})">${comment.username}</p>
+                        <p id="comment">${comment.comment}</p>
+                        <p id="comment-date">${comment.timeStamp.split(' ').shift()}</p>
+                    </div>
+                    ${(isAuthor) ? '<img id="comment-delete" src="../images/delete.png" onclick="deleteComment('+ comment.commentId +')">' : ''}
             </li>`
         });
-        projectComments.appendChild(commentList);
-        projectDetails.appendChild(projectComments);
+        const commentSection = document.querySelector('#comments')
+        commentSection.appendChild(commentList);
+        // projectDetails.appendChild(projectComments);
     }
 }
 
-
-const createAppMoreInfo = (project) => {
-
+function toProfile(userId) {
+    location.href = `../html/myProfile.html?id=${userId}`;
 }
 
 const getGitLink = (user, githubLink) => {
@@ -247,11 +295,11 @@ const getProject = async () => {
         createAppOverview(project, authorId);
         console.log('author', authorId);
         createAppMedia(project);
-        createAppCommentInput();
-        await getComments();
         if (project.description) {
             createAppLongDescription(project, authorId);
         }
+        createAppCommentInput();
+        await getComments();
         userInformation(authorId);
     } catch (e) {
         console.log(e.message);
@@ -286,6 +334,31 @@ const getComments = async () => {
         const commentResponse = await fetch(url + '/project/comments/' + projectId, fetchOptions);
         const comments = await commentResponse.json();
         createAppComments(comments)
+    } catch (e) {
+        console.log(e.message);
+    }
+}
+
+const deleteComment = async (commentId) => {
+    try {
+        const data = {
+            'commentId': commentId
+        }
+        const fetchOptions = {
+            method: 'DELETE',
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(data),
+
+        }
+        const commentResponse = await fetch(url + '/project/comments/', fetchOptions);
+        const comments = await commentResponse.json();
+
+        console.log(comments);
+
+        await getComments();
     } catch (e) {
         console.log(e.message);
     }
