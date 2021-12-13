@@ -140,8 +140,10 @@ async function addComment(comment) {
     const data = {
         "comment": comment,
         "userId": user.userId,
-        "projectId": projectId
+        "userName": user.username,
+        "projectId": projectId,
     }
+    console.log(data);
     const fetchOptions = {
         method: 'POST',
         headers: {
@@ -169,7 +171,7 @@ const createAppComments = (comments) => {
         comments.forEach((comment) => {
             commentList.innerHTML +=
                 `<li class="userComment">
-                <a href="../html/myProfile.html?id=${comment.userId}"><p id="name">${comment.username}</p></a>
+                <a href="../html/myProfile.html?id=${comment.userId}"><p id="name">${comment.userName}</p></a>
                 <p id="comment">${comment.comment}</p>
             </li>`
         });
