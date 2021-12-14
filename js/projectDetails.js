@@ -43,7 +43,6 @@ const createAppOverview = (project, authorId, rating) => {
     const nameInCaps = convertNameToCaps(project.name);
     const outline = project.outline;
     const shortDesc = (outline) ? outline.charAt(0).toUpperCase() + outline.slice(1) : '';
-
     appOverview.innerHTML = '';
     appOverview.innerHTML +=
         `<div id="appOverviewTop">
@@ -54,7 +53,7 @@ const createAppOverview = (project, authorId, rating) => {
             </div>
             <div id="card-likes">
                 <img id="arrow-up" src="../images/arrow-up.png" alt="up-arrow" onclick="upVote()"/>
-                <div id="card-like-count">${rating[0]}</div>
+                <div id="card-like-count">9999</div>
                 <img id="arrow-down" src="../images/arrow-down.png" alt="down-arrow" onclick="downVote()"/>
          </div>
          </div>
@@ -294,8 +293,8 @@ const getProject = async () => {
         console.log('get project response', project)
         const authorResponse = await fetch(url + '/user/' + project.author);
         const authorId = await authorResponse.json();
-        const projectRating = getProjectRating();
-        createAppOverview(project, authorId, projectRating);
+        await getProjectRating();
+        createAppOverview(project, authorId);
         console.log('author', authorId);
         createAppMedia(project);
         if (project.description) {
@@ -329,7 +328,8 @@ const getProjectAuthor = async () => {
 const getProjectRating = async () => {
     const ratingResponse = await fetch(url + '/project/projectRating/' + projectId);
     const projectRating = await ratingResponse.json();
-    console.log('project rating', projectRating);
+    console.log('project rating', projectRating.rating);
+    return projectRating.rating;
 }
 
 const getComments = async () => {
