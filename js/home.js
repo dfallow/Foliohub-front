@@ -12,12 +12,15 @@ let projectsExample;
 //creating list of projects
 const createProjectList = (projects) => {
     //clear ul element
+    ul.innerHTML = '';
     projects.forEach((project) => {
         //creating li element with DOM methods
 
         const src = (project.logo) ? url + '/uploads/project/' + project.logo : '../images/logo.png';
         const alt = (project.logo) ? project.name : 'no picture';
         const href = `../html/projectDetails.html?id=${project.id}`
+        const thumbUpDown = (project.rating < 0) ? -1 : 1;
+
 
         ul.innerHTML +=
             `<a href="${href}">
@@ -25,7 +28,20 @@ const createProjectList = (projects) => {
                         <figure class="project-card-fig">
                             <img id="appLogo" src="${src}" alt="${alt}">
                         </figure>
-                        <h3 class="project-card-title">${project.name}</h3>
+                        <div id="card-bottom">
+                            <h3 class="project-card-title">${project.name}</h3>
+                            <div id="project-stats">
+                                <div id="comment-count">
+                                    <img src="../images/comment.png" alt="">
+                                    <p>${project.comments}</p>
+                                </div>
+                                <div id="rating">
+                                    <img src="../images/like.png" alt="" style="transform: scaleY(${thumbUpDown})">
+                                    <p>${project.rating}</p>      
+                                </div>
+                            </div>
+                        </div>
+                        
                     </li>
                 </a>`
     });
@@ -41,11 +57,15 @@ const getProjects = async () => {
         console.log(projects)
         projectsExample = projects;
         createProjectList(projects);
+        if (sessionStorage.getItem('projectDetailsVisited')) {
+            const response2 = await fetch(url + '/project');
+            projects = await response2.json();
+            createProjectList(projects);
+        }
     } catch (e) {
         console.log(e.message);
     }
 };
-getProjects();
 
 // loadMore.addEventListener('click', (evt => {
 //     evt.preventDefault();
@@ -78,6 +98,23 @@ function filter(filterChoice) {
             })
             createProjectList(listClone.reverse());
             break;
+        case 'rating':
+            listClone.sort(function (a,b){
+                if (a.rating > b.rating) {return 1; }
+                if (a.rating < b.rating) {return -1; }
+                return 0;
+            })
+            createProjectList(listClone.reverse());
+            break;
+        case 'comments':
+            listClone.sort(function (a,b){
+                if (a.comments > b.comments) {return 1; }
+                if (a.comments < b.comments) {return -1; }
+                return 0;
+            })
+            createProjectList(listClone.reverse());
+            break;
+
     }
 }
 
@@ -109,5 +146,11 @@ function searchBarFilter(string) {
         }
     }
 }
+
+window.onpageshow = () => {
+    getProjects();
+}
+
+
 
 
