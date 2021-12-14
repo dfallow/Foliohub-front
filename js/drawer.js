@@ -109,15 +109,33 @@ const createDrawer = () => {
 }
 
 function openDrawer() {
+    console.log('trying to open')
     sideMenu.style.display = 'flex';
-    sideMenu.style.minWidth = '500px';
+    sideMenu.animate([
+        {width: '0'},
+        {width: '500px'}
+    ], {
+        duration: 100,
+        fill: "forwards"
+    });
+
+
+
+    // sideMenu.style.display = 'flex';
+    // sideMenu.style.minWidth = '500px';
     body.style.overflow = 'hidden';
 }
 
 function closeDrawer() {
-    sideMenu.style.display = 'none';
-    sideMenu.style.width = '0';
+    sideMenu.animate([
+        {width: '500px'},
+        {width: '0'}
+    ], {
+        duration: 100,
+        fill:"forwards"
+    })
     body.style.overflow = 'auto';
+    // sideMenu.style.width = '0';
 }
 
 function modifyAccount() {

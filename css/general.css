@@ -1,12 +1,19 @@
 * {
     box-sizing: border-box;
-    font-family: "Arial", serif;
+    font-family: 'Titillium Web', sans-serif;
 }
 
 body {
     height: 100%;
     margin: 10px 0;
     padding: 2vh;
+
+}
+
+html{
+    background: #2b5876;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #4e4376, #2b5876);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #4e4376, #2b5876); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .menu {
@@ -63,14 +70,15 @@ body {
     border: 2px solid lightgray;
     border-radius: 10px;
     padding: 5px;
+    cursor: pointer;
 }
 
 .bar {
     width: 80%;
     height: 5%;
     min-height: 3px;
-    background-color: black;
-    opacity: 70%;
+    background-color: white;
+    opacity: 80%;
     margin: 3px 0;
     border-radius: 20px;
 }
@@ -101,18 +109,18 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #cbcbcb;
-    height: 100vh;
+    background-color: #252525;
+    height: 101vh;
     border-radius: 0 20px 20px 0;
     display: none;
     flex-direction: column;
     justify-content: start;
     overflow-x: hidden;
     padding: 4vh 5vh;
-    transition: 0.1s;
-    opacity: 0.95;
+    opacity: 0.99;
     z-index: 9000;
 }
+
 
 #drawer-user-info {
     display: flex;
@@ -121,16 +129,18 @@ body {
     width: 100%;
     margin-bottom: 10px;
     padding-bottom: 1.5vh;
-    border-bottom: 2px outset black;
+    border-bottom: 2px outset rgba(255,255,255, 0.8);
     cursor: pointer;
 }
 #drawer-user-info:hover,  #side-menu a:hover{
-    background-color: gray;
-    transition: 0.4s;
+    background-color: grey;
+    transition: 0.2s;
 }
 
 #drawer-user-info h1 {
     font-size: 2vh;
+    color: white;
+    opacity: 0.8;
 }
 
 #drawer-pic {
@@ -138,7 +148,6 @@ body {
     width: 18vh;
     height: 18vh;
     margin-right: 5vw;
-    border: 1px solid black;
     opacity: 1;
 }
 
@@ -153,6 +162,8 @@ body {
 .drawer-item p {
     padding: 0;
     margin: 0;
+    color: white;
+    opacity: 0.8;
 }
 
 .drawer-item-logo {
@@ -160,6 +171,8 @@ body {
     height: 50px;
     margin-right: 1.5vh;
     opacity: 1;
+    filter: invert(100%);
+
 }
 
 .drawer-settings {
@@ -171,6 +184,8 @@ body {
     font-size: 5vh;
     height: 5vh;
     z-index: 9001;
+    color: white;
+    opacity: 0.8;
 }
 
 #drawer-settings {

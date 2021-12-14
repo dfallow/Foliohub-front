@@ -30,7 +30,7 @@ const userInfo = document.querySelector('.user');
 let upArrow;
 let downArrow;
 
-const createAppOverview = (project, authorId) => {
+const createAppOverview = (project, authorId, rating) => {
 
     projectDetails.innerHTML = '';
 
@@ -54,7 +54,7 @@ const createAppOverview = (project, authorId) => {
             </div>
             <div id="card-likes">
                 <img id="arrow-up" src="../images/arrow-up.png" alt="up-arrow" onclick="upVote()"/>
-                <div id="card-like-count">9999</div>
+                <div id="card-like-count">${rating[0]}</div>
                 <img id="arrow-down" src="../images/arrow-down.png" alt="down-arrow" onclick="downVote()"/>
          </div>
          </div>
@@ -70,7 +70,9 @@ const createAppOverview = (project, authorId) => {
     projectDetails.appendChild(appOverview);
 
     upArrow = document.querySelector('#arrow-up');
+    upArrow.style.filter = "invert(100%)";
     downArrow = document.querySelector('#arrow-down');
+    downArrow.style.filter = "invert(100%)";
 
     const appOverviewBottom = document.querySelector('#appOverviewBottom');
     if (!outline) {
@@ -107,7 +109,7 @@ const createAppMedia = (project) => {
 
 const createAppLongDescription = (project) => {
         longDescription.innerHTML =
-            `<p>${project.description}</p>`
+            `${project.description}`
 
         projectDetails.appendChild(longDescription);
 }
@@ -117,13 +119,16 @@ const createAppCommentInput = () => {
 
         const commentInput = document.createElement('div');
         commentInput.innerHTML += `      
-            <button onclick="document.getElementById('inputPopup').style.display='flex'">Add Comment</button>
-
+            <button id="add-comment-btn" onclick="ShowPopup()">
+                <p id="comment-add-text">Add Comment</p> 
+                <img id="comment-bubble" src="../images/comment.png">
+            </button>
             <div id="inputPopup" class="popup">
                 <div class="inputOutline">
-                    <button id="closeBtn" onclick="document.getElementById('inputPopup').style.display=''">&times</button>
-                    <textarea id="input" placeholder="Add Comment" name="addComment" required></textarea>
-                    <button id="addBtn">+</button>
+                    <h2>Add a comment</h2>
+                    <button id="closeBtn">&times</button>
+                    <textarea id="input" placeholder="Tell us what is on your mind..." name="addComment" required></textarea>
+                    <button id="addBtn">Add</button>
                 </div>
             </div>
         `
@@ -131,23 +136,15 @@ const createAppCommentInput = () => {
         projectComments.appendChild(commentInput);
         projectDetails.appendChild(projectComments);
 
-        const popupInput = document.getElementById('input');
-        const addCommentBtn = document.getElementById('closeBtn');
-        addCommentBtn.addEventListener('click', (evt) => {
-            evt.preventDefault();
-            document.getElementById('inputPopup').style.display ='flex';
-
-            popupInput.click();
-
-        })
-
-
-
+        const popupInput = document.querySelector('#input');
+        popupInput.autofocus = true;
         const popupBtnClose = document.querySelector('#closeBtn');
         const popupBtnAdd = document.querySelector('#addBtn');
         popupBtnClose.addEventListener('click', (evt => {
             evt.preventDefault()
             document.getElementById('inputPopup').style.display=''
+            popupInput.value='';
+            body.style.overflowY = 'visible';
         }));
         popupBtnAdd.addEventListener('click', (evt => {
             evt.preventDefault();
@@ -155,25 +152,37 @@ const createAppCommentInput = () => {
                 document.getElementById('inputPopup').style.display=''
                 addComment(popupInput.value).then(() => {
                     popupInput.value = '';
+                    body.style.overflowY = 'visible';
                 });
             }
         }));
-        popupInput.addEventListener("keyup", (evt => {
-            evt.preventDefault();
-            if (evt.keyCode === 13 && popupInput.value.length > 0){
-                document.getElementById('inputPopup').style.display=''
-                addComment(popupInput.value).then(() => {
-                    popupInput.value = '';
-                });
+        popupInput.addEventListener("keydown", (evt => {
+            if (evt.keyCode === 13){
+                evt.preventDefault();
+                if (popupInput.value.length > 0) {
+                    document.getElementById('inputPopup').style.display = ''
+                    addComment(popupInput.value).then(() => {
+                        popupInput.value = '';
+                        body.style.overflowY = 'visible';
+                    });
+                }
             }
         }));
+
     }
+}
+
+function ShowPopup () {
+    const inputPopup = document.getElementById('inputPopup');
+    inputPopup.style.display='flex';
+    body.style.overflowY = 'hidden';
 }
 
 async function addComment(comment) {
     const data = {
         "comment": comment,
         "userId": user.userId,
+        "userName": user.username,
         "projectId": projectId,
     }
     console.log(data);
@@ -191,7 +200,6 @@ async function addComment(comment) {
     console.log(json);
 
     await getComments();
-
 }
 
 const createAppComments = (comments) => {
@@ -203,20 +211,28 @@ const createAppComments = (comments) => {
         const commentList = document.createElement('ul');
         commentList.id = 'commentList';
         comments.forEach((comment) => {
+        const isAuthor = user.userId === comment.userId;
+        console.log('is author', isAuthor);
+            commentList.style.backgroundColor = "transparent";
             commentList.innerHTML +=
                 `<li class="userComment">
-                <a href="../html/myProfile.html?id=${comment.userId}"><p id="name">${comment.username}</p></a>
-                <p id="comment">${comment.comment}</p>
+                    <a href="../html/myProfile.html?id=${comment.userId}"><img id="comment-pic" src=${url + '/uploads/user/' + comment.profilePic} alt="profile picture of commenter"></a>
+                    <div id="comment-info">
+                        <p id="name" onclick="toProfile(${comment.userId})">${comment.username}</p>
+                        <p id="comment">${comment.comment}</p>
+                        <p id="comment-date">${comment.timeStamp.split(' ').shift()}</p>
+                    </div>
+                    ${(isAuthor) ? '<img id="comment-delete" src="../images/delete.png" onclick="deleteComment('+ comment.commentId +')">' : ''}
             </li>`
         });
-        projectComments.appendChild(commentList);
-        projectDetails.appendChild(projectComments);
+        const commentSection = document.querySelector('#comments')
+        commentSection.appendChild(commentList);
+        // projectDetails.appendChild(projectComments);
     }
 }
 
-
-const createAppMoreInfo = (project) => {
-
+function toProfile(userId) {
+    location.href = `../html/myProfile.html?id=${userId}`;
 }
 
 const getGitLink = (user, githubLink) => {
@@ -278,14 +294,15 @@ const getProject = async () => {
         console.log('get project response', project)
         const authorResponse = await fetch(url + '/user/' + project.author);
         const authorId = await authorResponse.json();
-        createAppOverview(project, authorId);
+        const projectRating = getProjectRating();
+        createAppOverview(project, authorId, projectRating);
         console.log('author', authorId);
         createAppMedia(project);
-        createAppCommentInput();
-        await getComments();
         if (project.description) {
             createAppLongDescription(project, authorId);
         }
+        createAppCommentInput();
+        await getComments();
         userInformation(authorId);
     } catch (e) {
         console.log(e.message);
@@ -309,6 +326,12 @@ const getProjectAuthor = async () => {
 
 }
 
+const getProjectRating = async () => {
+    const ratingResponse = await fetch(url + '/project/projectRating/' + projectId);
+    const projectRating = await ratingResponse.json();
+    console.log('project rating', projectRating);
+}
+
 const getComments = async () => {
     try {
         const fetchOptions = {
@@ -325,6 +348,31 @@ const getComments = async () => {
     }
 }
 
+const deleteComment = async (commentId) => {
+    try {
+        const data = {
+            'commentId': commentId
+        }
+        const fetchOptions = {
+            method: 'DELETE',
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(data),
+
+        }
+        const commentResponse = await fetch(url + '/project/comments/', fetchOptions);
+        const comments = await commentResponse.json();
+
+        console.log(comments);
+
+        await getComments();
+    } catch (e) {
+        console.log(e.message);
+    }
+}
+
 getProject();
 
 const convertNameToCaps = (name) => {
@@ -336,20 +384,26 @@ const convertNameToCaps = (name) => {
 
 }
 const upVote = (project) => {
-    if (upArrow.style.backgroundColor === "green") {
-        upArrow.style.backgroundColor = "white";
+    if (upArrow.style.filter === "invert(100%)") {
+        // TODO insert/modify rating to be 1
+        upArrow.style.filter = "invert(64%) sepia(76%) saturate(711%) hue-rotate(43deg) brightness(114%) contrast(104%)";
+        downArrow.style.filter = "invert(100%)";
     } else {
-        upArrow.style.backgroundColor = "green";
-        downArrow.style.backgroundColor = "white";
+        // TODO modify rating to be 0
+        upArrow.style.filter = "invert(100%)";
+        downArrow.style.filter = "invert(100%)";
     }
 
 }
 const downVote = (project) => {
-    if (downArrow.style.backgroundColor === "red") {
-        downArrow.style.backgroundColor = "white";
+    if (downArrow.style.filter === "invert(100%)") {
+        // TODO insert/modify rating to be -1
+        downArrow.style.filter = "invert(24%) sepia(59%) saturate(6111%) hue-rotate(337deg) brightness(85%) contrast(104%)";
+        upArrow.style.filter = "invert(100%)";
     } else {
-        upArrow.style.backgroundColor = "white";
-        downArrow.style.backgroundColor = "red";
+        //TODO modify rating to be 0
+        upArrow.style.filter = "invert(100%)";
+        downArrow.style.filter = "invert(100%)";
     }
 
 }

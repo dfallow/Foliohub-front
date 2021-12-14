@@ -58,6 +58,7 @@ if (githubLink) {
             githubLink.style.backgroundImage = "url('../images/github.png')"
         } else if (user.github.includes('gitlab')) {
             githubLink.style.backgroundImage = "url('../images/gitlab.png')"
+            githubLink.style.backgroundColor = "white"
         } else {
             githubLink.style.backgroundImage = "url('../images/idk.png')"
         }
