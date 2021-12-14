@@ -18,7 +18,9 @@ const checkAuthor = async () => {
 const projectDetails = document.querySelector('#projectDetails');
 
 const appOverview = document.querySelector('#appOverview');
-
+let likes;
+let rating;
+let ownRating;
 const vidMedia = document.querySelector('#videoMedia')
 const imgMedia = document.querySelector('#imageMedia');
 const projectComments = document.querySelector('#comments');
@@ -30,7 +32,7 @@ const userInfo = document.querySelector('.user');
 let upArrow;
 let downArrow;
 
-const createAppOverview = (project, authorId, rating) => {
+const createAppOverview = (project, authorId) => {
 
     projectDetails.innerHTML = '';
 
@@ -54,7 +56,7 @@ const createAppOverview = (project, authorId, rating) => {
             </div>
             <div id="card-likes">
                 <img id="arrow-up" src="../images/arrow-up.png" alt="up-arrow" onclick="upVote()"/>
-                <div id="card-like-count">${rating[0]}</div>
+                <div id="card-like-count">0</div>
                 <img id="arrow-down" src="../images/arrow-down.png" alt="down-arrow" onclick="downVote()"/>
          </div>
          </div>
@@ -78,9 +80,8 @@ const createAppOverview = (project, authorId, rating) => {
     if (!outline) {
         appOverviewBottom.style.display = 'none';
         appOverview.style.minHeight = 'auto';
-    };
-
-
+    }
+    ;
 }
 
 const createAppMedia = (project) => {
@@ -108,10 +109,10 @@ const createAppMedia = (project) => {
 }
 
 const createAppLongDescription = (project) => {
-        longDescription.innerHTML =
-            `${project.description}`
+    longDescription.innerHTML =
+        `${project.description}`
 
-        projectDetails.appendChild(longDescription);
+    projectDetails.appendChild(longDescription);
 }
 
 const createAppCommentInput = () => {
@@ -142,14 +143,14 @@ const createAppCommentInput = () => {
         const popupBtnAdd = document.querySelector('#addBtn');
         popupBtnClose.addEventListener('click', (evt => {
             evt.preventDefault()
-            document.getElementById('inputPopup').style.display=''
-            popupInput.value='';
+            document.getElementById('inputPopup').style.display = ''
+            popupInput.value = '';
             body.style.overflowY = 'visible';
         }));
         popupBtnAdd.addEventListener('click', (evt => {
             evt.preventDefault();
             if (popupInput.value.length > 0) {
-                document.getElementById('inputPopup').style.display=''
+                document.getElementById('inputPopup').style.display = ''
                 addComment(popupInput.value).then(() => {
                     popupInput.value = '';
                     body.style.overflowY = 'visible';
@@ -157,7 +158,7 @@ const createAppCommentInput = () => {
             }
         }));
         popupInput.addEventListener("keydown", (evt => {
-            if (evt.keyCode === 13){
+            if (evt.keyCode === 13) {
                 evt.preventDefault();
                 if (popupInput.value.length > 0) {
                     document.getElementById('inputPopup').style.display = ''
@@ -172,9 +173,9 @@ const createAppCommentInput = () => {
     }
 }
 
-function ShowPopup () {
+function ShowPopup() {
     const inputPopup = document.getElementById('inputPopup');
-    inputPopup.style.display='flex';
+    inputPopup.style.display = 'flex';
     body.style.overflowY = 'hidden';
 }
 
@@ -211,18 +212,19 @@ const createAppComments = (comments) => {
         const commentList = document.createElement('ul');
         commentList.id = 'commentList';
         comments.forEach((comment) => {
-        const isAuthor = user.userId === comment.userId;
-        console.log('is author', isAuthor);
+            const isAuthor = user.userId === comment.userId;
+            console.log('is author', isAuthor);
             commentList.style.backgroundColor = "transparent";
+            const commentPic = (!comment.profilePic) ? '../images/profilePic.png' : url + '/uploads/user/' + comment.profilePic
             commentList.innerHTML +=
                 `<li class="userComment">
-                    <a href="../html/myProfile.html?id=${comment.userId}"><img id="comment-pic" src=${url + '/uploads/user/' + comment.profilePic} alt="profile picture of commenter"></a>
+                    <a href="../html/myProfile.html?id=${comment.userId}"><img id="comment-pic" src="${commentPic}" alt=""></a>
                     <div id="comment-info">
                         <p id="name" onclick="toProfile(${comment.userId})">${comment.username}</p>
                         <p id="comment">${comment.comment}</p>
                         <p id="comment-date">${comment.timeStamp.split(' ').shift()}</p>
                     </div>
-                    ${(isAuthor) ? '<img id="comment-delete" src="../images/delete.png" onclick="deleteComment('+ comment.commentId +')">' : ''}
+                    ${(isAuthor) ? '<img id="comment-delete" src="../images/delete.png" onclick="deleteComment(' + comment.commentId + ')">' : ''}
             </li>`
         });
         const commentSection = document.querySelector('#comments')
@@ -285,7 +287,7 @@ const getProject = async () => {
             }
         }
         if (sessionStorage.getItem('user')) {
-           await checkAuthor();
+            await checkAuthor();
         }
         const route = (isAuthor) ? '/project/personal/' : '/project/';
         console.log('route', route);
@@ -294,8 +296,8 @@ const getProject = async () => {
         console.log('get project response', project)
         const authorResponse = await fetch(url + '/user/' + project.author);
         const authorId = await authorResponse.json();
-        const projectRating = getProjectRating();
-        createAppOverview(project, authorId, projectRating);
+        createAppOverview(project, authorId);
+        await updateRating();
         console.log('author', authorId);
         createAppMedia(project);
         if (project.description) {
@@ -327,9 +329,93 @@ const getProjectAuthor = async () => {
 }
 
 const getProjectRating = async () => {
-    const ratingResponse = await fetch(url + '/project/projectRating/' + projectId);
-    const projectRating = await ratingResponse.json();
-    console.log('project rating', projectRating);
+    try {
+        const ratingResponse = await fetch(url + '/project/projectRating/' + projectId);
+        const projectRating = await ratingResponse.json();
+        console.log('project rating', projectRating.rating);
+        return (projectRating.rating) ? projectRating.rating : 0;
+    } catch (e) {
+        console.log(e.message);
+    }
+}
+
+const getOwnRating = async () => {
+    try {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/project/projectRating/own/' + projectId, fetchOptions);
+        const fetchedOwnRating = await response.json();
+        const ownRatingRating = fetchedOwnRating.rating;
+        console.log('fetchedOwnRating', ownRatingRating);
+        return ownRatingRating;
+    } catch (e) {
+        console.error(e.message);
+    }
+}
+
+const updateRating = async () => {
+    likes = document.querySelector('#card-like-count')
+    rating = await getProjectRating();
+    ownRating = await getOwnRating();
+    console.log('rating', rating);
+    console.log('own rating', ownRating);
+    if (likes) {
+        (rating) ? likes.innerHTML = rating.toString() : likes.innerHTML = '0';
+    }
+    switch (ownRating) {
+        case -1:
+            downArrow.style.filter = "invert(24%) sepia(59%) saturate(6111%) hue-rotate(337deg) brightness(85%) contrast(104%)";
+            upArrow.style.filter = "invert(100%)";
+            break;
+        case 1:
+            upArrow.style.filter = "invert(64%) sepia(76%) saturate(711%) hue-rotate(43deg) brightness(114%) contrast(104%)";
+            downArrow.style.filter = "invert(100%)";
+            break;
+        default:
+            downArrow.style.filter = "invert(100%)";
+            upArrow.style.filter = "invert(100%)";
+            break;
+
+    }
+}
+
+const insertRating = async () => {
+
+}
+
+console.log('test null', 0 === null);
+
+const modifyRating = async (rating) => {
+    console.log('is ownRating undefined?', ownRating);
+    let fetchOptions = {
+        method: 'PUT',
+        headers: {
+            Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify({'rating': rating}),
+    }
+
+    if (ownRating === null || ownRating === undefined) {
+        console.log('post method');
+        fetchOptions = {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify({'rating': rating}),
+        }
+    }
+
+    console.log('fetchOptions', fetchOptions);
+    const response = await fetch(url + '/project/projectRating/' + projectId, fetchOptions);
+    // console.log(await response.json());
+    await updateRating();
 }
 
 const getComments = async () => {
@@ -383,27 +469,32 @@ const convertNameToCaps = (name) => {
     return nameArr.join(" ");
 
 }
-const upVote = (project) => {
+const upVote = () => {
     if (upArrow.style.filter === "invert(100%)") {
         // TODO insert/modify rating to be 1
+
         upArrow.style.filter = "invert(64%) sepia(76%) saturate(711%) hue-rotate(43deg) brightness(114%) contrast(104%)";
         downArrow.style.filter = "invert(100%)";
+        modifyRating(1);
     } else {
         // TODO modify rating to be 0
         upArrow.style.filter = "invert(100%)";
         downArrow.style.filter = "invert(100%)";
+        modifyRating(0);
     }
 
 }
-const downVote = (project) => {
+const downVote = () => {
     if (downArrow.style.filter === "invert(100%)") {
         // TODO insert/modify rating to be -1
         downArrow.style.filter = "invert(24%) sepia(59%) saturate(6111%) hue-rotate(337deg) brightness(85%) contrast(104%)";
         upArrow.style.filter = "invert(100%)";
+        modifyRating(-1);
     } else {
         //TODO modify rating to be 0
         upArrow.style.filter = "invert(100%)";
         downArrow.style.filter = "invert(100%)";
+        modifyRating(0);
     }
 
 }

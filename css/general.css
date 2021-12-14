@@ -28,10 +28,12 @@ html{
 }
 
 .mainMobileButton {
-    background-color: #c4c4c4;
+    background-color: rgba(0,0,0,0.7);
     display: flex;
     align-items: center;
     justify-content: center;
+    outline: none;
+    border: none;
     font-size: 3vh;
     color: white;
     width: 300px;
@@ -41,11 +43,12 @@ html{
 }
 
 .mainMobileInput {
-    background-color: #E5E5E5;
+    background-color: rgba(255,255,255,0.8);
     padding: 2vh 3vh;
     width: 100%;
     font-size: 3vh;
     border-radius: 20px;
+    outline: none;
     border: none;
     margin: 5px 0;
     text-align: justify;
