@@ -85,8 +85,8 @@ const deleteProject = async (projectId) => {
         }
         console.log('projectList', projectId);
         const response = await fetch(url + '/project/personal/' + projectId, fetchOptions);
-        console.log(response.json());
-        // window.location.replace(`myProfile.html?id=${currentUser.userId}`);
+        console.log(await response.json());
+        await displayPersonalProjects();
     }
 }
 
@@ -128,8 +128,6 @@ const displayPersonalProjects = async () => {
         console.log(e.message);
     }
 };
-
-
 
 if (isOwnProfile) {
     updateUserInfo(currentUser);

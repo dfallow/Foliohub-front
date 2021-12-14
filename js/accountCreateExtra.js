@@ -126,4 +126,10 @@ imageInput.addEventListener('change', () => {
     displayPicture(bgUrl);
 })
 
+window.onbeforeunload = () => {
+    if (!sessionStorage.getItem('modifying-profile')) {
+        sessionStorage.removeItem('user')
+    }
+}
+
 

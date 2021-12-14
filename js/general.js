@@ -6,9 +6,12 @@ const user = JSON.parse(sessionStorage.getItem('user'));
 
 //Logo to home
 const logo = document.querySelector('#logo');
-logo.addEventListener('click', (evt) => {
-    location.href = 'home.html';
-})
+if (logo) {
+    logo.addEventListener('click', (evt) => {
+        location.href = 'home.html';
+    })
+}
+
 
 const profilePic = document.querySelector('#profilePic');
 const profilePicContainer = document.querySelector('#profilePicContainer');

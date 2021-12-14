@@ -53,9 +53,10 @@ h2 {
     justify-content: center;
     height: 30vh;
     width: 30vh;
-    background-color: white;
-    border: 2px solid #cbcbcb;
+    background-color: rgba(255,255,255,0.9);
+    border: 3px solid rgba(0,0,0,0.7);
     border-radius: 50%;
+
 }
 
 input[type="file"] {
@@ -64,17 +65,22 @@ input[type="file"] {
 
 
 .custom-file-upload {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 6vh;
-    background-color: #E5E5E5;
+    font-size: 70px;
+    background-color: rgba(0,0,0,0.7);
     border-radius: 200%;
     cursor: pointer;
     width: 7vh;
     height: 7vh;
     max-width: 30vh;
+}
+
+.custom-file-upload p {
+    transform: translateY(-5%);
 }
 
 
@@ -105,6 +111,13 @@ input[type="file"] {
         margin: auto;
         border-radius: 20px;
         box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .custom-file-upload p {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -123%);
     }
 
 }
