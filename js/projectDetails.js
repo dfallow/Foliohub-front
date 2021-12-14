@@ -117,22 +117,56 @@ const createAppCommentInput = () => {
 
         const commentInput = document.createElement('div');
         commentInput.innerHTML += `      
-            <input type="text" placeholder="New comment" id="add-comment-input">
-            <button id="add-comment-btn">Add</button>
+            <button onclick="document.getElementById('inputPopup').style.display='flex'">Add Comment</button>
+
+            <div id="inputPopup" class="popup">
+                <div class="inputOutline">
+                    <button id="closeBtn" onclick="document.getElementById('inputPopup').style.display=''">&times</button>
+                    <textarea id="input" placeholder="Add Comment" name="addComment" required></textarea>
+                    <button id="addBtn">+</button>
+                </div>
+            </div>
         `
+
         projectComments.appendChild(commentInput);
         projectDetails.appendChild(projectComments);
 
-        const input = document.querySelector('#add-comment-input');
-        const button = document.querySelector('#add-comment-btn');
-        button.addEventListener('click', (evt => {
+        const popupInput = document.getElementById('input');
+        const addCommentBtn = document.getElementById('closeBtn');
+        addCommentBtn.addEventListener('click', (evt) => {
             evt.preventDefault();
-            if (input.value.length > 0) {
-                addComment(input.value).then(() => {
-                    input.value = '';
+            document.getElementById('inputPopup').style.display ='flex';
+
+            popupInput.click();
+
+        })
+
+
+
+        const popupBtnClose = document.querySelector('#closeBtn');
+        const popupBtnAdd = document.querySelector('#addBtn');
+        popupBtnClose.addEventListener('click', (evt => {
+            evt.preventDefault()
+            document.getElementById('inputPopup').style.display=''
+        }));
+        popupBtnAdd.addEventListener('click', (evt => {
+            evt.preventDefault();
+            if (popupInput.value.length > 0) {
+                document.getElementById('inputPopup').style.display=''
+                addComment(popupInput.value).then(() => {
+                    popupInput.value = '';
                 });
             }
-        }))
+        }));
+        popupInput.addEventListener("keyup", (evt => {
+            evt.preventDefault();
+            if (evt.keyCode === 13 && popupInput.value.length > 0){
+                document.getElementById('inputPopup').style.display=''
+                addComment(popupInput.value).then(() => {
+                    popupInput.value = '';
+                });
+            }
+        }));
     }
 }
 
@@ -140,7 +174,6 @@ async function addComment(comment) {
     const data = {
         "comment": comment,
         "userId": user.userId,
-        "userName": user.username,
         "projectId": projectId,
     }
     console.log(data);
@@ -158,6 +191,7 @@ async function addComment(comment) {
     console.log(json);
 
     await getComments();
+
 }
 
 const createAppComments = (comments) => {
@@ -171,7 +205,7 @@ const createAppComments = (comments) => {
         comments.forEach((comment) => {
             commentList.innerHTML +=
                 `<li class="userComment">
-                <a href="../html/myProfile.html?id=${comment.userId}"><p id="name">${comment.userName}</p></a>
+                <a href="../html/myProfile.html?id=${comment.userId}"><p id="name">${comment.username}</p></a>
                 <p id="comment">${comment.comment}</p>
             </li>`
         });
