@@ -8,6 +8,10 @@ const passwordInput = document.querySelector('#passwordInput');
 const imageInput = document.querySelector('#image-upload');
 const regProfilePic = document.querySelector('#regProfilePic');
 const customFileUpload = document.querySelector('.custom-file-upload');
+//user tags
+const userTagInput = document.querySelector('#input-user-tag');
+const userTagInputBtn = document.querySelector('#check-user-tag');
+let tagArray = [];
 
 form.action = url + '/user';
 form.method = 'post';
@@ -62,8 +66,16 @@ if (modify) {
         inputs[1].value = user.username;
         inputs[2].value = user.title;
         textarea.value = (user.description === null) ? '' : user.description ;
-        inputs[3].value = (user.github === null) ? '' : user.github;
-        inputs[4].value = (user.tags === null) ? '' : user.tags;
+        //inputs[3].value = (user.tags === null) ? '' : user.tags;
+        inputs[4].value = (user.github === null) ? '' : user.github;
+
+        if (user.tags) {
+            console.log('should not be here');
+            tagArray = user.tags.split(',')
+            updateTags(tagArray);
+        }
+
+
         displayPicture(url + '/uploads/user/' + user.profilePic);
         for (let i of inputs) {
             console.log(i.name, i.value);
@@ -80,6 +92,7 @@ form.addEventListener('submit', (evt) => {
 const putEventListener = async (evt) => {
     evt.preventDefault();
     const data = new FormData(form);
+    data.set('tags', tagArray.toString());
     const fetchOptions = {
         method: 'PUT',
         headers: {
@@ -104,6 +117,7 @@ const putEventListener = async (evt) => {
 const postEventListener = async (evt) => {
     evt.preventDefault();
     const data = new FormData(form);
+    data.set('tags', tagArray.toString());
     const fetchOptions = {
         method: 'POST',
         body: data,
@@ -126,10 +140,44 @@ imageInput.addEventListener('change', () => {
     displayPicture(bgUrl);
 })
 
+userTagInputBtn.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    const charTest = /^[A-Za-z]+$/
+    const tag = userTagInput.value
+    const valid = charTest.test(tag);
+
+    /* TODO show validation comment for each*/
+    if (tagArray.length === 10) {
+        console.log('error: ', 'Reached tag limit');
+    } else if (tag === "") {
+        console.log('error', 'Field is empty');
+    } else if (tag.indexOf(' ') !== -1) {
+        console.log('error', 'Only one word allowed');
+    } else if (!valid) {
+        console.log('error', 'No special characters allowed');
+    } else {
+        console.log('here');
+        tagArray.push(tag);
+        userTagInput.value = '';
+        updateTags(tagArray);
+    }
+})
+
+function updateTags(tags) {
+    const userTagArray = document.querySelector('#user-tags-array');
+    userTagArray.innerHTML = '';
+    tags.forEach((tag, index) => {
+        userTagArray.innerHTML += `<p onclick="removeTag(${index})">${tag}</p>`;
+    })
+}
+
+function removeTag(index) {
+    tagArray.splice(index, 1);
+    updateTags(tagArray);
+}
+
 window.onbeforeunload = () => {
     if (!sessionStorage.getItem('modifying-profile')) {
         sessionStorage.removeItem('user')
     }
 }
-
-

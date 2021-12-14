@@ -11,6 +11,8 @@ const username = document.querySelector('#userName');
 const developerType = document.querySelector('#developerType');
 const memberSince = document.querySelector('#memberSince');
 const userDesc = document.querySelector('#userDesc');
+//TODO below 1
+const userTags = document.querySelector('#tags');
 const searchBar = document.querySelector('#searchBar');
 
 
@@ -33,6 +35,13 @@ function updateUserInfo(userInfo) {
         userDesc.style.display = 'none';
     }
     userDesc.innerHTML = userInfo.description;
+    /* TODO general styling of tags */
+    if (userInfo.tags) {
+        const tags = userInfo.tags.split(',');
+        tags.forEach((tag) => {
+            userTags.innerHTML += `<p>${tag}</p>`;
+        });
+    }
 }
 
 const userProjects = document.querySelector('#userProjects');
@@ -214,6 +223,3 @@ function searchBarFilter(string) {
         }
     }
 }
-
-
-
