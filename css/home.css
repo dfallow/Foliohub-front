@@ -95,11 +95,14 @@ body {
 }
 
 
+
 .project-card:hover {
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
-    transform: translateY(-10px);
-    transition: transform 0.2s ease-out;
+    transform: translateY(-10px) ;
+    transition: transform 0.2s ease-out, background-color 0.2s ease-in;
+    background-color: rgba(0,0,0,0.8);
 }
+
 
 .project-card:not(:hover) {
     transform: translateY(10px);

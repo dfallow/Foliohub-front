@@ -193,16 +193,26 @@ checkVideoBtn.addEventListener('click', (evt) => {
     const urlSplit = (videoUpload.value).split('=');
     const urlEnding = urlSplit[urlSplit.length - 1];
     console.log('url ending: ',urlEnding);
-    checkVideoBtn.style.display = 'none';
-    videoUpload.style.display = 'none';
-    videoWrapper.innerHTML = `<iframe width="100%" height="100%"  src="https://www.youtube.com/embed/${urlEnding}" title="YouTube video player" frameborder="0"
+    if(urlEnding !== ""){
+        checkVideoBtn.style.display = 'none';
+        videoUpload.style.display = 'none';
+        videoWrapper.innerHTML = `<iframe width="100%" height="100%"  src="https://www.youtube.com/embed/${urlEnding}" title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
-    removeVideoBtn.style.display = 'block';
-    videoWrapper.style.display = 'block';
+        removeVideoBtn.style.display = 'block';
+        videoWrapper.style.display = 'block';
+        videoUpload.style.color = 'black';
+        videoUpload.style.boxShadow = "none";
+        videoUpload.placeholder = 'Add Youtube URL...';
+    } else {
+        videoUpload.style.boxShadow = '0 0 5px 5px red';
+        videoUpload.placeholder = 'Give me a url?';
+    }
+
 })
 
 removeVideoBtn.addEventListener('click', (evt) => {
     evt.preventDefault()
+    videoUpload.style.boxShadow = 'none';
     removeVideoBtn.style.display = 'none';
     videoWrapper.style.display = 'none';
     checkVideoBtn.style.display = 'block';
@@ -228,8 +238,11 @@ function updatePictures() {
     uploadedPics.innerHTML = '';
     picturesArray.forEach((pic, index) => {
         const url = URL.createObjectURL(pic);
-        // uploadedPics.innerHTML += `<div id="uploaded-container"><img class="uploaded-pic" src="${url}"><div id="delete-image">X</div></div>`;
-        uploadedPics.innerHTML += `<img class="uploaded-pic" src="${url}" onclick="remove(${index})">`;
+        uploadedPics.innerHTML += `<div class="uploadedPic-container" style="position: relative;">
+                                      <img class="uploaded-pic" src="${url}">
+                                      <div id="hoverDeletePic"onclick="remove(${index})"><img id="trash" src="../images/trash-can-solid.svg"></div>
+                                      <div id="imgDelete" onclick="remove(${index})"><span id="times">&times;</span></div>
+                                   </div>`
     })
 }
 
