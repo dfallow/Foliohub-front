@@ -25,7 +25,7 @@ console.log('Current user: ', currentUser);
 
 function updateUserInfo(userInfo) {
     if (userInfo.profilePic) {
-        userImg.src = url + '/thumbnails/user/' + userInfo.profilePic;
+        userImg.src = url + '/uploads/user/' + userInfo.profilePic;
         userImg.alt = "user profile pic";
     }
     username.innerHTML = userInfo.username;
@@ -135,6 +135,7 @@ const displayUserInfo = async () => {
 let projectList;
 
 const displayPersonalProjects = async () => {
+
     try {
         const fetchOptions = {
             headers: {
@@ -144,8 +145,10 @@ const displayPersonalProjects = async () => {
         const route = (isOwnProfile) ? '/project/personal' : '/project';
         const response = await fetch(url + route, fetchOptions);
         const projects = await response.json();
+        console.log(projects);
         const userProjects = projects.filter(author);
         projectList = userProjects;
+        console.log('userProjects', userProjects);
         createProjectCard(userProjects);
     } catch (e) {
         console.log(e.message);

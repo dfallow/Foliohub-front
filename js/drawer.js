@@ -57,7 +57,7 @@ const linkToMyProfile = document.querySelector('#link-to-myprofile');
 
 const createDrawer = () => {
     const user = JSON.parse(sessionStorage.getItem('user'));
-    const profilePicSrc = (user.profilePic) ? window.GLOBAL_URL + '/thumbnails/user/' + user.profilePic : '../images/login.png';
+    const profilePicSrc = (user.profilePic) ? window.GLOBAL_URL + '/uploads/user/' + user.profilePic : '../images/login.png';
 
     sideMenu.innerHTML = `<a href="#" id="btn-close" onclick="closeDrawer()">&times;</a>
     <div id="drawer-user-info" onclick="goToMyProfile(user)">

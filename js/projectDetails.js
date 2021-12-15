@@ -258,7 +258,7 @@ const getGitLink = (user, githubLink) => {
 }
 
 const userInformation = (user) => {
-    const imgURL = (user.profilePic) ? url + '/thumbnails/user/' + user.profilePic : '../images/profilePic.png';
+    const imgURL = (user.profilePic) ? url + '/uploads/user/' + user.profilePic : '../images/profilePic.png';
     userInfo.innerHTML =
         `<a href="../html/myProfile.html?id=${user.userId}">
             <img id="userImg" src="${imgURL}" alt="users profile picture">
