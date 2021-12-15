@@ -105,7 +105,11 @@ img {
     padding: 0.5vh;
     font-weight: bold;
     text-align: center;
+    font-size: 1.5vh;
     background-color: white;
+    border: 4px solid #e5e5e5;
+    opacity: 0.9;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
     border-radius: 20px;
     min-width: 8vh;
     margin: 0;
@@ -360,6 +364,15 @@ a, a:hover, a:visited, a:active {
     #userDesc {
         height: 150px;
         margin: 30px 30px 10px 30px;
+    }
+
+    #tags p {
+        background-color: #e5e5e5;
+    }
+    #tags p:hover {
+        background-color: snow;
+        opacity: 1;
+        transition: opacity 0.2s, background-color 0.2s;
     }
 
     .menuTopRow {

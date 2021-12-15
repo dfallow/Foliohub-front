@@ -52,6 +52,7 @@ let projects;
 //AJAX call
 const getProjects = async () => {
     try {
+        console.log(url + '/project');
         const response = await fetch(url + '/project');
         projects = await response.json();
         console.log(projects)
@@ -150,7 +151,3 @@ function searchBarFilter(string) {
 window.onpageshow = () => {
     getProjects();
 }
-
-
-
-
