@@ -14,6 +14,7 @@ const userDesc = document.querySelector('#userDesc');
 //TODO below 1
 const userTags = document.querySelector('#tags');
 const searchBar = document.querySelector('#searchBar');
+const fab = document.querySelector('#fab-add-project');
 
 
 const currentUser = JSON.parse(sessionStorage.getItem('user'));
@@ -51,7 +52,7 @@ const createProjectCard = (projects) => {
     userProjects.innerHTML = '';
 
     projects.forEach((project) => {
-        const logoURL = (project.logo) ? url + '/uploads/project/' + project.logo : '../images/logo.png';
+        const logoURL = (project.logo) ? url + '/thumbnails/project/' + project.logo : '../images/logo.png';
         const privateProject = project.private === 1;
         const thumbUpDown = (project.rating < 0) ? -1 : 1;
 
@@ -249,6 +250,10 @@ function searchBarFilter(string) {
         }
     }
 }
+
+fab.addEventListener('click', () => {
+    location.href = 'projectUpload.html';
+})
 
 window.onpageshow = () => {
     if (isOwnProfile) {

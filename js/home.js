@@ -16,7 +16,7 @@ const createProjectList = (projects) => {
     projects.forEach((project) => {
         //creating li element with DOM methods
 
-        const src = (project.logo) ? url + '/uploads/project/' + project.logo : '../images/logo.png';
+        const src = (project.logo) ? url + '/thumbnails/project/' + project.logo : '../images/logo.png';
         const alt = (project.logo) ? project.name : 'no picture';
         const href = `../html/projectDetails.html?id=${project.id}`
         const thumbUpDown = (project.rating < 0) ? -1 : 1;

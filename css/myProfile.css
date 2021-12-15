@@ -2,6 +2,7 @@ body {
     height: 100%;
     max-width: 100%;
     overflow-x: hidden;
+    position: relative;
 }
 
 .menuButton {
@@ -311,6 +312,42 @@ a, a:hover, a:visited, a:active {
     filter: invert(100%);
 }
 
+#fab-add-project {
+    position: fixed;
+    background-color: rgba(0,0,0,0.7);
+    width: 140px;
+    height: 140px;
+    border-radius: 200px;
+    bottom: 2vh;
+    right: 2vh;
+    font-size: 70px;
+    color: rgba(255,255,255,0.8);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+}
+
+#fab-add-project:focus, #fab-add-project:hover {
+    box-shadow: none;
+    opacity: 0.9;
+}
+
+#fab-add-project div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: floralwhite;
+    border-radius: 10px;
+}
+
+#vertical-bar {
+    width: 7%;
+    height: 50%;
+}
+
+#horizontal-bar {
+    width: 50%;
+    height: 7%;
+}
 
 @media screen and (min-aspect-ratio: 1/1) {
 
@@ -443,6 +480,11 @@ a, a:hover, a:visited, a:active {
         color: white;
         cursor: pointer;
         border-radius: 0 20px 20px 0;
+    }
+
+    #fab-add-project {
+        height: 70px;
+        width: 70px;
     }
 
 
