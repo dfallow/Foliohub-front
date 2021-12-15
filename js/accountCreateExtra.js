@@ -74,8 +74,6 @@ if (modify) {
             tagArray = user.tags.split(',')
             updateTags(tagArray);
         }
-
-
         displayPicture(url + '/uploads/user/' + user.profilePic);
         for (let i of inputs) {
             console.log(i.name, i.value);

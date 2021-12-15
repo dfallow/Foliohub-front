@@ -19,7 +19,7 @@ if (sessionStorage.getItem('user')) {
     //profile pic
 
     if(profilePic){
-        profilePic.src = (user.profilePic) ? window.GLOBAL_URL + '/uploads/user/' + user.profilePic : '../images/login.png';
+        profilePic.src = (user.profilePic) ? window.GLOBAL_URL + '/thumbnails/user/' + user.profilePic : '../images/login.png';
         profilePic.style.width = '100%';
         profilePic.style.height = '100%';
         profilePic.style.opacity = '100%';
