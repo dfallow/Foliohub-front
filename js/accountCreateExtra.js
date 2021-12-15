@@ -71,8 +71,8 @@ if (modify) {
 
         if (user.tags) {
             console.log('should not be here');
-            tagArray
-            updateTags(user.tags.split(','));
+            tagArray = user.tags.split(',')
+            updateTags(tagArray);
         }
 
 
@@ -181,5 +181,3 @@ window.onbeforeunload = () => {
         sessionStorage.removeItem('user')
     }
 }
-
-
