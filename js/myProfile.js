@@ -52,6 +52,8 @@ const createProjectCard = (projects) => {
 
     projects.forEach((project) => {
         const logoURL = (project.logo) ? url + '/uploads/project/' + project.logo : '../images/logo.png';
+        const privateProject = project.private === 1;
+        const thumbUpDown = (project.rating < 0) ? -1 : 1;
 
         userProjects.innerHTML +=
             `<div id="project-card-container" class=${(isOwnProfile) ? 'animatedContainer' : ''}>
@@ -63,7 +65,22 @@ const createProjectCard = (projects) => {
                         <div id="projectDetailDiv">
                             <h3 id="projectName">${project.name}</h3>
                             <p id="shortDesc">${project.outline}</p>
-                            <p id="date">${project.date.split(' ').shift()}</p>
+                            <div id="project-info">
+                                <div id="comment-count">
+                                    <img src="../images/comment.png" alt="">
+                                    <p>${project.comments} </p>
+                                </div>
+                                <div id="rating">
+                                    <img src="../images/like.png" alt="" style="transform: scaleY(${thumbUpDown})">
+                                    <p>${project.rating}</p>    
+                                </div>
+                                <div id="private-indicator" style="visibility: ${(privateProject) ? 'visible' : 'hidden'}">
+                                    <img src="../images/lock.png" alt="">
+                                    <p>Private</p>   
+                                </div>
+                                <p id="date">${project.date.split(' ').shift()}</p>
+                            </div>
+                            
                         </div>
                     </li>
                 </a>
@@ -138,14 +155,7 @@ const displayPersonalProjects = async () => {
     }
 };
 
-if (isOwnProfile) {
-    updateUserInfo(currentUser);
-    displayPersonalProjects()
-} else {
-    displayUserInfo().then(() => {
-        displayPersonalProjects();
-    });
-}
+
 
 function filterBtn() {
     document.getElementById("myDropdown").classList.toggle("show");
@@ -198,6 +208,22 @@ function filter(filterChoice) {
             })
             createProjectCard(listClone.reverse());
             break;
+        case 'rating':
+            listClone.sort(function (a,b){
+                if (a.rating > b.rating) {return 1; }
+                if (a.rating < b.rating) {return -1; }
+                return 0;
+            })
+            createProjectCard(listClone.reverse());
+            break;
+        case 'comments':
+            listClone.sort(function (a,b){
+                if (a.comments > b.comments) {return 1; }
+                if (a.comments < b.comments) {return -1; }
+                return 0;
+            })
+            createProjectCard(listClone.reverse());
+            break;
     }
 }
 
@@ -223,3 +249,21 @@ function searchBarFilter(string) {
         }
     }
 }
+
+window.onpageshow = () => {
+    if (isOwnProfile) {
+        updateUserInfo(currentUser);
+        displayPersonalProjects()
+    } else {
+        displayUserInfo().then(() => {
+            displayPersonalProjects();
+        });
+    }
+    if (sessionStorage.getItem('projectDetailsVisited')) {
+        sessionStorage.removeItem('projectDetailsVisited');
+        location.reload();
+    }
+}
+
+
+
