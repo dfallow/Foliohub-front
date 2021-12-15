@@ -217,7 +217,7 @@ a, a:hover, a:visited, a:active {
 
 #projectDetailDiv {
     height: 100%;
-    width: 60%;
+    width: 50%;
     margin-left: 1vw;
     padding: 8px 8px 16px 0;
     display: flex;
@@ -240,12 +240,10 @@ a, a:hover, a:visited, a:active {
     align-self: flex-start;
     justify-content: flex-start;
     font-weight: bold;
-    font-size: 2.8vh;
+    font-size: 40px;
     margin: 0 0 1vh 0;
     opacity: 0.8;
     width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 #shortDesc {
@@ -261,16 +259,11 @@ a, a:hover, a:visited, a:active {
 }
 
 #date {
-    font-size: 1.5vh;
-    margin-bottom: 1vh;
-    position: absolute;
-    opacity: 0.8;
-    bottom: 1vh;
-    right: 2vh;
+    margin-top: auto;
 }
 
 #card-link {
-    width: 100%;
+    width: 90%;
 }
 
 
@@ -282,6 +275,42 @@ a, a:hover, a:visited, a:active {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
     border-radius: 20px;
 }
+
+#project-info {
+    position: absolute;
+    height: 100%;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin-right: 5px;
+    justify-content: start;
+    padding-top: 20px;
+    gap: 10px;
+}
+
+#project-info p:not(#date) {
+    margin: 0;
+}
+
+#project-info div {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+}
+
+#deleteBtn {
+    display: none;
+}
+
+#project-info img{
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+    filter: invert(100%);
+}
+
 
 @media screen and (min-aspect-ratio: 1/1) {
 
@@ -349,6 +378,44 @@ a, a:hover, a:visited, a:active {
         border: none;
 
     }
+
+    #projectDetailDiv {
+        width: 60%;
+    }
+
+    #shortDesc {
+        overflow: visible;
+        white-space: normal;
+
+    }
+
+    #projectName {
+        font-size: 25px;
+    }
+
+    #card-link {
+        width: 100%;
+    }
+
+    #project-info {
+        gap: 0;
+        padding-top: 10px;
+    }
+
+    #project-info img {
+        height: 20px;
+        width: 20px;
+    }
+
+    #project-info p:not(#date) {
+        margin: 0;
+    }
+
+    #date {
+        margin-bottom: 0;
+        margin-top: auto;
+    }
+
     #projectCard {
         width: 100%;
         transition: display 200ms linear;
