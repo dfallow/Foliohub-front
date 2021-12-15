@@ -104,7 +104,6 @@ const createAppMedia = (project) => {
                 </div>`
         });
         projectDetails.appendChild(imgMedia);
-
     }
 }
 
@@ -133,7 +132,6 @@ const createAppCommentInput = () => {
                 </div>
             </div>
         `
-
         projectComments.appendChild(commentInput);
         projectDetails.appendChild(projectComments);
 
@@ -215,7 +213,7 @@ const createAppComments = (comments) => {
             const isAuthor = (user) ? user.userId === comment.userId : false;
             console.log('is author', isAuthor);
             commentList.style.backgroundColor = "transparent";
-            const commentPic = (!comment.profilePic) ? '../images/profilePic.png' : url + '/uploads/user/' + comment.profilePic
+            const commentPic = (!comment.profilePic) ? '../images/profilePic.png' : url + '/thumbnails/user/' + comment.profilePic
             commentList.innerHTML +=
                 `<li class="userComment">
                     <a href="../html/myProfile.html?id=${comment.userId}"><img id="comment-pic" src="${commentPic}" alt=""></a>

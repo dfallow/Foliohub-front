@@ -76,7 +76,6 @@ if (modify) {
             updateTags(tagArray);
         }
 
-
         displayPicture(url + '/uploads/user/' + user.profilePic);
         for (let i of inputs) {
             console.log(i.name, i.value);
@@ -127,8 +126,11 @@ const postEventListener = async (evt) => {
         console.log(key, value);
     }
     try {
-        await fetch(url + '/user', fetchOptions);
+        const response = await fetch(url + '/user', fetchOptions);
+        const json = await response.json();
+        console.log(json);
         sessionStorage.removeItem('user');
+        console.log('removed user');
         location.href = 'userLogin.html';
     } catch (e) {
         console.log(e.message)
