@@ -212,7 +212,7 @@ const createAppComments = (comments) => {
         const commentList = document.createElement('ul');
         commentList.id = 'commentList';
         comments.forEach((comment) => {
-            const isAuthor = user.userId === comment.userId;
+            const isAuthor = (user) ? user.userId === comment.userId : false;
             console.log('is author', isAuthor);
             commentList.style.backgroundColor = "transparent";
             const commentPic = (!comment.profilePic) ? '../images/profilePic.png' : url + '/uploads/user/' + comment.profilePic
@@ -227,8 +227,9 @@ const createAppComments = (comments) => {
                     ${(isAuthor) ? '<img id="comment-delete" src="../images/delete.png" onclick="deleteComment(' + comment.commentId + ')">' : ''}
             </li>`
         });
-        const commentSection = document.querySelector('#comments')
-        commentSection.appendChild(commentList);
+        projectComments.appendChild(commentList);
+        projectDetails.appendChild(projectComments)
+        // commentSection.appendChild(commentList);
         // projectDetails.appendChild(projectComments);
     }
 }
@@ -360,7 +361,7 @@ const getOwnRating = async () => {
 const updateRating = async () => {
     likes = document.querySelector('#card-like-count')
     rating = await getProjectRating();
-    ownRating = await getOwnRating();
+    if(user) ownRating = await getOwnRating();
     console.log('rating', rating);
     console.log('own rating', ownRating);
     if (likes) {
@@ -420,13 +421,8 @@ const modifyRating = async (rating) => {
 
 const getComments = async () => {
     try {
-        const fetchOptions = {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-            }
-        }
-        const commentResponse = await fetch(url + '/project/comments/' + projectId, fetchOptions);
+
+        const commentResponse = await fetch(url + '/project/comments/' + projectId);
         const comments = await commentResponse.json();
         createAppComments(comments)
     } catch (e) {

@@ -43,27 +43,3 @@ if (menuBtn) {
         menuBtn.style.visibility = 'hidden';
     }
 }
-
-//Github / GitLab / other
-const githubLink = document.querySelector('#github');
-
-if (githubLink) {
-    if (!user.github) {
-        githubLink.style.visibility = 'hidden';
-    } else {
-        githubLink.style.backgroundSize = 'cover';
-        if (!user.github.includes('http')) {
-            githubLink.href = 'http://' + user.github;
-        } else {
-            githubLink.href = user.github;
-        }
-        if (user.github.includes('github')) {
-            githubLink.style.backgroundImage = "url('../images/github.png')"
-        } else if (user.github.includes('gitlab')) {
-            githubLink.style.backgroundImage = "url('../images/gitlab.png')"
-            githubLink.style.backgroundColor = "white"
-        } else {
-            githubLink.style.backgroundImage = "url('../images/idk.png')"
-        }
-    }
-}

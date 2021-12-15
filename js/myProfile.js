@@ -14,11 +14,12 @@ const userDesc = document.querySelector('#userDesc');
 //TODO below 1
 const userTags = document.querySelector('#tags');
 const searchBar = document.querySelector('#searchBar');
+const githubLink = document.querySelector('#github');
 
 
 const currentUser = JSON.parse(sessionStorage.getItem('user'));
 
-const isOwnProfile = wantedUserId === currentUser.userId;
+const isOwnProfile = (user) ? wantedUserId === currentUser.userId : false;
 console.log('isOwnProfile', isOwnProfile);
 
 console.log('Current user: ', currentUser);
@@ -111,6 +112,7 @@ const displayUserInfo = async () => {
         const response = await fetch(url + '/user/' + wantedUserId);
         const userInfo = await response.json();
         updateUserInfo(userInfo);
+        getGitLink(userInfo, githubLink)
     } catch (e) {
         console.log()
     }
@@ -149,6 +151,26 @@ if (isOwnProfile) {
 
 function filterBtn() {
     document.getElementById("myDropdown").classList.toggle("show");
+}
+
+const getGitLink = (user, githubLink) => {
+    if (!user.github) {
+        githubLink.style.visibility = 'hidden';
+    } else {
+        githubLink.style.backgroundSize = 'cover';
+        if (!user.github.includes('http')) {
+            githubLink.href = 'http://' + user.github;
+        } else {
+            githubLink.href = user.github;
+        }
+        if (user.github.includes('github')) {
+            githubLink.style.backgroundImage = "url('../images/github.png')"
+        } else if (user.github.includes('gitlab')) {
+            githubLink.style.backgroundImage = "url('../images/gitlab.png')"
+        } else {
+            githubLink.style.backgroundImage = "url('../images/idk.png')"
+        }
+    }
 }
 
 window.onclick = function (event) {
