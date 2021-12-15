@@ -4,7 +4,7 @@ html {
 }
 
 body{
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,6 +45,33 @@ h2 {
     height: 12vh;
     overflow: hidden;
 }
+
+#userTags {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1vh;
+}
+
+#user-tags-array {
+    display: flex;
+    gap: 1vh;
+    background: transparent;
+    width: 100%;
+    padding-left: 1vh;
+}
+
+#user-tags-array p {
+    padding: 0.5vh;
+    font-weight: bold;
+    text-align: center;
+    background-color: white;
+    border-radius: 20px;
+    min-width: 6vh;
+    margin: 0;
+}
+
 
 #regProfilePic {
     display: flex;

@@ -23,6 +23,13 @@
             <input required class="mainMobileInput" type="text" maxlength="30" placeholder="Enter Username..." name="username">
             <input maxlength="20" class="mainMobileInput" type="text" placeholder="Enter Title..." name="title">
             <textarea class="mainMobileInput" id="descTextArea"  maxlength="60" placeholder="Short description..." name="description"></textarea>
+            <div id="userTags">
+                <input class="mainMobileInput" pattern="[a-zA-Z]" id="input-user-tag" type="text" placeholder="Enter a Single Tag..." name="tags">
+                <button class="mainMobileButton" id="check-user-tag">Check</button>
+            </div>
+            <div id="user-tags-array" readonly="readonly">
+                <!-- user tags show here -->
+            </div>
             <input class="mainMobileInput" type="text" placeholder="GitHub / GitLab" name="github">
             <input style="display: none" class="mainMobileInput" type="text" placeholder="tag1,tag2,tag3,..." name="tags">
             <input id="dateInput" class="hidden-input" type="text" name="creationDate">
