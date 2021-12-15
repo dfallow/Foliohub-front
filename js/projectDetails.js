@@ -494,3 +494,5 @@ const downVote = () => {
     }
 
 }
+
+sessionStorage.setItem('projectDetailsVisited', 'true');

@@ -47,6 +47,7 @@ h2 {
 }
 
 #userTags {
+    position: relative;
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -56,6 +57,7 @@ h2 {
 
 #user-tags-array {
     display: flex;
+    flex-wrap: wrap;
     gap: 1vh;
     background: transparent;
     width: 100%;
@@ -66,10 +68,28 @@ h2 {
     padding: 0.5vh;
     font-weight: bold;
     text-align: center;
+    font-size: 1.2vh;
     background-color: white;
+    opacity: 0.9;
     border-radius: 20px;
     min-width: 6vh;
     margin: 0;
+}
+
+#tag-error {
+    display: none;
+    position: absolute;
+    min-height: 5vh;
+    min-width: 30vw;
+    text-align: center;
+    font-size: 3vh;
+    transform: translate(20%, -40%);
+    right: 50%;
+    top: -3vh;
+    border: 1px solid darkred;
+    border-radius: 20px;
+    background-color: whitesmoke;
+    opacity: 0.9;
 }
 
 #regProfilePic {
@@ -143,6 +163,31 @@ input[type="file"] {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -123%);
+    }
+
+    #user-tags-array {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    #user-tags-array p:hover {
+        cursor: pointer;
+    }
+
+    #tag-error {
+        display: none;
+        position: absolute;
+        height: 5vh;
+        min-width: 25vw;
+        text-align: center;
+        font-size: 3vh;
+        transform: translate(10%, -10%);
+        right: 50%;
+        top: -3vh;
+        border: 1px solid darkred;
+        border-radius: 20px;
+        background-color: whitesmoke;
+        opacity: 0.9;
     }
 
 }

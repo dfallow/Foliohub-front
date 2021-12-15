@@ -11,6 +11,7 @@ const customFileUpload = document.querySelector('.custom-file-upload');
 //user tags
 const userTagInput = document.querySelector('#input-user-tag');
 const userTagInputBtn = document.querySelector('#check-user-tag');
+const userTagError = document.querySelector('#tag-error');
 let tagArray = [];
 
 form.action = url + '/user';
@@ -144,22 +145,30 @@ userTagInputBtn.addEventListener('click', (evt) => {
     evt.preventDefault();
     const charTest = /^[A-Za-z]+$/
     const tag = userTagInput.value
-    const valid = charTest.test(tag);
+    let errorMessage;
 
-    /* TODO show validation comment for each*/
     if (tagArray.length === 10) {
-        console.log('error: ', 'Reached tag limit');
+        errorMessage = 'Reached Tag Limit'
     } else if (tag === "") {
-        console.log('error', 'Field is empty');
-    } else if (tag.indexOf(' ') !== -1) {
-        console.log('error', 'Only one word allowed');
-    } else if (!valid) {
-        console.log('error', 'No special characters allowed');
+        errorMessage = 'Tag Field is empty';
+    } else if (tag.length > 15) {
+        errorMessage = 'Tag is too long';
     } else {
-        console.log('here');
         tagArray.push(tag);
         userTagInput.value = '';
         updateTags(tagArray);
+    }
+    console.log('here');
+    console.log(errorMessage);
+    userTagError.innerHTML = errorMessage;
+    if (errorMessage.length > 0) {
+        console.log('after');
+        userTagError.innerHTML = errorMessage;
+        userTagError.style.display = 'block';
+        setTimeout(function () {
+            userTagError.innerHTML = ''
+            userTagError.style.display = 'none'
+        }, 5000);
     }
 })
 
