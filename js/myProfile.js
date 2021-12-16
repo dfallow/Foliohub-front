@@ -18,13 +18,7 @@ const searchBarWithFilter = document.querySelector('.search-with-filter')
 const githubLink = document.querySelector('#github');
 const fab = document.querySelector('#fab-add-project');
 
-
-const currentUser = JSON.parse(sessionStorage.getItem('user'));
-
-const isOwnProfile = (user) ? wantedUserId === currentUser.userId : false;
-console.log('isOwnProfile', isOwnProfile);
-
-console.log('Current user: ', currentUser);
+let isOwnProfile;
 
 function updateUserInfo(userInfo) {
     if (userInfo.profilePic) {
@@ -285,18 +279,21 @@ fab.addEventListener('click', () => {
 })
 
 window.onpageshow = () => {
-    if (isOwnProfile) {
-        updateUserInfo(currentUser);
-        displayPersonalProjects()
-    } else {
-        displayUserInfo().then(() => {
-            displayPersonalProjects();
-        });
-    }
-    if (sessionStorage.getItem('projectDetailsVisited')) {
-        sessionStorage.removeItem('projectDetailsVisited');
-        location.reload();
-    }
+    getUserGlobal().then(() => {
+        isOwnProfile = (userGlobal) ? wantedUserId === userGlobal.userId : false;
+        if (isOwnProfile) {
+            updateUserInfo(userGlobal);
+            displayPersonalProjects()
+        } else {
+            displayUserInfo().then(() => {
+                displayPersonalProjects();
+            });
+        }
+        if (sessionStorage.getItem('projectDetailsVisited')) {
+            sessionStorage.removeItem('projectDetailsVisited');
+            location.reload();
+        }
+    })
 }
 
 

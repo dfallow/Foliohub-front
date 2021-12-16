@@ -9,8 +9,8 @@ let isAuthor;
 
 const checkAuthor = async () => {
     const author = await getProjectAuthor();
-    const currentUser = JSON.parse(sessionStorage.getItem('user'));
-    isAuthor = author === currentUser.userId;
+    // const currentUser = userGlobal;
+    isAuthor = author === userGlobal.userId;
     console.log('is author', isAuthor);
 }
 
@@ -115,7 +115,7 @@ const createAppLongDescription = (project) => {
 }
 
 const createAppCommentInput = () => {
-    if (sessionStorage.getItem('user')) {
+    if (userGlobal) {
 
         const commentInput = document.createElement('div');
         commentInput.innerHTML += `      
@@ -180,8 +180,8 @@ function ShowPopup() {
 async function addComment(comment) {
     const data = {
         "comment": comment,
-        "userId": user.userId,
-        "userName": user.username,
+        "userId": userGlobal.userId,
+        "userName": userGlobal.username,
         "projectId": projectId,
     }
     console.log(data);
@@ -210,7 +210,7 @@ const createAppComments = (comments) => {
         const commentList = document.createElement('ul');
         commentList.id = 'commentList';
         comments.forEach((comment) => {
-            const isAuthor = (user) ? user.userId === comment.userId : false;
+            const isAuthor = (userGlobal) ? userGlobal.userId === comment.userId : false;
             console.log('is author', isAuthor);
             commentList.style.backgroundColor = "transparent";
             const commentPic = (!comment.profilePic) ? '../images/profilePic.png' : url + '/thumbnails/user/' + comment.profilePic
@@ -226,7 +226,7 @@ const createAppComments = (comments) => {
             </li>`
         });
         projectComments.appendChild(commentList);
-        if (!user) {
+        if (!userGlobal) {
             projectDetails.appendChild(projectComments)
         }
 
@@ -288,7 +288,7 @@ const getProject = async () => {
                 Authorization: 'Bearer ' + sessionStorage.getItem('token'),
             }
         }
-        if (sessionStorage.getItem('user')) {
+        if (userGlobal) {
             await checkAuthor();
         }
         const route = (isAuthor) ? '/project/personal/' : '/project/';
@@ -362,7 +362,7 @@ const getOwnRating = async () => {
 const updateRating = async () => {
     likes = document.querySelector('#card-like-count')
     rating = await getProjectRating();
-    if(user) ownRating = await getOwnRating();
+    if(userGlobal) ownRating = await getOwnRating();
     console.log('rating', rating);
     console.log('own rating', ownRating);
     if (likes) {
@@ -456,7 +456,9 @@ const deleteComment = async (commentId) => {
     }
 }
 
-getProject();
+getUserGlobal().then(() => {
+        getProject();
+    })
 
 const convertNameToCaps = (name) => {
     const nameArr = name.split(" ");

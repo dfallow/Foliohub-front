@@ -584,6 +584,7 @@ iframe {
 
     #comment-info {
         margin-left: 20px;
+        flex-grow: 1;
     }
 
     #appLongDescription {

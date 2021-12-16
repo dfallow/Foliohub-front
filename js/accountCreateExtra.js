@@ -50,24 +50,22 @@ const refreshToken = async () => {
     const response1 = await fetch(url + '/user/refreshToken/', fetchOptions1);
     const loginInfo = await response1.json();
 
-    console.log('logininfo', loginInfo)
-
-    const data = loginInfo;
+    const jsonString = `{"username":"${loginInfo.email}","password":"${loginInfo.password}"}`
+    console.log('jsonString ' + jsonString)
     const fetchOptions2 = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: jsonString,
     };
 
     const response = await fetch(url + '/auth/login', fetchOptions2);
     const json = await response.json();
+    console.log('new token', json.token);
     // save token
     sessionStorage.setItem('token', json.token);
 }
-
-
 
 // const getUser = async () => {
 //     const fetchOptions = {
@@ -99,7 +97,10 @@ if (modify) {
         inputs[4].value = (user.github === null) ? '' : user.github;
 
         if (user.tags) {
+            console.log('tagarray', tagArray)
+            console.log('user tags', user.tags)
             tagArray = user.tags.split(',')
+            console.log('tagarray after split', tagArray)
             updateTags(tagArray);
         }
 
@@ -136,7 +137,7 @@ const putEventListener = async (evt) => {
         // await setCurrentUser()
         await refreshToken()
         console.log('token refreshed after put');
-        // location.href = 'home.html';
+        location.href = 'home.html';
     } catch (e) {
         console.log(e.message)
     }

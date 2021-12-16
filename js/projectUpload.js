@@ -185,7 +185,7 @@ const postEventListener = async (evt) => {
     const response = await fetch(url + '/project/personal', fetchOptions);
     const json = await response.json();
     console.log(json);
-    location.href = `../html/myProfile.html?id=${user.userId}`;
+    location.href = `../html/myProfile.html?id=${userGlobal.userId}`;
 }
 
 checkVideoBtn.addEventListener('click', (evt) => {

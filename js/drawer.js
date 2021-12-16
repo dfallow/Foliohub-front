@@ -71,8 +71,6 @@ function openDrawer() {
         fill: "forwards"
     });
 
-
-
     // sideMenu.style.display = 'flex';
     // sideMenu.style.minWidth = '500px';
     body.style.overflow = 'hidden';
