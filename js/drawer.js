@@ -59,19 +59,21 @@ const createDrawer = (userGlobal) => {
     </a>`
 }
 
-
+const aspectRatio = screen.width / screen.height
+console.log('aspect ratio', aspectRatio);
 function openDrawer() {
     console.log('trying to open')
     sideMenu.style.display = 'flex';
-    console.log('screen width', screen.width);
-    console.log('screen height', screen.height);
-    sideMenu.animate([
-        {width: '0'},
-        {width: screen.width}
-    ], {
-        duration: 100,
-        fill: "forwards"
-    });
+    if(aspectRatio > 1) {
+        sideMenu.animate([
+            {width: '0'},
+            {width: '500px'}
+        ], {
+            duration: 100,
+            fill: "forwards"
+        });
+    } else sideMenu.style.width = '85%'
+
 
     // sideMenu.style.display = 'flex';
     // sideMenu.style.minWidth = '500px';
@@ -79,17 +81,18 @@ function openDrawer() {
 }
 
 function closeDrawer() {
-    sideMenu.animate([
-        {width: screen.width},
-        {width: '0'}
-    ], {
-        duration: 100,
-        fill: "forwards"
-    })
-    body.style.overflow = 'auto';
-    setTimeout(function () {
+    if (aspectRatio > 1) {
+        sideMenu.animate([
+            {width: '500px'},
+            {width: '0'}
+        ], {
+            duration: 100,
+            fill: "forwards"
+        })
+    } else {
         sideMenu.style.display = 'none';
-    },100);
+    }
+    body.style.overflow = 'auto';
 
     // sideMenu.style.width = '0';
 }

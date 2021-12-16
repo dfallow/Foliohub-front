@@ -175,7 +175,6 @@ const postEventListener = async (evt) => {
         videoUpload.value = urlSplit[urlSplit.length - 1];
     }
     const data = new FormData(form);
-    data.append('date', date);
     data.append('private', (checkbox.checked) ? '1' : '0');
 
     const fetchOptions = {

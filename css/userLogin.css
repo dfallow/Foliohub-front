@@ -20,10 +20,10 @@ body {
 }
 
 #logo {
+    margin: auto;
     position: absolute;
-    top: 20px;
-    width: 15vh;
-    height: 15vh;
+    top: 130px;
+    width: 700px;
 }
 h1 {
     font-size: 4vh;
@@ -73,4 +73,9 @@ a:hover {
         box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
     }
 
+    #logo {
+        width: 500px;
+        position: absolute;
+        top: 20px;
+    }
 }

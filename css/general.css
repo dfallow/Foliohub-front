@@ -92,7 +92,7 @@ html{
 
 .bar {
     width: 80%;
-    height: 5%;
+    height: 7%;
     min-height: 3px;
     background-color: white;
     opacity: 80%;
@@ -120,6 +120,7 @@ html{
     height: 80%;
     width: 80%;
     opacity: 70%;
+    cursor: pointer;
 }
 
 #side-menu {
@@ -219,9 +220,6 @@ a, a:hover, a:visited, a:active {
     cursor: pointer;
 }
 
-#profilePic {
-    cursor: pointer;
-}
 
 @media screen and (min-aspect-ratio: 1/1) {
     #side-menu {
@@ -244,4 +242,5 @@ a, a:hover, a:visited, a:active {
 
     .drawer-item-logo {
     }
+
 }

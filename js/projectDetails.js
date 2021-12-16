@@ -292,7 +292,7 @@ const getProject = async () => {
             await checkAuthor();
         }
         let route = (isAuthor) ? '/project/personal/' : '/project/';
-        if (userGlobal && userGlobal.role === 1) {route = '/project/admin/'};
+        if (userGlobal && userGlobal.role === 1) {route = '/project/admin/'}
         console.log('route', route);
         const response = await fetch(url + route + projectId, fetchOptions);
         const project = await response.json();
@@ -385,12 +385,6 @@ const updateRating = async () => {
 
     }
 }
-
-const insertRating = async () => {
-
-}
-
-console.log('test null', 0 === null);
 
 const modifyRating = async (rating) => {
     console.log('is ownRating undefined?', ownRating);
