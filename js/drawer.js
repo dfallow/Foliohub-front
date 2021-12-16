@@ -82,7 +82,7 @@ function closeDrawer() {
         {width: '0'}
     ], {
         duration: 100,
-        fill:"forwards"
+        fill: "forwards"
     })
     body.style.overflow = 'auto';
     // sideMenu.style.width = '0';
@@ -111,9 +111,10 @@ async function logout() {
 }
 
 
-    getUserGlobal().then(() => {
-        if (userGlobal) {
+getUserGlobal().then(() => {
+    if (userGlobal) {
         console.log('global', userGlobal);
         createDrawer(userGlobal);
         console.log('after drawer')
-        }});
+    }
+});

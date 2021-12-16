@@ -21,8 +21,10 @@ const checkToken = async () => {
 }
 
 const getUserGlobal = async () => {
-    userGlobal = await checkToken();
-    console.log(userGlobal.username);
+    if (sessionStorage.getItem('token')){
+        userGlobal = await checkToken();
+        console.log(userGlobal.username);
+    }
 }
 
 //Logo to home

@@ -164,11 +164,31 @@ const displayPersonalProjects = async () => {
                 Authorization: 'Bearer ' + sessionStorage.getItem('token'),
             },
         };
-        const route = (isOwnProfile) ? '/project/personal' : '/project';
+
+        let route;
+        let admin = false;
+        if (!sessionStorage.getItem('token')) {
+            route = '/project';
+        } else {
+            if (userGlobal) {
+                if (userGlobal.role === 1) {
+                    route = '/project/admin/';
+                    admin = true;
+                } else if (isOwnProfile) {
+                    route = '/project/personal'
+                } else {
+                    route = '/project';
+                }
+            } else {
+                console.log('userglobal not defined ;)')
+            }
+        }
+        console.log('route displayproject', route)
+        console.log('userglobal route displayproject', userGlobal)
         const response = await fetch(url + route, fetchOptions);
         const projects = await response.json();
         console.log(projects);
-        const userProjects = projects.filter(author);
+        const userProjects = (admin) ? projects : projects.filter(author);
         projectList = userProjects;
         console.log('userProjects', userProjects);
         createProjectCard(userProjects);
@@ -281,6 +301,7 @@ fab.addEventListener('click', () => {
 window.onpageshow = () => {
     getUserGlobal().then(() => {
         isOwnProfile = (userGlobal) ? wantedUserId === userGlobal.userId : false;
+
         if (isOwnProfile) {
             updateUserInfo(userGlobal);
             displayPersonalProjects()
@@ -295,6 +316,7 @@ window.onpageshow = () => {
         }
     })
 }
+
 
 
 
