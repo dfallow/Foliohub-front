@@ -2,7 +2,28 @@
 
 // const drawer = document.querySelector('#side-menu');
 const body = document.body;
-const user = JSON.parse(sessionStorage.getItem('user'));
+// const user = JSON.parse(sessionStorage.getItem('user'));
+
+
+let userGlobal;
+
+const checkToken = async () => {
+    const fetchOptions = {
+        method: 'GET',
+        headers: {
+            Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+        }
+    }
+    const response = await fetch(window.GLOBAL_URL + '/user/token/', fetchOptions);
+    const userInfo = await response.json();
+    // console.log('user from token', userInfo.user.username);
+    return userInfo.user;
+}
+
+const getUserGlobal = async () => {
+    userGlobal = await checkToken();
+    console.log(userGlobal.username);
+}
 
 //Logo to home
 const logo = document.querySelector('#logo');
@@ -12,34 +33,36 @@ if (logo) {
     })
 }
 
+getUserGlobal().then(() => {
+    const profilePic = document.querySelector('#profilePic');
+    const profilePicContainer = document.querySelector('#profilePicContainer');
+    if (userGlobal) {
+        //profile pic
 
-const profilePic = document.querySelector('#profilePic');
-const profilePicContainer = document.querySelector('#profilePicContainer');
-if (sessionStorage.getItem('user')) {
-    //profile pic
-
-    if(profilePic){
-        profilePic.src = (user.profilePic) ? window.GLOBAL_URL + '/uploads/user/' + user.profilePic : '../images/login.png';
-        profilePic.style.width = '100%';
-        profilePic.style.height = '100%';
-        profilePic.style.opacity = '100%';
-        profilePic.style.borderRadius = '200px';
-        profilePic.style.objectFit = 'cover';
-        profilePicContainer.style.border = 'none';
-        profilePicContainer.style.padding = '0';
+        if(profilePic){
+            profilePic.src = (userGlobal.profilePic) ? window.GLOBAL_URL + '/uploads/user/' + userGlobal.profilePic : '../images/login.png';
+            profilePic.style.width = '100%';
+            profilePic.style.height = '100%';
+            profilePic.style.opacity = '100%';
+            profilePic.style.borderRadius = '200px';
+            profilePic.style.objectFit = 'cover';
+            profilePicContainer.style.border = 'none';
+            profilePicContainer.style.padding = '0';
+        }
     }
-}
-if (profilePic) {
-    profilePic.addEventListener('click', (evt) => {
-        evt.preventDefault();
-        location.href = (sessionStorage.getItem('user')) ? 'myProfile.html?id=' + user.userId : 'userLogin.html';
-    });
-}
-
-
-const menuBtn = document.querySelector('#menuBtn');
-if (menuBtn) {
-    if (!sessionStorage.getItem('user')) {
-        menuBtn.style.visibility = 'hidden';
+    if (profilePic) {
+        profilePic.addEventListener('click', (evt) => {
+            evt.preventDefault();
+            location.href = (userGlobal) ? 'myProfile.html?id=' + userGlobal.userId : 'userLogin.html';
+        });
     }
-}
+
+
+    const menuBtn = document.querySelector('#menuBtn');
+    if (menuBtn) {
+        if (!userGlobal) {
+            menuBtn.style.visibility = 'hidden';
+        }
+    }
+})
+

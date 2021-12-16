@@ -23,8 +23,10 @@ const dataReceived = sessionStorage.getItem('dataSentToExtra');
 const dataJSON = JSON.parse(dataReceived);
 console.log('data received: ', dataJSON);
 
-usernameInput.value = dataJSON.email;
-passwordInput.value = dataJSON.password;
+if (!sessionStorage.getItem('modifying-profile')) {
+    usernameInput.value = dataJSON.email;
+    passwordInput.value = dataJSON.password;
+}
 
 const displayPicture = (url) => {
     regProfilePic.style.backgroundImage = `url(${url})`
@@ -38,24 +40,55 @@ const displayPicture = (url) => {
 // let user = JSON.parse(sessionStorage.getItem('user'));
 const modify = (sessionStorage.getItem('modifying-profile')) === 'true';
 
-const getUser = async () => {
-    const fetchOptions = {
+const refreshToken = async () => {
+    const fetchOptions1 = {
         method: 'GET',
+        headers: {
+            Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+        }
     }
-    try {
-        const response = await fetch(url + `/user/${user.userId}`, fetchOptions);
-        return await response.json();
-    } catch (e) {
-        console.log(e.message);
-    }
+    const response1 = await fetch(url + '/user/refreshToken/', fetchOptions1);
+    const loginInfo = await response1.json();
+
+    console.log('logininfo', loginInfo)
+
+    const data = loginInfo;
+    const fetchOptions2 = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    };
+
+    const response = await fetch(url + '/auth/login', fetchOptions2);
+    const json = await response.json();
+    // save token
+    sessionStorage.setItem('token', json.token);
 }
-const setCurrentUser = async () => {
-    const fetchedUser = await getUser();
-    sessionStorage.setItem('user', JSON.stringify(fetchedUser));
-    // user = JSON.parse(sessionStorage.getItem('user'));
-}
+
+
+
+// const getUser = async () => {
+//     const fetchOptions = {
+//         method: 'GET',
+//     }
+//     try {
+//         const response = await fetch(url + `/user/${user.userId}`, fetchOptions);
+//         return await response.json();
+//     } catch (e) {
+//         console.log(e.message);
+//     }
+// }
+
+// const setCurrentUser = async () => {
+//     const fetchedUser = await getUser();
+//     sessionStorage.setItem('user', JSON.stringify(fetchedUser));
+//     // user = JSON.parse(sessionStorage.getItem('user'));
+// }
 if (modify) {
-    setCurrentUser().then(() => {
+    getUserGlobal().then(() => {
+        const user = userGlobal;
         const inputs = form.querySelectorAll('input');
         const textarea = form.querySelector('#descTextArea')
         // inputs[0].value = ;
@@ -66,7 +99,6 @@ if (modify) {
         inputs[4].value = (user.github === null) ? '' : user.github;
 
         if (user.tags) {
-            console.log('should not be here');
             tagArray = user.tags.split(',')
             updateTags(tagArray);
         }
@@ -101,8 +133,10 @@ const putEventListener = async (evt) => {
     }
     try {
         await fetch(url + '/user', fetchOptions);
-        await setCurrentUser();
-        location.href = 'home.html';
+        // await setCurrentUser()
+        await refreshToken()
+        console.log('token refreshed after put');
+        // location.href = 'home.html';
     } catch (e) {
         console.log(e.message)
     }

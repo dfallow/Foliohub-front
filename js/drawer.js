@@ -3,14 +3,17 @@
 const sideMenu = document.querySelector('#side-menu');
 //Drawer
 
-const createDrawer = () => {
-    const user = JSON.parse(sessionStorage.getItem('user'));
-    const profilePicSrc = (user.profilePic) ? window.GLOBAL_URL + '/uploads/user/' + user.profilePic : '../images/login.png';
+
+const createDrawer = (userGlobal) => {
+    // const user = userGlobal;
+    const profilePicSrc = (userGlobal.profilePic) ? window.GLOBAL_URL + '/uploads/user/' + userGlobal.profilePic : '../images/login.png';
+
+    console.log('in create drawer: ' + userGlobal.username);
 
     sideMenu.innerHTML = `<a href="#" id="btn-close" onclick="closeDrawer()">&times;</a>
-    <div id="drawer-user-info" onclick="goToMyProfile(user)">
+    <div id="drawer-user-info" onclick="goToMyProfile(userGlobal)">
         <img id="drawer-pic" src="${profilePicSrc}" alt="drawer-pic" style="object-fit: cover;">
-        <h1>${user.username}</h1>
+        <h1>${userGlobal.username}</h1>
     </div>
 
     <a href="home.html">
@@ -20,7 +23,7 @@ const createDrawer = () => {
         </div>
     </a>
     
-    <a id="link-to-myprofile" href="../html/myProfile.html?id=${user.userId}">
+    <a id="link-to-myprofile" href="../html/myProfile.html?id=${userGlobal.userId}">
         <div class="drawer-item">
             <img class="drawer-item-logo" src="../images/portfolio.png" alt="">
             <p>My projects</p>
@@ -56,9 +59,6 @@ const createDrawer = () => {
     </a>`
 }
 
-const getUser = () => {
-
-}
 
 function openDrawer() {
     console.log('trying to open')
@@ -112,6 +112,10 @@ async function logout() {
     }
 }
 
-if (sessionStorage.getItem('user')) {
-    createDrawer()
-}
+
+    getUserGlobal().then(() => {
+        if (userGlobal) {
+        console.log('global', userGlobal);
+        createDrawer(userGlobal);
+        console.log('after drawer')
+        }});
