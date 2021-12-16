@@ -100,10 +100,16 @@ const createAppMedia = (project) => {
             const imgSrc = url + '/uploads/project/' + image;
             imgMedia.innerHTML +=
                 `<div id="images">
-                    <img src="${imgSrc}" alt="${project.name}" class="projectImg">
+                    <img src="${imgSrc}" alt="${project.name}" class="projectImg zoomD">
                 </div>`
         });
         projectDetails.appendChild(imgMedia);
+        const imagesToZoom = document.getElementsByClassName("zoomD");
+        if (imagesToZoom.length>0) {
+            for (let img of imagesToZoom) {
+                img.addEventListener("click", zoomImg);
+            }
+        }
     }
 }
 
@@ -492,5 +498,32 @@ const downVote = () => {
     }
 
 }
+
+//lightbox
+
+function zoomImg() {
+    const clone = this.cloneNode();
+    clone.classList.remove("zoomD");
+
+    let lb = document.getElementById("lb-img");
+    lb.innerHTML = "";
+    lb.appendChild(clone);
+
+    lb = document.getElementById("lb-back");
+    lb.classList.add("show");
+}
+
+window.addEventListener("load", () => {
+    // const images = document.getElementsByClassName("zoomD");
+    // if (images.length>0) {
+    //     for (let img of images) {
+    //         img.addEventListener("click", zoomImg);
+    //     }
+    // }
+
+    document.getElementById("lb-back").addEventListener("click", function(){
+        this.classList.remove("show");
+    })
+});
 
 sessionStorage.setItem('projectDetailsVisited', 'true');
