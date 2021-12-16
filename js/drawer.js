@@ -2,58 +2,6 @@
 
 const sideMenu = document.querySelector('#side-menu');
 //Drawer
-const drawerUserInfo = document.querySelector('#drawer-user-info');
-const drawerPic = document.querySelector('#drawer-pic');
-const drawerUsername = document.querySelector('#drawer-user-info h1');
-const linkToMyProfile = document.querySelector('#link-to-myprofile');
-
-// linkToMyProfile.href = '../html/myProfile.html?id=$' + user.userId;
-
-// if (drawerUserInfo) {
-//     drawerPic.src = (user.profilePic) ? window.GLOBAL_URL + '/uploads/user/' + user.profilePic : '../images/login.png';
-//     drawerPic.style.objectFit = 'cover'
-//     drawerUsername.innerHTML = user.username;
-// }
-// if (drawerUserInfo) {
-//     drawerUserInfo.addEventListener('click', (evt) => {
-//         evt.preventDefault();
-//         location.href = (sessionStorage.getItem('user')) ? 'myProfile.html' : 'userLogin.html';
-//     });
-//
-// }
-
-
-// //settings button in drawer
-// const settingsBtn = document.querySelector('.drawer-settings');
-// if (settingsBtn) {
-//     settingsBtn.href = 'accountCreateExtra.html'
-//     settingsBtn.addEventListener('click', () => {
-//         if (JSON.parse(sessionStorage.getItem('user'))) {
-//             sessionStorage.setItem('modifying-profile', 'true')
-//         }
-//     });
-// }
-
-// //logout button in drawer
-// const logoutBtn = document.querySelector('.drawer-logout');
-// if (logoutBtn) {
-//     logoutBtn.href = "#";
-//     logoutBtn.addEventListener('click', async () => {
-//         try {
-//             const response = await fetch(url + '/auth/logout');
-//             const json = await response.json();
-//             console.log(json);
-//             //remove token
-//             sessionStorage.removeItem('token');
-//             sessionStorage.removeItem('user');
-//             sessionStorage.removeItem('modifying-profile');
-//             alert('You have now been logged out');
-//             location.href = 'userLogin.html';
-//         } catch (e) {
-//             console.log(e.message);
-//         }
-//     });
-// }
 
 const createDrawer = () => {
     const user = JSON.parse(sessionStorage.getItem('user'));
@@ -106,6 +54,10 @@ const createDrawer = () => {
             <p>Logout</p>
         </div>
     </a>`
+}
+
+const getUser = () => {
+
 }
 
 function openDrawer() {
