@@ -186,7 +186,7 @@ userTagInputBtn.addEventListener('click', (evt) => {
     } else if (tag.length > 15) {
         errorMessage = 'Tag is too long';
     } else {
-        tagArray.push(tag);
+        tagArray.push(tag.toUpperCase().charAt(0) + tag.slice(1));
         userTagInput.value = '';
         updateTags(tagArray);
     }

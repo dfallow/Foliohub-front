@@ -291,7 +291,8 @@ const getProject = async () => {
         if (userGlobal) {
             await checkAuthor();
         }
-        const route = (isAuthor) ? '/project/personal/' : '/project/';
+        let route = (isAuthor) ? '/project/personal/' : '/project/';
+        if (userGlobal && userGlobal.role === 1) {route = '/project/admin/'};
         console.log('route', route);
         const response = await fetch(url + route + projectId, fetchOptions);
         const project = await response.json();

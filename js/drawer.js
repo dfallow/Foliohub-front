@@ -63,9 +63,11 @@ const createDrawer = (userGlobal) => {
 function openDrawer() {
     console.log('trying to open')
     sideMenu.style.display = 'flex';
+    console.log('screen width', screen.width);
+    console.log('screen height', screen.height);
     sideMenu.animate([
         {width: '0'},
-        {width: '500px'}
+        {width: screen.width}
     ], {
         duration: 100,
         fill: "forwards"
@@ -78,13 +80,17 @@ function openDrawer() {
 
 function closeDrawer() {
     sideMenu.animate([
-        {width: '500px'},
+        {width: screen.width},
         {width: '0'}
     ], {
         duration: 100,
         fill: "forwards"
     })
     body.style.overflow = 'auto';
+    setTimeout(function () {
+        sideMenu.style.display = 'none';
+    },100);
+
     // sideMenu.style.width = '0';
 }
 

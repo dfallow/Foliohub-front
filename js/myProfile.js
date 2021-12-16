@@ -19,6 +19,7 @@ const githubLink = document.querySelector('#github');
 const fab = document.querySelector('#fab-add-project');
 
 let isOwnProfile;
+let isAdmin;
 
 function updateUserInfo(userInfo) {
     if (userInfo.profilePic) {
@@ -73,7 +74,7 @@ const createProjectCard = (projects) => {
             const thumbUpDown = (project.rating < 0) ? -1 : 1;
 
             userProjects.innerHTML +=
-                `<div id="project-card-container" class=${(isOwnProfile) ? 'animatedContainer' : ''}>
+                `<div id="project-card-container" class=${(isOwnProfile || isAdmin) ? 'animatedContainer' : ''}>
                 <a id="card-link" href="../html/projectDetails.html?id=${project.id}" >
                     <li id="projectCard">
                         <figure id="projectImg">
@@ -115,14 +116,13 @@ const createProjectCard = (projects) => {
 }
 
 function toEditProject(projectId) {
-    if(isOwnProfile) {
+    if(isOwnProfile || isAdmin) {
         sessionStorage.setItem('modifying-project', 'true');
         location.href = `../html/projectUpload.html?id=${projectId}`
     }
 }
 
 const deleteProject = async (projectId) => {
-    //somehow get the button reference here...
 
     if (window.confirm('Do you really want to delete this project?')) {
         const fetchOptions = {
@@ -132,7 +132,8 @@ const deleteProject = async (projectId) => {
             }
         }
         console.log('projectList', projectId);
-        const response = await fetch(url + '/project/personal/' + projectId, fetchOptions);
+        const route = (isAdmin) ? '/project/admin/' : '/project/personal/' ;
+        const response = await fetch(url + route + projectId, fetchOptions);
         console.log(await response.json());
         await displayPersonalProjects();
     }
@@ -166,14 +167,12 @@ const displayPersonalProjects = async () => {
         };
 
         let route;
-        let admin = false;
         if (!sessionStorage.getItem('token')) {
             route = '/project';
         } else {
             if (userGlobal) {
                 if (userGlobal.role === 1) {
                     route = '/project/admin/';
-                    admin = true;
                 } else if (isOwnProfile) {
                     route = '/project/personal'
                 } else {
@@ -188,7 +187,7 @@ const displayPersonalProjects = async () => {
         const response = await fetch(url + route, fetchOptions);
         const projects = await response.json();
         console.log(projects);
-        const userProjects = (admin) ? projects : projects.filter(author);
+        const userProjects = (isAdmin && isOwnProfile) ? projects : projects.filter(author);
         projectList = userProjects;
         console.log('userProjects', userProjects);
         createProjectCard(userProjects);
@@ -301,7 +300,7 @@ fab.addEventListener('click', () => {
 window.onpageshow = () => {
     getUserGlobal().then(() => {
         isOwnProfile = (userGlobal) ? wantedUserId === userGlobal.userId : false;
-
+        isAdmin = (userGlobal && userGlobal.role === 1);
         if (isOwnProfile) {
             updateUserInfo(userGlobal);
             displayPersonalProjects()

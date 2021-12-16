@@ -21,13 +21,9 @@ const deleteBtn = document.querySelector('#deleteBtn');
 form.action = url + '/project';
 form.method = 'post';
 
-const today = new Date();
-const year = today.getFullYear();
-const month = ((today.getMonth()+1) < 10) ? `0${today.getMonth()+1}` : today.getMonth()+1;
-const day = ((today.getDate()) < 10) ? `0${today.getDate()}` : today.getDate();
-const date = `${year}-${month}-${day}`;
-
 const picturesArray = [];
+
+let isAdmin;
 
 const getProject = async (projectId) => {
     try {
@@ -37,7 +33,8 @@ const getProject = async (projectId) => {
                 Authorization: 'Bearer ' + sessionStorage.getItem('token'),
             },
         }
-        const response = await fetch(url + '/project/personal/' + projectId, fetchOptions);
+        const route = (isAdmin) ? '/project/admin/' : '/project/personal/';
+        const response = await fetch(url + route + projectId, fetchOptions);
         const project = await response.json();
         console.log(project);
         return project;
@@ -54,7 +51,7 @@ const setCurrentProject = async (id) => {
     currentProject = await getProject(id);
 }
 
-const urlToObject= async(url, filename)=> {
+const urlToObject = async (url, filename) => {
     const response = await fetch(url);
     // here image is url/location of image
     const blob = await response.blob();
@@ -78,44 +75,47 @@ const logoToDataTransfer = async (string) => {
 if (modifyingProject) {
     let currentUrl = window.location.href;
     const projectId = currentUrl.split('=').pop();
-    setCurrentProject(projectId).then(() => {
-        if (currentProject.logo) {
-            logoToDataTransfer(currentProject.logo).then(() => {
-                imageUpload.files = logoFile.files
-                displayProjectLogo(url + '/uploads/project/' + currentProject.logo);
-                console.log(imageUpload.files);
-            });
-        }
-        const inputs = form.querySelectorAll('input');
-        const longTextarea = form.querySelector('#longDescTextArea');
-        const shortTextarea = form.querySelector('#shortDescTextArea');
-        const uploadedPictures = form.querySelector('#uploadedPictures');
+    getUserGlobal().then(() => {
+        isAdmin = (userGlobal && userGlobal.role === 1);
+        setCurrentProject(projectId).then(() => {
+            if (currentProject.logo) {
+                logoToDataTransfer(currentProject.logo).then(() => {
+                    imageUpload.files = logoFile.files
+                    displayProjectLogo(url + '/uploads/project/' + currentProject.logo);
+                    console.log(imageUpload.files);
+                });
+            }
+            const inputs = form.querySelectorAll('input');
+            const longTextarea = form.querySelector('#longDescTextArea');
+            const shortTextarea = form.querySelector('#shortDescTextArea');
+            const uploadedPictures = form.querySelector('#uploadedPictures');
 
-        if (currentProject.images) {
-            const storedImageHashcodes = currentProject.images.split(',');
-            createDataTransfer(storedImageHashcodes).then(() => {
-                uploadedPictures.files = imageFiles.files;
-                const images = uploadedPictures.files;
-                const arraySelected = Array.from(images);
-                arraySelected.forEach((item) => {
-                    picturesArray.push(item)
-                })
-                updatePictures();
-            });
-        }
+            if (currentProject.images) {
+                const storedImageHashcodes = currentProject.images.split(',');
+                createDataTransfer(storedImageHashcodes).then(() => {
+                    uploadedPictures.files = imageFiles.files;
+                    const images = uploadedPictures.files;
+                    const arraySelected = Array.from(images);
+                    arraySelected.forEach((item) => {
+                        picturesArray.push(item)
+                    })
+                    updatePictures();
+                });
+            }
 
-        // inputs[0].value = (!currentProject) ? '' : currentProject;
-        inputs[1].value = (!currentProject.name) ? '' : currentProject.name;
-        shortTextarea.value =  (!currentProject.outline) ? '' : currentProject.outline;
-        inputs[2].value = (!currentProject.tags) ? '' : currentProject.tags;
-        inputs[3].value = (!currentProject.video) ? '' : currentProject.video;
-        longTextarea.value = (!currentProject.description) ? '' : currentProject.description;
-        inputs[5].checked = currentProject.private === 1;
+            // inputs[0].value = (!currentProject) ? '' : currentProject;
+            inputs[1].value = (!currentProject.name) ? '' : currentProject.name;
+            shortTextarea.value = (!currentProject.outline) ? '' : currentProject.outline;
+            inputs[2].value = (!currentProject.tags) ? '' : currentProject.tags;
+            inputs[3].value = (!currentProject.video) ? '' : currentProject.video;
+            longTextarea.value = (!currentProject.description) ? '' : currentProject.description;
+            inputs[5].checked = currentProject.private === 1;
+        })
+        submitBtn.innerHTML = 'Update';
+        deleteBtn.style.display = 'block';
+        deleteBtn.style.backgroundColor = 'red';
+        deleteBtn.style.color = 'white';
     })
-    submitBtn.innerHTML = 'Update';
-    deleteBtn.style.display = 'block';
-    deleteBtn.style.backgroundColor = 'red';
-    deleteBtn.style.color = 'white';
 }
 
 form.addEventListener('submit', (evt => {
@@ -137,6 +137,10 @@ const putEventListener = async (evt) => {
     const data = new FormData(form);
     data.append('private', (checkbox.checked) ? '1' : '0');
 
+
+    for (let [key, value] of data.entries()) {
+        console.log(key, value);
+    }
     const fetchOptions = {
         method: 'PUT',
         headers: {
@@ -149,8 +153,12 @@ const putEventListener = async (evt) => {
         console.log(key, value);
     }
 
-    const response = await fetch(url + '/project/personal/' + currentProject.id, fetchOptions);
-    console.log(response);
+
+    const route = (isAdmin) ? '/project/admin/' : '/project/personal/';
+    console.log('current project id: ', currentProject.id)
+    console.log('current project id: ', route)
+    const response = await fetch(url + route + currentProject.id, fetchOptions);
+
 
     location.href = `../html/myProfile.html?id=${currentProject.author}`;
 }
@@ -192,8 +200,8 @@ checkVideoBtn.addEventListener('click', (evt) => {
     evt.preventDefault();
     const urlSplit = (videoUpload.value).split('=');
     const urlEnding = urlSplit[urlSplit.length - 1];
-    console.log('url ending: ',urlEnding);
-    if(urlEnding !== ""){
+    console.log('url ending: ', urlEnding);
+    if (urlEnding !== "") {
         checkVideoBtn.style.display = 'none';
         videoUpload.style.display = 'none';
         videoWrapper.innerHTML = `<iframe width="100%" height="100%"  src="https://www.youtube.com/embed/${urlEnding}" title="YouTube video player" frameborder="0"
