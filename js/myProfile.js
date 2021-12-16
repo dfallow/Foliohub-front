@@ -14,6 +14,7 @@ const userDesc = document.querySelector('#userDesc');
 //TODO below 1
 const userTags = document.querySelector('#tags');
 const searchBar = document.querySelector('#searchBar');
+const searchBarWithFilter = document.querySelector('.search-with-filter')
 const githubLink = document.querySelector('#github');
 const fab = document.querySelector('#fab-add-project');
 
@@ -44,6 +45,24 @@ function updateUserInfo(userInfo) {
             userTags.innerHTML += `<p>${tag}</p>`;
         });
     }
+    if (!userInfo.github) {
+        githubLink.style.visibility = 'hidden';
+    } else {
+        githubLink.style.backgroundSize = 'cover';
+        if (!userInfo.github.includes('http')) {
+            githubLink.href = 'http://' + userInfo.github;
+        } else {
+            githubLink.href = userInfo.github;
+        }
+        if (userInfo.github.includes('github')) {
+            githubLink.style.backgroundImage = "url('../images/github.png')"
+        } else if (userInfo.github.includes('gitlab')) {
+            githubLink.style.backgroundImage = "url('../images/gitlab.png')"
+        } else {
+            githubLink.style.backgroundImage = "url('../images/idk.png')"
+        }
+    }
+
 }
 
 const userProjects = document.querySelector('#userProjects');
@@ -52,13 +71,15 @@ const createProjectCard = (projects) => {
     //clear user projects
     userProjects.innerHTML = '';
 
-    projects.forEach((project) => {
-        const logoURL = (project.logo) ? url + '/thumbnails/project/' + project.logo : '../images/logo.png';
-        const privateProject = project.private === 1;
-        const thumbUpDown = (project.rating < 0) ? -1 : 1;
+    if (projects.length > 0) {
 
-        userProjects.innerHTML +=
-            `<div id="project-card-container" class=${(isOwnProfile) ? 'animatedContainer' : ''}>
+        projects.forEach((project) => {
+            const logoURL = (project.logo) ? url + '/thumbnails/project/' + project.logo : '../images/logo.png';
+            const privateProject = project.private === 1;
+            const thumbUpDown = (project.rating < 0) ? -1 : 1;
+
+            userProjects.innerHTML +=
+                `<div id="project-card-container" class=${(isOwnProfile) ? 'animatedContainer' : ''}>
                 <a id="card-link" href="../html/projectDetails.html?id=${project.id}" >
                     <li id="projectCard">
                         <figure id="projectImg">
@@ -89,9 +110,14 @@ const createProjectCard = (projects) => {
                 <button id="editBtn" onclick="toEditProject(${project.id})">Edit</button>
                 <button id="deleteBtn" onclick="deleteProject(${project.id})">Delete</button>
             </div>`
-    });
-    // style="display: ${(isOwnProfile) ? 'block' : 'none'}" for edit btn
-    //style="width: ${(isOwnProfile) ? '90%' : '100%'}" for card link
+        });
+    } else {
+        searchBarWithFilter.style.display = 'none';
+        userProjects.innerHTML = `
+             <p style="font-size: 100px; margin: 0; padding-top: 4vh">🐣</p>
+             <p id="not-found" style="color: rgba(255,255,255,0.7); font-size: 30px">No projects yet? Try adding one by clicking the + button</p>
+        `
+    }
 }
 
 function toEditProject(projectId) {
@@ -130,7 +156,6 @@ const displayUserInfo = async () => {
         const response = await fetch(url + '/user/' + wantedUserId);
         const userInfo = await response.json();
         updateUserInfo(userInfo);
-        getGitLink(userInfo, githubLink)
     } catch (e) {
         console.log()
     }
@@ -164,25 +189,7 @@ function filterBtn() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
 
-const getGitLink = (user, githubLink) => {
-    if (!user.github) {
-        githubLink.style.visibility = 'hidden';
-    } else {
-        githubLink.style.backgroundSize = 'cover';
-        if (!user.github.includes('http')) {
-            githubLink.href = 'http://' + user.github;
-        } else {
-            githubLink.href = user.github;
-        }
-        if (user.github.includes('github')) {
-            githubLink.style.backgroundImage = "url('../images/github.png')"
-        } else if (user.github.includes('gitlab')) {
-            githubLink.style.backgroundImage = "url('../images/gitlab.png')"
-        } else {
-            githubLink.style.backgroundImage = "url('../images/idk.png')"
-        }
-    }
-}
+
 
 window.onclick = function (event) {
     if (!event.target.matches('.filterBtn')) {

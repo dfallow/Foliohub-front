@@ -8,6 +8,8 @@ const passwordInput = document.querySelector('#passwordInput');
 const imageInput = document.querySelector('#image-upload');
 const regProfilePic = document.querySelector('#regProfilePic');
 const customFileUpload = document.querySelector('.custom-file-upload');
+const deleteBtn = document.querySelector('#delete-account-btn');
+const buttonsDiv = document.querySelector('#buttons');
 //user tags
 const userTagInput = document.querySelector('#input-user-tag');
 const userTagInputBtn = document.querySelector('#check-user-tag');
@@ -17,17 +19,10 @@ let tagArray = [];
 form.action = url + '/user';
 form.method = 'post';
 
-const dataReceived = sessionStorage.getItem('user');
+const dataReceived = sessionStorage.getItem('dataSentToExtra');
 const dataJSON = JSON.parse(dataReceived);
 console.log('data received: ', dataJSON);
 
-const today = new Date();
-const year = today.getFullYear();
-const month = ((today.getMonth() + 1) < 10) ? `0${today.getMonth() + 1}` : today.getMonth() + 1;
-const day = ((today.getDate()) < 10) ? `0${today.getDate()}` : today.getDate();
-const date = `${year}-${month}-${day}`;
-
-dateInput.value = date;
 usernameInput.value = dataJSON.email;
 passwordInput.value = dataJSON.password;
 
@@ -129,7 +124,7 @@ const postEventListener = async (evt) => {
         const response = await fetch(url + '/user', fetchOptions);
         const json = await response.json();
         console.log(json);
-        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('dataSentToExtra');
         console.log('removed user');
         location.href = 'userLogin.html';
     } catch (e) {
@@ -162,16 +157,19 @@ userTagInputBtn.addEventListener('click', (evt) => {
     }
     console.log('here');
     console.log(errorMessage);
-    userTagError.innerHTML = errorMessage;
-    if (errorMessage.length > 0) {
-        console.log('after');
+    if(errorMessage) {
         userTagError.innerHTML = errorMessage;
-        userTagError.style.display = 'block';
-        setTimeout(function () {
-            userTagError.innerHTML = ''
-            userTagError.style.display = 'none'
-        }, 5000);
+        if (errorMessage.length > 0) {
+            console.log('after');
+            userTagError.innerHTML = errorMessage;
+            userTagError.style.display = 'block';
+            setTimeout(function () {
+                userTagError.innerHTML = ''
+                userTagError.style.display = 'none'
+            }, 5000);
+        }
     }
+
 })
 
 function updateTags(tags) {
@@ -187,8 +185,28 @@ function removeTag(index) {
     updateTags(tagArray);
 }
 
-window.onbeforeunload = () => {
-    if (!sessionStorage.getItem('modifying-profile')) {
-        sessionStorage.removeItem('user')
-    }
+if(!sessionStorage.getItem('modifying-profile')) {
+    deleteBtn.style.display = 'none';
+    buttonsDiv.style.justifyContent = 'center';
+}
+
+if(deleteBtn) {
+    deleteBtn.addEventListener('click', async (evt) => {
+        evt.preventDefault();
+        if (sessionStorage.getItem('modifying-profile')) {
+            if (window.confirm('Do you really want to delete your account? ☹')) {
+                if (window.confirm("There's no coming back!")) {
+                    const fetchOptions = {
+                        method: 'DELETE',
+                        headers: {
+                            Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+                        }
+                    }
+                    const response = await fetch(url + '/user', fetchOptions);
+                    console.log(response.json());
+                    sessionStorage.clear()
+                    window.location.replace(`../html/home.html`);
+                }
+            }}
+    })
 }

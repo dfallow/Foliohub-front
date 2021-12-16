@@ -22,6 +22,7 @@ loginForm.addEventListener('submit', async (evt) => {
     const json = await response.json();
     console.log('login response', json);
     if (!json.user) {
+        console.log('wrong username/password')
         alert(json.message);
     } else {
         // save token

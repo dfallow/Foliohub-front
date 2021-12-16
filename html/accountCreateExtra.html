@@ -25,7 +25,7 @@
         <textarea class="mainMobileInput" id="descTextArea"  maxlength="60" placeholder="Short description..." name="description"></textarea>
         <div id="userTags">
             <input class="mainMobileInput" pattern="[a-zA-Z]" id="input-user-tag" type="text" placeholder="Enter a Single Tag..." name="tags">
-            <button class="mainMobileButton" id="check-user-tag">Check</button>
+            <button class="mainMobileButton" id="check-user-tag">Add</button>
             <div id="tag-error">
 
             </div>
@@ -39,7 +39,11 @@
         <input id="usernameInput" class="hidden-input" type="text" name="email">
         <input id="passwordInput" class="hidden-input" type="text" name="password">
     </div>
-    <button type="submit" class="mainMobileButton">Save</button>
+    <div id="buttons">
+        <button type="submit" class="mainMobileButton">Save</button>
+        <button onclick="deleteAccount()" id="delete-account-btn" class="mainMobileButton">Delete</button>
+    </div>
+
 </form>
 
 <script src="../constants.js"></script>

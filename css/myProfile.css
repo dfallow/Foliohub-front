@@ -66,11 +66,12 @@ img {
     width: 20vw;
     border-radius: 200px;
     object-fit: cover;
-    background: white center center;
+
 }
 
 #github {
     border: white 2px solid;
+    background: white center center;
 }
 
 #userInfo {

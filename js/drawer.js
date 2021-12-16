@@ -152,9 +152,7 @@ async function logout() {
         const json = await response.json();
         console.log(json);
         //empty sessionStorage
-        sessionStorage.removeItem('token');
-        sessionStorage.removeItem('user');
-        sessionStorage.removeItem('modifying-profile');
+        sessionStorage.clear();
         alert('You have now been logged out');
         location.href = '../html/home.html';
     } catch (e) {

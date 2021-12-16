@@ -53,6 +53,7 @@ html{
     height: 7vh;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
     border-radius: 20px;
+    cursor: pointer;
 }
 
 .mainMobileInput {

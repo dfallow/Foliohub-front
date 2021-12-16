@@ -94,7 +94,7 @@ registerForm.addEventListener('submit', async (evt) => {
     if (emailsMatch && passMatch && regexChecked) {
         const data = serializeJson(registerForm);
         console.log(data);
-        sessionStorage.setItem('user', JSON.stringify(data));
+        sessionStorage.setItem('dataSentToExtra', JSON.stringify(data));
 
         console.log('data sent: ', JSON.stringify(data));
         location.href = 'accountCreateExtra.html';

@@ -55,7 +55,7 @@ const createAppOverview = (project, authorId) => {
                 <p>${authorId.username}</p>
             </div>
             <div id="card-likes">
-                <img id="arrow-up" src="../images/arrow-up.png" alt="up-arrow" onclick="upVote()"/>
+                <img id="arrow-up" src="../images/arrow-up.png" alt="up-arrow"  onclick="upVote()"/>
                 <div id="card-like-count">0</div>
                 <img id="arrow-down" src="../images/arrow-down.png" alt="down-arrow" onclick="downVote()"/>
          </div>
@@ -226,7 +226,10 @@ const createAppComments = (comments) => {
             </li>`
         });
         projectComments.appendChild(commentList);
-        projectDetails.appendChild(projectComments)
+        if (!user) {
+            projectDetails.appendChild(projectComments)
+        }
+
         // commentSection.appendChild(commentList);
         // projectDetails.appendChild(projectComments);
     }
