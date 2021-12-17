@@ -1,7 +1,22 @@
+/* ---- HTML BODY ---- */
+
 html {
     width: 100%;
     height: 100%;
 }
+
+body {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     height: 100vh;
+     align-items: center;
+     border-radius: 20px;
+     max-width: none;
+     padding-top: 15vh;
+ }
+
+/* ---- IMAGES ---- */
 
 #logo {
     margin: auto;
@@ -11,33 +26,7 @@ html {
 
 }
 
-h1 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 4vh;
-    height: auto;
-    color: rgba(255,255,255,0.8);
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100vh;
-    align-items: center;
-    border-radius: 20px;
-    max-width: none;
-    padding-top: 15vh;
-}
-
-#register {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    flex-direction: column;
-}
+/* ---- ERROR MESSAGE ---- */
 
 .errorMessage {
     background-color: slateblue;
@@ -51,12 +40,23 @@ body {
     display: none;
 }
 
-#errorPass {
+/* ---- FORM ---- */
 
+h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4vh;
+    height: auto;
+    color: rgba(255,255,255,0.8);
 }
 
-#errorEmail {
-
+#register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
 }
 
 #regForm {
@@ -84,6 +84,7 @@ body {
     width: 300px;
 }
 
+/* ---- DESKTOP MEDIA QUERIES ---- */
 
 @media screen and (min-aspect-ratio: 1/1) {
 

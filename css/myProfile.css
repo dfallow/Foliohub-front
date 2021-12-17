@@ -1,3 +1,4 @@
+/* ---- BODY ---- */
 body {
     height: 100%;
     max-width: 100%;
@@ -7,38 +8,7 @@ body {
     padding-top: 0;
 }
 
-.menuButton {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 10vw;
-    width: 10vw;
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 5px;
-}
-
-.menuMobile {
-    justify-content: start;
-    height: auto;
-    margin-bottom: 2vh;
-}
-
-.menuTopRow {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.bar {
-    width: 80%;
-    height: 7%;
-    margin: 6px 0;
-    border-radius: 20px;
-}
-
+/* ---- IMAGES ---- */
 #logo {
     width: 500px;
     height: 226px;
@@ -51,6 +21,7 @@ img {
     margin-top: 3px;
 }
 
+/* ---- USER INFO ---- */
 .user {
     margin: auto;
     padding-top: 10px;
@@ -119,6 +90,8 @@ img {
     margin: 0;
 }
 
+/* ---- SEARCHBAR AND FILTER ---- */
+
 .search-with-filter {
     margin-top: 40px;
     display: flex;
@@ -172,6 +145,7 @@ img {
     display: block;
 }
 
+/* ---- PROJECTS ---- */
 #userProjects {
     display: flex;
     flex-direction: column;
@@ -233,17 +207,6 @@ a, a:hover, a:visited, a:active {
     flex-direction: column;
 }
 
-#editBtn {
-    background-color: lightgray;
-    border: 0 solid black;
-    border-radius: 0 20px 20px 0;
-    font-size: 2vh;
-    flex-grow: 1;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-
 #projectName {
     align-self: flex-start;
     justify-content: flex-start;
@@ -274,7 +237,6 @@ a, a:hover, a:visited, a:active {
     width: 90%;
 }
 
-
 #project-card-container {
     display: flex;
     flex-direction: row;
@@ -284,6 +246,7 @@ a, a:hover, a:visited, a:active {
     border-radius: 20px;
 }
 
+/* ---- PROJECT STATS ---- */
 #project-info {
     position: absolute;
     height: 100%;
@@ -308,15 +271,26 @@ a, a:hover, a:visited, a:active {
     align-items: end;
 }
 
-#deleteBtn {
-    display: none;
-}
-
 #project-info img{
     height: 40px;
     width: 40px;
     margin-right: 5px;
     filter: invert(100%);
+}
+
+/* ---- BUTTONS ---- */
+#deleteBtn {
+    display: none;
+}
+
+#editBtn {
+    background-color: lightgray;
+    border: 0 solid black;
+    border-radius: 0 20px 20px 0;
+    font-size: 2vh;
+    flex-grow: 1;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 #fab-add-project {
@@ -356,11 +330,15 @@ a, a:hover, a:visited, a:active {
     height: 7%;
 }
 
+/* ---- DESKTOP MEDIA QUERIES ---- */
+
 @media screen and (min-aspect-ratio: 1/1) {
 
     body {
         padding: 0 200px;
     }
+
+    /* ---- SEARCHBAR AND FILTER ---- */
 
     .search-with-filter {
         width: 90%;
@@ -372,9 +350,11 @@ a, a:hover, a:visited, a:active {
         font-size: 2vh;
     }
 
+    /* ---- TOP ROW WITH LOGO ---- */
     .menuTopRow {
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 2vh;
     }
 
     .logo-container {
@@ -387,6 +367,7 @@ a, a:hover, a:visited, a:active {
         height: 226px;
     }
 
+    /* ---- USER INFO ---- */
     .user {
         padding: 20px 40px;
     }
@@ -401,11 +382,6 @@ a, a:hover, a:visited, a:active {
         flex-grow: 1;
     }
 
-    #userProjects {
-        width: 90%;
-        margin: auto;
-    }
-
     #userDesc {
         height: 150px;
         margin: 30px 30px 10px 30px;
@@ -414,15 +390,14 @@ a, a:hover, a:visited, a:active {
     #tags p {
         background-color: #e5e5e5;
     }
+
     #tags p:hover {
         background-color: snow;
         opacity: 1;
         transition: opacity 0.2s, background-color 0.2s;
     }
 
-    .menuTopRow {
-        margin-bottom: 2vh;
-    }
+    /* ---- BUTTONS ---- */
 
     #editBtn {
         display: none;
@@ -435,6 +410,18 @@ a, a:hover, a:visited, a:active {
         color: transparent;
         border: none;
 
+    }
+
+    #fab-add-project {
+        height: 70px;
+        width: 70px;
+    }
+
+    /* ---- PROJECTS ---- */
+
+    #userProjects {
+        width: 90%;
+        margin: auto;
     }
 
     #projectDetailDiv {
@@ -480,6 +467,7 @@ a, a:hover, a:visited, a:active {
         border-radius: 20px;
     }
 
+    /* ---- EDIT AND DELETE BUTTONS ON HOVER ---- */
     .animatedContainer:hover > #card-link {
         animation: cardLinkHover 200ms forwards;
     }
@@ -494,6 +482,7 @@ a, a:hover, a:visited, a:active {
         color: black;
         cursor: pointer;
     }
+
     .animatedContainer:hover #deleteBtn {
         display: block;
         background-color: #ff1515;
@@ -502,12 +491,6 @@ a, a:hover, a:visited, a:active {
         cursor: pointer;
         border-radius: 0 20px 20px 0;
     }
-
-    #fab-add-project {
-        height: 70px;
-        width: 70px;
-    }
-
 
 }
 

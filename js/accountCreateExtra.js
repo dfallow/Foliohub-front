@@ -1,10 +1,17 @@
+/*
+* Name: accountCreateExtra.js
+* Description: Script handling the validation of tags and the retrieval of form data for creating
+* and updating user accounts.
+*/
+
 'use strict';
 const url = window.GLOBAL_URL;
 
 const form = document.querySelector('#register');
-const dateInput = document.querySelector('#dateInput');
+// hidden inputs that hold the values passed on from accountCreate
 const usernameInput = document.querySelector('#usernameInput');
 const passwordInput = document.querySelector('#passwordInput');
+// other inputs
 const imageInput = document.querySelector('#image-upload');
 const regProfilePic = document.querySelector('#regProfilePic');
 const customFileUpload = document.querySelector('.custom-file-upload');
@@ -19,15 +26,15 @@ let tagArray = [];
 form.action = url + '/user';
 form.method = 'post';
 
-const dataReceived = sessionStorage.getItem('dataSentToExtra');
-const dataJSON = JSON.parse(dataReceived);
-console.log('data received: ', dataJSON);
-
+// if creating a new account (not updating), retrieving the data sent forward from createAccount.js
 if (!sessionStorage.getItem('modifying-profile')) {
+    const dataReceived = sessionStorage.getItem('dataSentToExtra');
+    const dataJSON = JSON.parse(dataReceived);
     usernameInput.value = dataJSON.email;
     passwordInput.value = dataJSON.password;
 }
 
+// handling the update of an account's info: displaying previously uploaded profile pic
 const displayPicture = (url) => {
     regProfilePic.style.backgroundImage = `url(${url})`
     regProfilePic.style.backgroundSize = 'cover';
@@ -37,9 +44,37 @@ const displayPicture = (url) => {
     customFileUpload.style.borderRadius = '50%';
     customFileUpload.style.width = '55vw';
 }
-// let user = JSON.parse(sessionStorage.getItem('user'));
+
+// handling the update of an account's info: checking whether to insert new user or update
 const modify = (sessionStorage.getItem('modifying-profile')) === 'true';
 
+// handling the update of an account's info: selecting form submit listener for either POST or PUT
+form.addEventListener('submit', (evt) => {
+    (modify) ? putEventListener(evt) : postEventListener(evt)
+})
+
+// handling the update of an account's info: filling up all the inputs with previous entries
+if (modify) {
+    getUserGlobal().then(() => {
+        const user = userGlobal;
+        const inputs = form.querySelectorAll('input');
+        const textarea = form.querySelector('#descTextArea')
+        inputs[1].value = user.username;
+        inputs[2].value = user.title;
+        textarea.value = (user.description === null) ? '' : user.description ;
+        inputs[4].value = (user.github === null) ? '' : user.github;
+
+        if (user.tags) {
+            tagArray = user.tags.split(',');
+            updateTags(tagArray);
+        }
+
+        displayPicture(url + '/uploads/user/' + user.profilePic);
+        form.method = 'put';
+    })
+}
+
+// handling the update of an account's info: updating the token in sessionStorage after putting user
 const refreshToken = async () => {
     const fetchOptions1 = {
         method: 'GET',
@@ -47,11 +82,13 @@ const refreshToken = async () => {
             Authorization: 'Bearer ' + sessionStorage.getItem('token'),
         }
     }
+
+    // getting user credentials again
     const response1 = await fetch(url + '/user/refreshToken/', fetchOptions1);
     const loginInfo = await response1.json();
 
+    // logging in again to get another token and update req.user
     const jsonString = `{"username":"${loginInfo.email}","password":"${loginInfo.password}"}`
-    console.log('jsonString ' + jsonString)
     const fetchOptions2 = {
         method: 'POST',
         headers: {
@@ -59,67 +96,17 @@ const refreshToken = async () => {
         },
         body: jsonString,
     };
-
     const response = await fetch(url + '/auth/login', fetchOptions2);
     const json = await response.json();
-    console.log('new token', json.token);
     // save token
     sessionStorage.setItem('token', json.token);
 }
 
-// const getUser = async () => {
-//     const fetchOptions = {
-//         method: 'GET',
-//     }
-//     try {
-//         const response = await fetch(url + `/user/${user.userId}`, fetchOptions);
-//         return await response.json();
-//     } catch (e) {
-//         console.log(e.message);
-//     }
-// }
-
-// const setCurrentUser = async () => {
-//     const fetchedUser = await getUser();
-//     sessionStorage.setItem('user', JSON.stringify(fetchedUser));
-//     // user = JSON.parse(sessionStorage.getItem('user'));
-// }
-if (modify) {
-    getUserGlobal().then(() => {
-        const user = userGlobal;
-        const inputs = form.querySelectorAll('input');
-        const textarea = form.querySelector('#descTextArea')
-        // inputs[0].value = ;
-        inputs[1].value = user.username;
-        inputs[2].value = user.title;
-        textarea.value = (user.description === null) ? '' : user.description ;
-        //inputs[3].value = (user.tags === null) ? '' : user.tags;
-        inputs[4].value = (user.github === null) ? '' : user.github;
-
-        if (user.tags) {
-            console.log('tagarray', tagArray)
-            console.log('user tags', user.tags)
-            tagArray = user.tags.split(',')
-            console.log('tagarray after split', tagArray)
-            updateTags(tagArray);
-        }
-
-        displayPicture(url + '/uploads/user/' + user.profilePic);
-        for (let i of inputs) {
-            console.log(i.name, i.value);
-        }
-        form.method = 'put';
-    })
-
-}
-
-form.addEventListener('submit', (evt) => {
-    (modify) ? putEventListener(evt) : postEventListener(evt)
-})
-
+// handling the update of an account's info: submit listener for updating user
 const putEventListener = async (evt) => {
     evt.preventDefault();
     const data = new FormData(form);
+    // adding tags to the formData
     data.set('tags', tagArray.toString());
     const fetchOptions = {
         method: 'PUT',
@@ -128,22 +115,18 @@ const putEventListener = async (evt) => {
         },
         body: data,
     }
-    console.log('body values:')
-    for (let [key, value] of data.entries()) {
-        console.log(key, value);
-    }
     try {
         await fetch(url + '/user', fetchOptions);
-        // await setCurrentUser()
         await refreshToken()
-        console.log('token refreshed after put');
         location.href = 'home.html';
     } catch (e) {
         console.log(e.message)
     }
+    // removing the sessionStorage item that indicates that the account needs to be updated and not inserted
     sessionStorage.removeItem('modifying-profile');
 }
 
+// handling the update of an account's info: submit listener for inserting user
 const postEventListener = async (evt) => {
     evt.preventDefault();
     const data = new FormData(form);
@@ -152,33 +135,30 @@ const postEventListener = async (evt) => {
         method: 'POST',
         body: data,
     }
-    for (let [key, value] of data.entries()) {
-        console.log(key, value);
-    }
     try {
-        const response = await fetch(url + '/user', fetchOptions);
-        const json = await response.json();
-        console.log(json);
+        await fetch(url + '/user', fetchOptions);
+        // removing data passed on from accountCreate
         sessionStorage.removeItem('dataSentToExtra');
-        console.log('removed user');
         location.href = 'userLogin.html';
     } catch (e) {
         console.log(e.message)
     }
 }
 
+// when selecting a profile pic, displaying it
 imageInput.addEventListener('change', () => {
     const image = imageInput.files[0];
     const bgUrl = URL.createObjectURL(image);
     displayPicture(bgUrl);
 })
 
+// handling tag input validation and inserting tags into an array that will be added to the formData on submit
 userTagInputBtn.addEventListener('click', (evt) => {
     evt.preventDefault();
-    const charTest = /^[A-Za-z]+$/
     const tag = userTagInput.value
     let errorMessage;
 
+    // validation
     if (tagArray.length === 10) {
         errorMessage = 'Reached Tag Limit'
     } else if (tag === "") {
@@ -186,16 +166,15 @@ userTagInputBtn.addEventListener('click', (evt) => {
     } else if (tag.length > 15) {
         errorMessage = 'Tag is too long';
     } else {
+        // adding tag to array with uppercase on first letter and displaying the added tags
         tagArray.push(tag.toUpperCase().charAt(0) + tag.slice(1));
         userTagInput.value = '';
         updateTags(tagArray);
     }
-    console.log('here');
-    console.log(errorMessage);
+    // showing error message
     if(errorMessage) {
         userTagError.innerHTML = errorMessage;
         if (errorMessage.length > 0) {
-            console.log('after');
             userTagError.innerHTML = errorMessage;
             userTagError.style.display = 'block';
             setTimeout(function () {
@@ -204,9 +183,9 @@ userTagInputBtn.addEventListener('click', (evt) => {
             }, 5000);
         }
     }
-
 })
 
+// displaying added tags and setting onclick listener to delete them
 function updateTags(tags) {
     const userTagArray = document.querySelector('#user-tags-array');
     userTagArray.innerHTML = '';
@@ -215,16 +194,19 @@ function updateTags(tags) {
     })
 }
 
+// removing a tag and updating display
 function removeTag(index) {
     tagArray.splice(index, 1);
     updateTags(tagArray);
 }
 
+// modifying UI if user is updating their profile. no delete button on profile creation
 if(!sessionStorage.getItem('modifying-profile')) {
     deleteBtn.style.display = 'none';
     buttonsDiv.style.justifyContent = 'center';
 }
 
+// delete own profile (or any profile if logged in as admin) after double confirmation
 if(deleteBtn) {
     deleteBtn.addEventListener('click', async (evt) => {
         evt.preventDefault();
@@ -237,8 +219,8 @@ if(deleteBtn) {
                             Authorization: 'Bearer ' + sessionStorage.getItem('token'),
                         }
                     }
-                    const response = await fetch(url + '/user', fetchOptions);
-                    console.log(response.json());
+                    await fetch(url + '/user', fetchOptions);
+                    // emptying session storage to log out
                     sessionStorage.clear()
                     window.location.replace(`../html/home.html`);
                 }

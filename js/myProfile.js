@@ -1,26 +1,34 @@
+/*
+* Name:myProfile.js
+* Script handling the functionalities of myProfile.
+* Creates and shows the user information and also shows
+* the users own project. If the user is an admin all projects
+* are displayed*
+ */
 'use strict';
 const url = window.GLOBAL_URL;
-console.log(url);
 
 let currentUrl = window.location.href;
 const wantedUserId = parseInt(currentUrl.split('=').pop());
 
+//selecting html elements
 const userImg = document.getElementById("userImg");
 const div = document.querySelector('.personal');
 const username = document.querySelector('#userName');
 const developerType = document.querySelector('#developerType');
 const memberSince = document.querySelector('#memberSince');
 const userDesc = document.querySelector('#userDesc');
-//TODO below 1
 const userTags = document.querySelector('#tags');
 const searchBar = document.querySelector('#searchBar');
 const searchBarWithFilter = document.querySelector('.search-with-filter')
 const githubLink = document.querySelector('#github');
 const fab = document.querySelector('#fab-add-project');
+const userProjects = document.querySelector('#userProjects');
 
 let isOwnProfile;
 let isAdmin;
 
+//displays the information of the user profile it belongs to
 function updateUserInfo(userInfo) {
     if (userInfo.profilePic) {
         userImg.src = url + '/uploads/user/' + userInfo.profilePic;
@@ -33,7 +41,6 @@ function updateUserInfo(userInfo) {
         userDesc.style.display = 'none';
     }
     userDesc.innerHTML = userInfo.description;
-    /* TODO general styling of tags */
     if (userInfo.tags) {
         const tags = userInfo.tags.split(',');
         tags.forEach((tag) => {
@@ -60,10 +67,10 @@ function updateUserInfo(userInfo) {
 
 }
 
-const userProjects = document.querySelector('#userProjects');
-
+//creates a project card for each of the users projects and adds them
+//to the list. If user is admin or it is their own profile has the option
+//to delete/edit
 const createProjectCard = (projects) => {
-    //clear user projects
     userProjects.innerHTML = '';
 
     if (projects.length > 0) {
@@ -72,10 +79,12 @@ const createProjectCard = (projects) => {
             const logoURL = (project.logo) ? url + '/thumbnails/project/' + project.logo : '../images/logo.png';
             const privateProject = project.private === 1;
             const thumbUpDown = (project.rating < 0) ? -1 : 1;
+            const cardLinkStyle = `flex-grow: ${(!isOwnProfile) ? '1' : '0'};`
+            const editBtn = (isOwnProfile || isAdmin) ? `<button id="editBtn" onClick="toEditProject(${project.id})">Edit</button>` : '';
 
             userProjects.innerHTML +=
                 `<div id="project-card-container" class=${(isOwnProfile || isAdmin) ? 'animatedContainer' : ''}>
-                <a id="card-link" href="../html/projectDetails.html?id=${project.id}" >
+                <a id="card-link" href="../html/projectDetails.html?id=${project.id}" style="${cardLinkStyle}" >
                     <li id="projectCard">
                         <figure id="projectImg">
                             <img src="${logoURL}" alt="project.name">
@@ -102,7 +111,7 @@ const createProjectCard = (projects) => {
                         </div>
                     </li>
                 </a>
-                <button id="editBtn" onclick="toEditProject(${project.id})">Edit</button>
+                ${editBtn}
                 <button id="deleteBtn" onclick="deleteProject(${project.id})">Delete</button>
             </div>`
         });
@@ -115,6 +124,7 @@ const createProjectCard = (projects) => {
     }
 }
 
+//navigate to project upload where user can modify the selected project
 function toEditProject(projectId) {
     if(isOwnProfile || isAdmin) {
         sessionStorage.setItem('modifying-project', 'true');
@@ -122,6 +132,7 @@ function toEditProject(projectId) {
     }
 }
 
+//confirms whether the user wants to delete the project
 const deleteProject = async (projectId) => {
 
     if (window.confirm('Do you really want to delete this project?')) {
@@ -131,22 +142,20 @@ const deleteProject = async (projectId) => {
                 Authorization: 'Bearer ' + sessionStorage.getItem('token'),
             }
         }
-        console.log('projectList', projectId);
         const route = (isAdmin) ? '/project/admin/' : '/project/personal/' ;
-        const response = await fetch(url + route + projectId, fetchOptions);
-        console.log(await response.json());
+        await fetch(url + route + projectId, fetchOptions);
         await displayPersonalProjects();
     }
 }
 
+//used to check if a project belongs to the user
 function author(project) {
-
     if (project.author === wantedUserId) {
         return project
     }
 }
+//gets the profile information of the user requested
 const displayUserInfo = async () => {
-
     try {
         const response = await fetch(url + '/user/' + wantedUserId);
         const userInfo = await response.json();
@@ -157,8 +166,10 @@ const displayUserInfo = async () => {
 }
 let projectList;
 
+//displays all the projects that are associated with the user
+//checks if the user is logged in and whether it is their profile
+//or they are an admin
 const displayPersonalProjects = async () => {
-
     try {
         const fetchOptions = {
             headers: {
@@ -182,28 +193,17 @@ const displayPersonalProjects = async () => {
                 console.log('userglobal not defined ;)')
             }
         }
-        console.log('route displayproject', route)
-        console.log('userglobal route displayproject', userGlobal)
         const response = await fetch(url + route, fetchOptions);
         const projects = await response.json();
-        console.log(projects);
         const userProjects = (isAdmin && isOwnProfile) ? projects : projects.filter(author);
         projectList = userProjects;
-        console.log('userProjects', userProjects);
         createProjectCard(userProjects);
     } catch (e) {
         console.log(e.message);
     }
 };
 
-
-
-function filterBtn() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-
-
+// closing dropdown when clicking somewhere else
 window.onclick = function (event) {
     if (!event.target.matches('.filterBtn')) {
         let dropdowns = document.getElementsByClassName("filterOptions");
@@ -217,8 +217,8 @@ window.onclick = function (event) {
     }
 }
 
-function filter(filterChoice) {
-    console.log(filterChoice);
+// sorting projects by date of creation, name, ratings, comments and privacy.
+function sort(filterChoice) {
     let listClone = [...projectList];
     switch (filterChoice) {
         case 'newest':
@@ -267,15 +267,23 @@ function filter(filterChoice) {
             })
             createProjectCard(listClone.reverse());
             break;
+        case 'privacy':
+            listClone.sort(function (a,b){
+                if (a.private > b.private) {return 1; }
+                if (a.private < b.private) {return -1; }
+                return 0;
+            })
+            createProjectCard(listClone.reverse());
+            break;
     }
 }
 
+// searching projects by name. if no result, message not found
 searchBar.addEventListener('input', (evt) => {
     setTimeout(() => {
         searchBarFilter(searchBar.value);
     }, 500)
 })
-
 function searchBarFilter(string) {
     let listClone = [...projectList];
     if (string.length === 0) {
@@ -293,10 +301,14 @@ function searchBarFilter(string) {
     }
 }
 
+// redirect to project upload with floating action button
 fab.addEventListener('click', () => {
     location.href = 'projectUpload.html';
 })
 
+// when the page appears, checks if a user is visiting its own profile and if the user is an admin.
+// if the user is visiting its own profile, the user info is fetched from the userGlobal variable which
+// is retrieved thanks to user token, if not, it is fetched from the database. then the projects are displayed
 window.onpageshow = () => {
     getUserGlobal().then(() => {
         isOwnProfile = (userGlobal) ? wantedUserId === userGlobal.userId : false;
@@ -309,6 +321,8 @@ window.onpageshow = () => {
                 displayPersonalProjects();
             });
         }
+        // reloading the page if it was accessed via the back button from the project details page.
+        // if not reloaded, the stats won't refresh on the project cards.
         if (sessionStorage.getItem('projectDetailsVisited')) {
             sessionStorage.removeItem('projectDetailsVisited');
             location.reload();

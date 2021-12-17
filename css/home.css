@@ -1,3 +1,4 @@
+/* ---- BODY ---- */
 body {
     overflow-x: hidden;
     display: flex;
@@ -5,9 +6,13 @@ body {
     align-items: center;
 }
 
+/* ---- TOP BAR WITH LOGO ---- */
+
 .menuTopRow {
     margin-bottom: 2vh;
 }
+
+/* ---- SEARCHBAR AND FILTER ---- */
 
 .search-with-filter {
     display: flex;
@@ -16,6 +21,16 @@ body {
     border-radius: 50px;
     align-items: center;
     height: 5vh;
+}
+
+#searchBar {
+    border-radius: 20px 0 0 20px;
+    margin: 0;
+    height: 100%;
+}
+
+#searchBar:focus {
+    outline: none;
 }
 
 .filterBtn {
@@ -46,15 +61,7 @@ body {
     display: inline-block;
 }
 
-#searchBar {
-    border-radius: 20px 0 0 20px;
-    margin: 0;
-    height: 100%;
-}
-
-#searchBar:focus {
-    outline: none;
-}
+/* ---- PROJECT CARDS ---- */
 
 .projects {
     width: 100%;
@@ -62,16 +69,6 @@ body {
     flex-direction: column;
     justify-content: flex-start;
 }
-
-/*#projectList {*/
-/*    width: 100%;*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    flex-wrap: wrap;*/
-/*    justify-content: space-between;*/
-/*    list-style-type: none;*/
-/*    padding: 0;*/
-/*}*/
 
 #projectList {
     padding: 0;
@@ -94,15 +91,12 @@ body {
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 
-
-
 .project-card:hover {
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
     transform: translateY(-10px) ;
     transition: transform 0.2s ease-out, background-color 0.2s ease-in;
     background-color: rgba(0,0,0,0.8);
 }
-
 
 .project-card:not(:hover) {
     transform: translateY(10px);
@@ -185,24 +179,13 @@ a, a:hover, a:visited, a:active {
     text-decoration: none;
 }
 
-
-#load-more {
-    font-size: 2vh;
-    border: 1px solid lightgray;
-    background: white;
-    border-radius: 100px;
-    padding: 0.5vh 1vh;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
-}
-
-#load-more:active {
-    box-shadow: none;
-}
+/* ---- DESKTOP MEDIA QUERIES ---- */
 
 @media screen and (min-aspect-ratio: 1/1) {
 
     body {
         padding: 0 200px;
+        margin: 0;
     }
 
     .logo-container {
@@ -210,9 +193,12 @@ a, a:hover, a:visited, a:active {
         width: 100px;
     }
 
+
     .menuTopRow {
         margin-bottom: 2vh;
     }
+
+    /* ---- SEARCHBAR AND FILTER ---- */
 
     .search-with-filter {
         width: 85%;
@@ -223,6 +209,8 @@ a, a:hover, a:visited, a:active {
         width: 10px;
         font-size: 2vh;
     }
+
+    /* ---- PROJECT CARDS ---- */
 
     .projects {
     }
@@ -242,10 +230,6 @@ a, a:hover, a:visited, a:active {
     .project-card-fig {
         width: 200px;
         height: 200px;
-    }
-
-    #side-menu {
-        width: 20vw;
     }
 
     #project-stats {

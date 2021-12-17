@@ -1,3 +1,4 @@
+/* ---- ALL(*), HTML, BODY ---- */
 * {
     box-sizing: border-box;
     font-family: 'Titillium Web', sans-serif;
@@ -16,6 +17,7 @@ html{
     background: linear-gradient(to right, #4e4376, #2b5876); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+/* ---- SCROLLBAR ---- */
 ::-webkit-scrollbar {
     width: 15px;
     height: 10px;
@@ -29,65 +31,14 @@ html{
     background: rgb(32, 43, 56);
 }
 
+/* ---- DRAWER MENU ---- */
 .menu {
-    /*padding-left: 0.5em;*/
-    /*padding-right: 0.5em;*/
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     align-content: flex-end;
-}
-
-.mainMobileButton {
-    background-color: rgba(0,0,0,0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    outline: none;
-    border: none;
-    font-size: 3vh;
-    color: white;
-    width: 300px;
-    height: 7vh;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-.mainMobileInput {
-    background-color: rgba(255,255,255,0.8);
-    padding: 2vh 3vh;
-    width: 100%;
-    font-size: 3vh;
-    border-radius: 20px;
-    outline: none;
-    border: none;
-    margin: 5px 0;
-    text-align: justify;
-}
-
-#searchBar {
-    text-align: center;
-    width: 100%;
-    border: none;
-    align-self: center;
-    font-size: 2vh;
-    margin: 0.5vh 0;
-}
-
-.logo-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 10vw;
-    width: 10vw;
-    border: 2px solid lightgray;
-    border-radius: 10px;
-    padding: 5px;
-    cursor: pointer;
 }
 
 .bar {
@@ -116,13 +67,6 @@ html{
     margin-bottom: 2vh;
 }
 
-#profilePic {
-    height: 80%;
-    width: 80%;
-    opacity: 70%;
-    cursor: pointer;
-}
-
 #side-menu {
     position: absolute;
     top: 0;
@@ -139,7 +83,6 @@ html{
     z-index: 9000;
 }
 
-
 #drawer-user-info {
     display: flex;
     flex-direction: row;
@@ -150,6 +93,7 @@ html{
     border-bottom: 2px outset rgba(255,255,255, 0.8);
     cursor: pointer;
 }
+
 #drawer-user-info:hover,  #side-menu a:hover{
     background-color: grey;
     transition: 0.2s;
@@ -216,10 +160,72 @@ a, a:hover, a:visited, a:active {
     text-decoration: none;
 }
 
+/* ---- BUTTONS AND INPUTS ---- */
+.mainMobileButton {
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    border: none;
+    font-size: 3vh;
+    color: white;
+    width: 300px;
+    height: 7vh;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.mainMobileInput {
+    background-color: rgba(255,255,255,0.8);
+    padding: 2vh 3vh;
+    width: 100%;
+    font-size: 3vh;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    margin: 5px 0;
+    text-align: justify;
+}
+
+/* ---- SEARCHBAR ---- */
+#searchBar {
+    text-align: center;
+    width: 100%;
+    border: none;
+    align-self: center;
+    font-size: 2vh;
+    margin: 0.5vh 0;
+}
+
+/* ---- IMAGES ---- */
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 10vw;
+    width: 10vw;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#profilePic {
+    height: 80%;
+    width: 80%;
+    opacity: 70%;
+    cursor: pointer;
+}
+
 #logo {
     cursor: pointer;
 }
 
+/* ---- DESKTOP MEDIA QUERIES ---- */
 
 @media screen and (min-aspect-ratio: 1/1) {
     #side-menu {
@@ -231,6 +237,7 @@ a, a:hover, a:visited, a:active {
         margin: 20px 0;
         padding-left: 10px;
     }
+
     #btn-close {
         height: 0;
         margin-right: 14px;

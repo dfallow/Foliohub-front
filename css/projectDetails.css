@@ -1,3 +1,4 @@
+/* ---- BODY ---- */
 body {
     max-width: 100%;
     display: flex;
@@ -7,12 +8,7 @@ body {
     padding-top: 0;
 }
 
-.menuMobile {
-    height: auto;
-    justify-content: start;
-    margin-bottom: 2vh;
-}
-
+/* ---- USER CARD ---- */
 .user {
     margin-top: 2vw;
     padding: 20px;
@@ -38,38 +34,12 @@ body {
     background-color: white;
     border: 2px white solid;
 }
+
 #userInfo {
     font-size: 2vh;
 }
 
-#card-top-row {
-    display: flex;
-    flex-direction: row;
-}
-
-#card-logo {
-    width: 20vw;
-    height: 20vw;
-    border-radius: 20px;
-    margin-right: 3vw;
-}
-
-#card-details {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-#card-tags {
-    flex-grow: 1;
-}
-
-#card-bottom-row {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
+/* ---- RATINGS ---- */
 #card-likes {
     display: flex;
     flex-direction: column;
@@ -88,22 +58,7 @@ body {
     margin: 10px 0;
 }
 
-h2, p {
-    margin: 0;
-}
-
-h2 {
-    font-size: 3vh;
-}
-
-p {
-    font-size: 2vh;
-}
-
-h5 {
-    font-size: 1.3vh;
-    margin: 1vh 0;
-}
+/* ---- APP OVERVIEW ---- */
 
 #projectDetails {
     width: 100%;
@@ -138,12 +93,14 @@ h5 {
 #nameAuthor {
     padding: 0 10px;
     width: 70%;
+    font-size: 2vh;
 }
 
 #nameAuthor h2 {
-    font-size: 2vh;
+    font-size: 3vh;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin: 0;
 }
 
 #nameAuthor p {
@@ -152,11 +109,6 @@ h5 {
 
 #appOverviewBottom {
     margin-top: 40px;
-}
-
-#cardTags {
-    border: 1px solid black;
-    height: 4vh;
 }
 
 #shortDesc {
@@ -169,19 +121,7 @@ h5 {
     font-size: 4vw;
 }
 
-#projectShortDesc {
-    flex-grow: 1;
-}
-
-#media{
-    margin-top: 20px;
-    background-color: white;
-    border-radius: 20px;
-    padding: 1vh;
-    display: flex;
-    justify-content: center;
-}
-
+/* ---- MEDIA ---- */
 #videoMedia, #imageMedia{
     margin-top: 20px;
     padding: 1vh;
@@ -235,6 +175,45 @@ iframe {
     font-size: 2vh;
 }
 
+.zoomD {
+    cursor: pointer;
+}
+
+#lb-back {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    transition: all ease 0.4s;
+}
+
+#lb-back.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+#lb-img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+#lb-img img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+/* ---- COMMENTS ---- */
 #comments {
     display: flex;
     flex-direction: column;
@@ -260,6 +239,7 @@ iframe {
 #comments > ul::-webkit-scrollbar-thumb {
     overflow: hidden;
 }
+
 #comments > ul::-webkit-scrollbar-track {
     border-radius: 0 20px 20px 0;
 }
@@ -314,6 +294,8 @@ iframe {
     right: 10px;
 }
 
+/* ---- ADD COMMENT POP UP ---- */
+
 #add-comment-btn {
     font-size: 2.5vh;
     padding: 20px 50px;
@@ -356,7 +338,6 @@ iframe {
 }
 
 .inputOutline > textarea {
-    /* 5% from the top, 15% from the bottom and centered */
     outline: none;
     box-shadow: none;
     border: 2px solid black;
@@ -366,10 +347,6 @@ iframe {
     resize: none;
     border-radius: 20px;
     padding: 1vh 2vh 1vh 1vh;
-    /* Could be more or less, depending on screen size */
-}
-
-#input {
     background-color: #e5e5e5;
 }
 
@@ -424,49 +401,15 @@ iframe {
     color: red;
 }
 
-.zoomD {
-    cursor: pointer;
-}
-
-#lb-back {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    visibility: hidden;
-    opacity: 0;
-    transition: all ease 0.4s;
-}
-
-#lb-back.show {
-    visibility: visible;
-    opacity: 1;
-}
-
-#lb-img {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    text-align: center;
-}
-
-#lb-img img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: contain;
-}
+/* ---- DESKTOP MEDIA QUERIES ---- */
 
 @media screen and (min-aspect-ratio: 1/1) {
 
     body {
         padding: 0 200px 50px 200px;
     }
+
+    /* ---- APP OVERVIEW ---- */
 
     #appOverview {
         height: 400px;
@@ -505,13 +448,25 @@ iframe {
         margin-top: 5px;
     }
 
+    #appLongDescription {
+        font-size: 30px;
+        padding: 2vh;
+        height: auto;
+        min-height: 0;
+
+    }
+
+    /* ---- MEDIA ---- */
+
     #imageMedia::-webkit-scrollbar-track {
         border-radius: 0 0 20px 20px;
     }
+
     #imageMedia::-webkit-scrollbar-thumb {
 
     }
 
+    /* ---- TOP ROW WITH LOGO ---- */
     .logo-container {
         height: 100px;
         width: 100px;
@@ -527,15 +482,13 @@ iframe {
         width: 68px;
     }
 
+    /* ---- AUTHOR INFO ---- */
+
     #userInfo {
         display: flex;
         flex-direction: column;
         gap: 15px;
         justify-content: center;
-    }
-
-    #user {
-
     }
 
     #github, #userImg {
@@ -557,9 +510,12 @@ iframe {
         height: 20vw;
     }
 
+    /* ---- COMMENTS ---- */
+
     .inputOutline h2 {
         align-self: flex-start;
     }
+
     #closeBtn {
         width: 50px;
         height: 50px;
@@ -582,6 +538,7 @@ iframe {
         overflow: hidden;
         border-left: 1px solid rgba(0,0,0,0.7);
     }
+
     #input::-webkit-scrollbar-track{
         border-radius: 0 20px 20px 0;
     }
@@ -591,7 +548,6 @@ iframe {
         height: 11vw;
         resize: none;
     }
-
 
     .userComment {
         display: flex;
@@ -630,14 +586,6 @@ iframe {
     #comment-info {
         margin-left: 20px;
         flex-grow: 1;
-    }
-
-    #appLongDescription {
-        font-size: 30px;
-        padding: 2vh;
-        height: auto;
-        min-height: 0;
-
     }
 
 }

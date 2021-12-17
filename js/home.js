@@ -1,27 +1,26 @@
+/*
+* Name: home.js
+* Description: Script handling all the functionalities on the home page:
+* creating a list of project cards and handling search and filter
+*/
+
 'use strict';
-const url = window.GLOBAL_URL; //should be server address
+const url = window.GLOBAL_URL;
 
-//selecting html element
 const ul = document.querySelector('#projectList');
-const loadMore = document.querySelector('#load-more');
-
 const searchBar = document.querySelector('.searching');
 
-let projectsExample;
-
-//creating list of projects
+//creating list of project cards
 const createProjectList = (projects) => {
     //clear ul element
     ul.innerHTML = '';
     projects.forEach((project) => {
-        //creating li element with DOM methods
-
+        //creating cards with thumbnails instead of original pictures, name of the project and stats (rating and comments)
         const src = (project.logo) ? url + '/thumbnails/project/' + project.logo : '../images/logo.png';
         const alt = (project.logo) ? project.name : 'no picture';
         const href = `../html/projectDetails.html?id=${project.id}`
+        // if the rating is negative, the thumb will be pointing downwards
         const thumbUpDown = (project.rating < 0) ? -1 : 1;
-
-
         ul.innerHTML +=
             `<a href="${href}">
                     <li class="project-card">
@@ -49,15 +48,17 @@ const createProjectList = (projects) => {
 
 let projects;
 
-//AJAX call
+// getting all public projects and displaying them as cards
 const getProjects = async () => {
     try {
         console.log(url + '/project');
         const response = await fetch(url + '/project');
         projects = await response.json();
         console.log(projects)
-        projectsExample = projects;
         createProjectList(projects);
+        // this makes the app fetch the info again in case someone gives a rating or comments
+        // and returns to the home page by pressing the back button.
+        // for some reason, the stats will not refresh otherwise
         if (sessionStorage.getItem('projectDetailsVisited')) {
             const response2 = await fetch(url + '/project');
             projects = await response2.json();
@@ -68,12 +69,8 @@ const getProjects = async () => {
     }
 };
 
-// loadMore.addEventListener('click', (evt => {
-//     evt.preventDefault();
-//     createProjectList(projectsExample);
-// }))
-
-function filter(filterChoice) {
+// sorting projects according to creation date, name, number of comments or rating
+function sort(filterChoice) {
     ul.innerHTML = '';
     let listClone = [...projects];
     switch (filterChoice) {
@@ -115,22 +112,24 @@ function filter(filterChoice) {
             })
             createProjectList(listClone.reverse());
             break;
-
     }
 }
 
+// handling searchbar which filters apps by name and descending date of creation
 searchBar.addEventListener('input', (evt) => {
     setTimeout(() => {
         searchBarFilter(searchBar.value);
     }, 500)
 })
-
 function searchBarFilter(string) {
     ul.innerHTML = '';
     let listClone = [...projects];
     if (string.length === 0) {
-        createProjectList(projects)
+        ul.style.display = 'grid';
+        ul.style.flexDirection = 'row';
+        createProjectList(projects);
     } else {
+        // showing a message when no result is found for the string input
         const filtered = listClone.filter(project => project.name.toLowerCase().includes(string.toLowerCase()));
         if (filtered.length === 0) {
             ul.style.display = 'flex';

@@ -1,15 +1,16 @@
+/*
+* Name: drawer.js
+* Description: Script handling the display and functionalities of the side-menu/drawer
+*/
+
 'use strict';
 
-const sideMenu = document.querySelector('#side-menu');
 //Drawer
+const sideMenu = document.querySelector('#side-menu');
 
-
+// creating drawer with links to home, myProfile, projectUpload, accountCreateExtra(for updating profile) and logout
 const createDrawer = (userGlobal) => {
-    // const user = userGlobal;
     const profilePicSrc = (userGlobal.profilePic) ? window.GLOBAL_URL + '/uploads/user/' + userGlobal.profilePic : '../images/login.png';
-
-    console.log('in create drawer: ' + userGlobal.username);
-
     sideMenu.innerHTML = `<a href="#" id="btn-close" onclick="closeDrawer()">&times;</a>
     <div id="drawer-user-info" onclick="goToMyProfile(userGlobal)">
         <img id="drawer-pic" src="${profilePicSrc}" alt="drawer-pic" style="object-fit: cover;">
@@ -37,13 +38,6 @@ const createDrawer = (userGlobal) => {
         </div>
     </a>
     
-    <a href="#">
-        <div class="drawer-item">
-            <img class="drawer-item-logo" src="../images/share.png" alt="">
-            <p>Share project</p>
-        </div>
-    </a>
-    
     <a class="drawer-settings" href="../html/accountCreateExtra.html" onclick="modifyAccount()">
         <div class="drawer-item">
             <img class="drawer-item-logo" src="../images/settings.png" alt="">
@@ -59,10 +53,9 @@ const createDrawer = (userGlobal) => {
     </a>`
 }
 
+// opening drawer with different animations and styles depending on the aspect-ratio of the current screen
 const aspectRatio = screen.width / screen.height
-console.log('aspect ratio', aspectRatio);
 function openDrawer() {
-    console.log('trying to open')
     sideMenu.style.display = 'flex';
     if(aspectRatio > 1) {
         sideMenu.animate([
@@ -73,13 +66,10 @@ function openDrawer() {
             fill: "forwards"
         });
     } else sideMenu.style.width = '85%'
-
-
-    // sideMenu.style.display = 'flex';
-    // sideMenu.style.minWidth = '500px';
     body.style.overflow = 'hidden';
 }
 
+// closing drawer
 function closeDrawer() {
     if (aspectRatio > 1) {
         sideMenu.animate([
@@ -93,23 +83,19 @@ function closeDrawer() {
         sideMenu.style.display = 'none';
     }
     body.style.overflow = 'auto';
-
-    // sideMenu.style.width = '0';
 }
 
+// functions for navigation (item menu onclicks)
 function modifyAccount() {
     sessionStorage.setItem('modifying-profile', 'true');
 }
-
 function goToMyProfile(user) {
     location.href = `../html/myProfile.html?id=${user.userId}`;
 }
 
 async function logout() {
     try {
-        const response = await fetch(window.GLOBAL_URL + '/auth/logout');
-        const json = await response.json();
-        console.log(json);
+        await fetch(window.GLOBAL_URL + '/auth/logout');
         //empty sessionStorage
         sessionStorage.clear();
         alert('You have now been logged out');
@@ -119,11 +105,10 @@ async function logout() {
     }
 }
 
-
+// making sure that userGlobal is set with req.user data before creating the drawer.
+// a visitor should not have access to the drawer
 getUserGlobal().then(() => {
     if (userGlobal) {
-        console.log('global', userGlobal);
         createDrawer(userGlobal);
-        console.log('after drawer')
     }
 });

@@ -1,3 +1,4 @@
+/* ---- HTML BODY ---- */
 html {
     width: 100%;
     height: 100%;
@@ -11,16 +12,7 @@ body{
     align-items: center;
 }
 
-.menu {
-    position: absolute;
-    top: 5px
-}
-
-h2 {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
+/* ---- FORM ---- */
 
 #register {
     display: flex;
@@ -38,13 +30,14 @@ h2 {
     flex-direction: column;
 }
 
-
 #descTextArea {
     resize: none;
     width: 100%;
     height: 12vh;
     overflow: hidden;
 }
+
+/* ---- TAGS ---- */
 
 #userTags {
     position: relative;
@@ -92,6 +85,8 @@ h2 {
     opacity: 0.9;
 }
 
+/* ---- PROFILE PIC UPLOADING ---- */
+
 #regProfilePic {
     display: flex;
     flex-direction: column;
@@ -107,7 +102,6 @@ h2 {
 input[type="file"] {
     display: none;
 }
-
 
 .custom-file-upload {
     position: relative;
@@ -128,20 +122,13 @@ input[type="file"] {
     transform: translateY(-5%);
 }
 
-
-#logo {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    width: 125px;
-    height: 125px;
-    margin-top: 10px;
-    margin-left: 10px;
-}
+/* ---- HIDDEN INPUTS USERNAME AND PASSWORD ---- */
 
 .hidden-input {
     display: none;
 }
+
+/* ---- BUTTONS ---- */
 
 #buttons {
     width: 80%;
@@ -155,6 +142,7 @@ input[type="file"] {
     background-color: red;
 }
 
+/* ---- DESKTOP MEDIA QUERIES ---- */
 
 @media screen and (min-aspect-ratio: 1/1) {
 

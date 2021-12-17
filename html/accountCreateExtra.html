@@ -26,13 +26,9 @@
         <div id="userTags">
             <input class="mainMobileInput" pattern="[a-zA-Z]" id="input-user-tag" type="text" placeholder="Enter a Single Tag..." name="tags">
             <button class="mainMobileButton" id="check-user-tag">Add</button>
-            <div id="tag-error">
-
-            </div>
+            <div id="tag-error"></div>
         </div>
-        <div id="user-tags-array" readonly="readonly">
-            <!-- user tags show here -->
-        </div>
+        <div id="user-tags-array"><!-- user tags show here --></div>
         <input class="mainMobileInput" type="text" placeholder="GitHub / GitLab" name="github">
         <input style="display: none" class="mainMobileInput" type="text" placeholder="tag1,tag2,tag3,..." name="tags">
         <input id="dateInput" class="hidden-input" type="text" name="creationDate">
@@ -43,12 +39,12 @@
         <button type="submit" class="mainMobileButton">Save</button>
         <button onclick="deleteAccount()" id="delete-account-btn" class="mainMobileButton">Delete</button>
     </div>
-
 </form>
 
 <script src="../constants.js"></script>
 <script src="../js/general.js"></script>
 <script src="../js/serialize.js"></script>
 <script src="../js/accountCreateExtra.js"></script>
+
 </body>
 </html>

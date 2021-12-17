@@ -1,4 +1,4 @@
-    'use strict';
+'use strict';
 const url = window.GLOBAL_URL;
 
 // select existing html elements
@@ -17,19 +17,16 @@ loginForm.addEventListener('submit', async (evt) => {
         },
         body: JSON.stringify(data),
     };
-    console.log('stringify login ' + JSON.stringify(data));
+    //checking that login details are correct
     const response = await fetch(url + '/auth/login', fetchOptions);
     const json = await response.json();
-    console.log('login response', json);
 
     if (!json.user) {
-        console.log('wrong username/password')
+        console.log('Wrong username/password')
         alert(json.message);
     } else {
         // save token
         sessionStorage.setItem('token', json.token);
-        // sessionStorage.setItem('user', JSON.stringify(json.user));
-        console.log('location href', location.href)
         location.href = 'home.html';
     }
 });

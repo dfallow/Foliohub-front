@@ -26,36 +26,31 @@
     </div>
 </div>
 
-<div id="side-menu" class="side-nav">
+<div id="side-menu" class="side-nav"></div>
 
-</div>
-
-<form id="uploadDetails" action=""> <!-- TODO action to do -->
-
+<form id="uploadDetails" action="">
     <div id="regProjectPic">
         <label for="image-upload" class="custom-file-upload">
             <p>+</p>
         </label>
         <input id="image-upload" type="file" placeholder="Photo" name="logo">
     </div>
-    <input required class="mainMobileInput" maxlength="30" id="projectName" type="text" placeholder="Project Name" name="name">
+    <input required class="mainMobileInput" maxlength="30" id="projectName" type="text" placeholder="Project Name"
+           name="name">
     <textarea class="mainMobileInput" maxlength="60" id="shortDescTextArea"
               placeholder="Short description" name="outline"></textarea>
-    <input style="display: none" class="mainMobileInput" placeholder="tag1,tag2,tag3,..." type="text" pattern="^[.]+(,[.]+)*$" name="tags">
+    <input style="display: none" class="mainMobileInput" placeholder="tag1,tag2,tag3,..." type="text"
+           pattern="^[.]+(,[.]+)*$" name="tags">
 
     <h3>Add a video</h3>
 
     <div id="projectVideo">
         <div class="add-youtube-search">
-            <input class="mainMobileInput"  id="video-upload" type="text" placeholder="Add Youtube URL..." name="video">
+            <input class="mainMobileInput" id="video-upload" type="text" placeholder="Add Youtube URL..." name="video">
             <button class="mainMobileButton" id="check-youtube-video">Check</button>
             <button class="mainMobileButton" id="remove-youtube-video">Remove</button>
         </div>
-
-        <div class="video-wrapper">
-
-        </div>
-
+        <div class="video-wrapper"></div>
     </div>
 
     <div id="projectPictures">
@@ -66,19 +61,18 @@
         <input id="pictures-upload" type="file" multiple="multiple" placeholder="Photo" accept="image/*" name="images">
     </div>
 
-    <div id="uploadedPictures">
-        <!-- Uploaded images show up here -->
-    </div>
+    <div id="uploadedPictures"><!-- Uploaded images show up here --></div>
 
-    <textarea class="mainMobileInput" id="longDescTextArea" placeholder="Longer description" name="description"></textarea>
+    <textarea class="mainMobileInput" id="longDescTextArea" placeholder="Longer description"
+              name="description"></textarea>
 
     <div id="div-private">
         <input type="checkbox" id="private"/><label id="checkbox-text" for="private">Private</label>
     </div>
 
     <div class="buttons">
-    <button id="submit-btn" class="mainMobileButton" type="submit">Create</button>
-    <button class="mainMobileButton" id="deleteBtn">Delete</button>
+        <button id="submit-btn" class="mainMobileButton" type="submit">Create</button>
+        <button class="mainMobileButton" id="deleteBtn">Delete</button>
     </div>
 </form>
 

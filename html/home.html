@@ -23,13 +23,11 @@
         <div class="logo-container" id="profilePicContainer">
             <img id="profilePic" src="../images/login.png">
         </div>
-
     </div>
     <div class="search-with-filter">
         <input class="searching" type="text" placeholder="Search..." id="searchBar">
-
         <div class="filterMenu">
-            <select class="filterBtn" onchange=filter(this.value)>
+            <select class="filterBtn" onchange=sort(this.value)>
                 <option value="newest">Newest</option>
                 <option value="oldest">Oldest</option>
                 <option value="aZ">A-Z</option>
@@ -39,27 +37,18 @@
             </select>
         </div>
     </div>
-
 </div>
 
-
-
-<div id="side-menu" class="side-nav">
-
-</div>
+<div id="side-menu" class="side-nav"></div>
 
 <div class="projects">
-    <ul id="projectList">
-        <!-- home.js creates project inputs here-->
-    </ul>
-
+    <ul id="projectList"><!-- home.js creates project inputs here--></ul>
 </div>
-
-<!--<button id="load-more">more projects</button>-->
 
 <script src="../constants.js"></script>
 <script src="../js/general.js"></script>
 <script src="../js/drawer.js"></script>
 <script src="../js/home.js"></script>
+
 </body>
 </html>

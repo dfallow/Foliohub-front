@@ -1,3 +1,9 @@
+/*
+* Name: projectDetails.js
+* Description: Script handling the functionalities of projectDetails.html
+* display all the information about a project and provides functionality
+* to the html elements
+*/
 'use strict';
 const url = window.GLOBAL_URL;
 const yTubeUrl = "https://www.youtube.com/embed/"
@@ -9,14 +15,11 @@ let isAuthor;
 
 const checkAuthor = async () => {
     const author = await getProjectAuthor();
-    // const currentUser = userGlobal;
     isAuthor = author === userGlobal.userId;
-    console.log('is author', isAuthor);
 }
 
 //selecting html elements
 const projectDetails = document.querySelector('#projectDetails');
-
 const appOverview = document.querySelector('#appOverview');
 let likes;
 let rating;
@@ -25,13 +28,12 @@ const vidMedia = document.querySelector('#videoMedia')
 const imgMedia = document.querySelector('#imageMedia');
 const projectComments = document.querySelector('#comments');
 const longDescription = document.querySelector('#appLongDescription');
-const moreInfo = document.querySelector('#moreInfo');
 const userInfo = document.querySelector('.user');
-// const githubLink = document.querySelector('#github');
 
 let upArrow;
 let downArrow;
 
+//app overview contains details about the app including name, author, outline, logo, rating
 const createAppOverview = (project, authorId) => {
 
     projectDetails.innerHTML = '';
@@ -63,10 +65,7 @@ const createAppOverview = (project, authorId) => {
          
          </div>
          <div id="appOverviewBottom">
-            <div style="display: none" id="cardTags">
-                    <!-- TODO tags to be added here -->
-                    <p>Tags will go here</p>
-            </div>
+           
             <p id="shortDesc">${shortDesc}</p>
          </div>`
     projectDetails.appendChild(appOverview);
@@ -81,10 +80,11 @@ const createAppOverview = (project, authorId) => {
         appOverviewBottom.style.display = 'none';
         appOverview.style.minHeight = 'auto';
     }
-    ;
 }
 
+//display the current projects media
 const createAppMedia = (project) => {
+    //if the project has a video, it is displayed in an embedded youtube player
     if (project.video) {
         vidMedia.innerHTML +=
             `<iframe width="100%" height="100%" src="${yTubeUrl + project.video}" title="YouTube video player" frameborder="0" 
@@ -94,6 +94,7 @@ const createAppMedia = (project) => {
         projectDetails.appendChild(vidMedia);
     }
 
+    //project images are displayed in a horizontal scrollable list, can be clicked to enlarge
     if (project.images) {
         const images = project.images.split(',');
         images.forEach((image) => {
@@ -113,13 +114,14 @@ const createAppMedia = (project) => {
     }
 }
 
+//displays the long description about the project
 const createAppLongDescription = (project) => {
     longDescription.innerHTML =
         `${project.description}`
 
     projectDetails.appendChild(longDescription);
 }
-
+//creating the input that allows users to add comments about the project loaded
 const createAppCommentInput = () => {
     if (userGlobal) {
 
@@ -151,6 +153,7 @@ const createAppCommentInput = () => {
             popupInput.value = '';
             body.style.overflowY = 'visible';
         }));
+        //click add but on add comment display, inserts and displays the users comment
         popupBtnAdd.addEventListener('click', (evt => {
             evt.preventDefault();
             if (popupInput.value.length > 0) {
@@ -161,6 +164,7 @@ const createAppCommentInput = () => {
                 });
             }
         }));
+        //also when enter key -> keycode === 13, is pressed, comment is inserted
         popupInput.addEventListener("keydown", (evt => {
             if (evt.keyCode === 13) {
                 evt.preventDefault();
@@ -173,10 +177,10 @@ const createAppCommentInput = () => {
                 }
             }
         }));
-
     }
 }
 
+//displays a popup element where users can enter a comment about the project
 function ShowPopup() {
     const inputPopup = document.getElementById('inputPopup');
     inputPopup.style.display = 'flex';
@@ -190,7 +194,7 @@ async function addComment(comment) {
         "userName": userGlobal.username,
         "projectId": projectId,
     }
-    console.log(data);
+    //post methody sends data to insert comment to database
     const fetchOptions = {
         method: 'POST',
         headers: {
@@ -199,14 +203,13 @@ async function addComment(comment) {
         },
         body: JSON.stringify(data),
     }
-
     const response = await fetch(url + '/project/comments/', fetchOptions);
-    const json = await response.json();
-    console.log(json);
+    await response.json();
 
     await getComments();
 }
 
+//displays all comments in relation to the projectId in a scrollable list
 const createAppComments = (comments) => {
     const currentList = document.querySelector('#commentList');
     if (currentList) {
@@ -228,23 +231,23 @@ const createAppComments = (comments) => {
                         <p id="comment">${comment.comment}</p>
                         <p id="comment-date">${comment.timeStamp.split(' ').shift()}</p>
                     </div>
-                    ${(isAuthor) ? '<img id="comment-delete" src="../images/delete.png" onclick="deleteComment(' + comment.commentId + ')">' : ''}
+                    ${(isAuthor || userGlobal.role === 1) ? '<img alt="delete" id="comment-delete" src="../images/delete.png" onclick="deleteComment(' + comment.commentId + ')">' : ''}
             </li>`
         });
         projectComments.appendChild(commentList);
+        //if user is logged in, comments will be displayed
         if (!userGlobal) {
             projectDetails.appendChild(projectComments)
         }
-
-        // commentSection.appendChild(commentList);
-        // projectDetails.appendChild(projectComments);
     }
 }
 
+//navigation to user when clicking on their name
 function toProfile(userId) {
     location.href = `../html/myProfile.html?id=${userId}`;
 }
 
+//displays a different icon dependent if authors link is gitlab, gitHub or other
 const getGitLink = (user, githubLink) => {
     if (!user.github) {
         githubLink.style.visibility = 'hidden';
@@ -265,6 +268,7 @@ const getGitLink = (user, githubLink) => {
     }
 }
 
+//Section of page containing the authors information
 const userInformation = (user) => {
     const imgURL = (user.profilePic) ? url + '/uploads/user/' + user.profilePic : '../images/profilePic.png';
     userInfo.innerHTML =
@@ -284,8 +288,7 @@ const userInformation = (user) => {
     getGitLink(user, gitLink)
 }
 
-//AJAX call
-
+//AJAX call, Get method to retrieve project details
 const getProject = async () => {
     try {
         const fetchOptions = {
@@ -297,17 +300,15 @@ const getProject = async () => {
         if (userGlobal) {
             await checkAuthor();
         }
+        //changes the route used base on if the user is the author, or if they are an admin
         let route = (isAuthor) ? '/project/personal/' : '/project/';
         if (userGlobal && userGlobal.role === 1) {route = '/project/admin/'}
-        console.log('route', route);
         const response = await fetch(url + route + projectId, fetchOptions);
         const project = await response.json();
-        console.log('get project response', project)
         const authorResponse = await fetch(url + '/user/' + project.author);
         const authorId = await authorResponse.json();
         createAppOverview(project, authorId);
         await updateRating();
-        console.log('author', authorId);
         createAppMedia(project);
         if (project.description) {
             createAppLongDescription(project, authorId);
@@ -319,6 +320,7 @@ const getProject = async () => {
         console.log(e.message);
     }
 };
+//Gets project author, to be used in checks regarding user rights
 const getProjectAuthor = async () => {
     try {
         const fetchOptions = {
@@ -337,17 +339,18 @@ const getProjectAuthor = async () => {
 
 }
 
+//get method returns sum of all ratings for project, default value 0 if none exist
 const getProjectRating = async () => {
     try {
         const ratingResponse = await fetch(url + '/project/projectRating/' + projectId);
         const projectRating = await ratingResponse.json();
-        console.log('project rating', projectRating.rating);
         return (projectRating.rating) ? projectRating.rating : 0;
     } catch (e) {
         console.log(e.message);
     }
 }
 
+//get method retrieves users own rating for project
 const getOwnRating = async () => {
     try {
         const fetchOptions = {
@@ -358,20 +361,18 @@ const getOwnRating = async () => {
         };
         const response = await fetch(url + '/project/projectRating/own/' + projectId, fetchOptions);
         const fetchedOwnRating = await response.json();
-        const ownRatingRating = fetchedOwnRating.rating;
-        console.log('fetchedOwnRating', ownRatingRating);
-        return ownRatingRating;
+
+        return fetchedOwnRating.rating;
     } catch (e) {
         console.error(e.message);
     }
 }
 
+//changes the rating on screen and shows users current rating for the project
 const updateRating = async () => {
     likes = document.querySelector('#card-like-count')
     rating = await getProjectRating();
     if(userGlobal) ownRating = await getOwnRating();
-    console.log('rating', rating);
-    console.log('own rating', ownRating);
     if (likes) {
         (rating) ? likes.innerHTML = rating.toString() : likes.innerHTML = '0';
     }
@@ -393,7 +394,7 @@ const updateRating = async () => {
 }
 
 const modifyRating = async (rating) => {
-    console.log('is ownRating undefined?', ownRating);
+    //put method modifies already existing rating
     let fetchOptions = {
         method: 'PUT',
         headers: {
@@ -403,6 +404,7 @@ const modifyRating = async (rating) => {
         body: JSON.stringify({'rating': rating}),
     }
 
+    //post method to insert new rating into database
     if (ownRating === null || ownRating === undefined) {
         console.log('post method');
         fetchOptions = {
@@ -415,15 +417,12 @@ const modifyRating = async (rating) => {
         }
     }
 
-    console.log('fetchOptions', fetchOptions);
-    const response = await fetch(url + '/project/projectRating/' + projectId, fetchOptions);
-    // console.log(await response.json());
+    await fetch(url + '/project/projectRating/' + projectId, fetchOptions);
     await updateRating();
 }
-
+//get comment list for project from database
 const getComments = async () => {
     try {
-
         const commentResponse = await fetch(url + '/project/comments/' + projectId);
         const comments = await commentResponse.json();
         createAppComments(comments)
@@ -432,6 +431,7 @@ const getComments = async () => {
     }
 }
 
+//delete comments
 const deleteComment = async (commentId) => {
     try {
         const data = {
@@ -446,10 +446,9 @@ const deleteComment = async (commentId) => {
             body: JSON.stringify(data),
 
         }
-        const commentResponse = await fetch(url + '/project/comments/', fetchOptions);
-        const comments = await commentResponse.json();
-
-        console.log(comments);
+        //check whether user is admin, admin can delete all comments, users can only delete their own
+        const route = (userGlobal.role === 1) ? '/project/comments/admin/' : '/project/comments/';
+        await fetch(url + route, fetchOptions);
 
         await getComments();
     } catch (e) {
@@ -461,37 +460,41 @@ getUserGlobal().then(() => {
         getProject();
     })
 
+//Makes first letter of inputted tag capital.
 const convertNameToCaps = (name) => {
     const nameArr = name.split(" ");
     for (let i = 0; i < nameArr.length; i++) {
         nameArr[i] = nameArr[i].charAt(0).toUpperCase() + nameArr[i].slice(1);
     }
     return nameArr.join(" ");
-
 }
+
+/*handles the on click event for up vote arrow
+top case: when arrow hasn't been pressed
+bottom case: when arrow was already pressed
+*/
 const upVote = () => {
     if (upArrow.style.filter === "invert(100%)") {
-        // TODO insert/modify rating to be 1
-
         upArrow.style.filter = "invert(64%) sepia(76%) saturate(711%) hue-rotate(43deg) brightness(114%) contrast(104%)";
         downArrow.style.filter = "invert(100%)";
         modifyRating(1);
     } else {
-        // TODO modify rating to be 0
         upArrow.style.filter = "invert(100%)";
         downArrow.style.filter = "invert(100%)";
         modifyRating(0);
     }
 
 }
+/*handles the on click event for down vote arrow
+top case: when arrow hasn't been pressed
+bottom case: when arrow was already pressed
+*/
 const downVote = () => {
     if (downArrow.style.filter === "invert(100%)") {
-        // TODO insert/modify rating to be -1
         downArrow.style.filter = "invert(24%) sepia(59%) saturate(6111%) hue-rotate(337deg) brightness(85%) contrast(104%)";
         upArrow.style.filter = "invert(100%)";
         modifyRating(-1);
     } else {
-        //TODO modify rating to be 0
         upArrow.style.filter = "invert(100%)";
         downArrow.style.filter = "invert(100%)";
         modifyRating(0);
@@ -499,29 +502,22 @@ const downVote = () => {
 
 }
 
-//lightbox
-
+//lightbox, functionality when clicking on images to display them
 function zoomImg() {
     const clone = this.cloneNode();
     clone.classList.remove("zoomD");
 
-    let lb = document.getElementById("lb-img");
+    let lb = document.querySelector("#lb-img");
     lb.innerHTML = "";
     lb.appendChild(clone);
 
-    lb = document.getElementById("lb-back");
+    lb = document.querySelector("#lb-back");
     lb.classList.add("show");
 }
 
 window.addEventListener("load", () => {
-    // const images = document.getElementsByClassName("zoomD");
-    // if (images.length>0) {
-    //     for (let img of images) {
-    //         img.addEventListener("click", zoomImg);
-    //     }
-    // }
 
-    document.getElementById("lb-back").addEventListener("click", function(){
+    document.querySelector("#lb-back").addEventListener("click", function(){
         this.classList.remove("show");
     })
 });
