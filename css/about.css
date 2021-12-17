@@ -48,6 +48,10 @@ button {
 @media screen and (min-aspect-ratio: 1/1) {
 
     .about-foliohub {
+	position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
         width: 60vw;
         margin: auto;
         display: flex;
