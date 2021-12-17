@@ -142,9 +142,10 @@ body {
     flex-grow: 1;
     font-size: 1.5vh;
     text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
     color: rgba(255,255,255,0.8);
+    overflow: visible;
+    word-break: break-all;
+    white-space: normal;
 }
 
 #project-stats {
@@ -184,15 +185,17 @@ a, a:hover, a:visited, a:active {
 @media screen and (min-aspect-ratio: 1/1) {
 
     body {
-        padding: 0 200px;
+        padding: 20px 200px;
         margin: 0;
     }
 
+    #logo {
+        width: 300px;
+    }
     .logo-container {
         height: 100px;
         width: 100px;
     }
-
 
     .menuTopRow {
         margin-bottom: 2vh;

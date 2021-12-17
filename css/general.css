@@ -68,7 +68,7 @@ html{
 }
 
 #side-menu {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     background-color: #252525;
@@ -228,6 +228,7 @@ a, a:hover, a:visited, a:active {
 /* ---- DESKTOP MEDIA QUERIES ---- */
 
 @media screen and (min-aspect-ratio: 1/1) {
+
     #side-menu {
         padding: 0;
     }

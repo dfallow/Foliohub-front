@@ -5,7 +5,7 @@ html {
 }
 
 body{
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -151,7 +151,7 @@ input[type="file"] {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        height: 90vh;
+        height: 98vh;
         width: 850px;
         margin: auto;
         border-radius: 20px;
@@ -163,6 +163,11 @@ input[type="file"] {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -123%);
+    }
+
+    .mainMobileInput, textarea {
+        font-size: 25px;
+        padding: 10px 20px;
     }
 
     #user-tags-array {

@@ -5,7 +5,11 @@ body {
     flex-direction: column;
     align-items: center;
     margin: 0;
-    padding-top: 0;
+    padding-top: 20px;
+}
+
+#logo {
+    width: 300px;
 }
 
 /* ---- USER CARD ---- */
@@ -269,7 +273,9 @@ iframe {
     max-width: 90%;
     font-size: 1.5vh;
     line-height: 90%;
-
+    overflow: visible;
+    word-break: break-all;
+    white-space: normal;
 }
 
 #comment-link {
@@ -404,19 +410,23 @@ iframe {
 /* ---- DESKTOP MEDIA QUERIES ---- */
 
 @media screen and (min-aspect-ratio: 1/1) {
+    html {
+        padding-top: 20px;
+    }
 
     body {
-        padding: 0 200px 50px 200px;
+        width: 900px;
+        margin: auto;
     }
 
     /* ---- APP OVERVIEW ---- */
 
     #appOverview {
-        height: 400px;
+        height: auto;
     }
 
     #appOverviewTop {
-        height: 70%;
+        height: auto;
     }
 
     #appOverviewBottom {
@@ -424,20 +434,26 @@ iframe {
     }
 
     #projectLogo {
-        width: 250px;
-        height: 250px;
+        width: 170px;
+        height: 170px;
     }
 
     #nameAuthor > h2 {
-        font-size: 4.5vh;
+        font-size: 30px;
+        overflow: visible;
+        word-break: break-all;
+        white-space: normal;
     }
 
     #nameAuthor > p {
-        font-size: 3vh;
+        font-size: 25px;
     }
 
     #shortDesc {
         height: 100%;
+        font-size: 20px;
+        margin-bottom: 0;
+        text-align: center;
     }
 
     #shortDesc, #appLongDescription p {
@@ -473,8 +489,8 @@ iframe {
     }
 
     #logo {
-        width: 500px;
-        height: 226px;
+        width: 300px;
+        height: auto;
     }
 
     #profilePic {
@@ -484,21 +500,30 @@ iframe {
 
     /* ---- AUTHOR INFO ---- */
 
+    #user {
+        height: auto;
+        justify-content: space-between;
+        padding: 20px 40px;
+        margin: 20px 100px;
+    }
+
     #userInfo {
         display: flex;
         flex-direction: column;
-        gap: 15px;
-        justify-content: center;
+        justify-content: space-between;
+    }
+
+    #userInfo p {
+        margin: 10px 0;
     }
 
     #github, #userImg {
-        height: 200px;
-        width: 200px;
+        height: 100px;
+        width: 100px;
     }
 
     #user p{
-        font-size: 30px;
-
+        font-size: 18px;
     }
 
     .inputOutline {
@@ -521,7 +546,11 @@ iframe {
         height: 50px;
     }
 
-    #addBtn:hover {
+    #add-comment-btn {
+        padding: 0 20px;
+    }
+
+    #addBtn:hover, #add-comment-btn:hover {
         opacity: 0.7;
         transition: opacity 0.2s;
     }
@@ -531,7 +560,7 @@ iframe {
         height: 50px;
         position: unset;
         align-self: flex-end;
-        margin-top: 10px
+        margin-top: 10px;
     }
 
     #input::-webkit-scrollbar-thumb {
@@ -552,11 +581,21 @@ iframe {
     .userComment {
         display: flex;
         flex-direction: row;
+        height: auto;
+        padding: 20px 50px;
+    }
+
+    .userComment a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
     }
 
     #comment {
         font-size: 2vh;
         flex-grow: 1;
+
     }
 
     #name {

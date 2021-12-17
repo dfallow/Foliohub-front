@@ -102,9 +102,14 @@ h1 {
     }
 
     #logo {
-        width: 500px;
-        top: -35px;
+        width: 300px;
         margin: auto;
+        top: 50px;
+    }
+
+    .mainMobileInput {
+        font-size: 25px;
+        padding: 10px 20px;
     }
 
 }

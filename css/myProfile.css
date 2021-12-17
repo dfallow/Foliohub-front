@@ -5,13 +5,13 @@ body {
     overflow-x: hidden;
     position: relative;
     margin: 0;
-    padding-top: 0;
+    padding-top: 20px;
 }
 
 /* ---- IMAGES ---- */
 #logo {
-    width: 500px;
-    height: 226px;
+    width: 300px;
+    height: auto;
     margin: 0;
 }
 
@@ -64,6 +64,9 @@ img {
     height: 17vw;
     text-align: justify;
     opacity: 0.8;
+    overflow: visible;
+    word-break: break-all;
+    white-space: normal;
 }
 
 #tags {
@@ -215,6 +218,9 @@ a, a:hover, a:visited, a:active {
     margin: 0 0 1vh 0;
     opacity: 0.8;
     width: 100%;
+    overflow: visible;
+    word-break: break-all;
+    white-space: normal;
 }
 
 #shortDesc {
@@ -334,8 +340,12 @@ a, a:hover, a:visited, a:active {
 
 @media screen and (min-aspect-ratio: 1/1) {
 
+    html {
+        padding-top: 20px;
+    }
+
     body {
-        width: 800px;
+        width: 900px;
         margin: auto;
     }
 
@@ -364,8 +374,8 @@ a, a:hover, a:visited, a:active {
     }
 
     #logo {
-        width: 500px;
-        height: 226px;
+        width: 300px;
+        height: auto;
     }
 
     /* ---- USER INFO ---- */
@@ -426,17 +436,22 @@ a, a:hover, a:visited, a:active {
     }
 
     #projectDetailDiv {
-        width: 60%;
+
     }
 
     #shortDesc {
         overflow: visible;
+        word-break: break-all;
         white-space: normal;
-
+        padding-right: 0;
+        max-width: none;
     }
 
     #projectName {
-        font-size: 25px;
+        overflow: visible;
+        word-break: break-all;
+        white-space: normal;
+        font-size: 22px;
     }
 
     #card-link {
