@@ -1,7 +1,5 @@
 # FolioHub-Front
 
-![alt text](images/logoLong.png "FolioHub Logo")
-
 ## What is FolioHub?
 
 FolioHub is a project sharing platform for developers where you can:
