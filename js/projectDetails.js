@@ -220,7 +220,6 @@ const createAppComments = (comments) => {
         commentList.id = 'commentList';
         comments.forEach((comment) => {
             const isAuthor = (userGlobal) ? userGlobal.userId === comment.userId : false;
-            console.log('is author', isAuthor);
             commentList.style.backgroundColor = "transparent";
             const commentPic = (!comment.profilePic) ? '../images/profilePic.png' : url + '/thumbnails/user/' + comment.profilePic
             commentList.innerHTML +=
@@ -231,7 +230,7 @@ const createAppComments = (comments) => {
                         <p id="comment">${comment.comment}</p>
                         <p id="comment-date">${comment.timeStamp.split(' ').shift()}</p>
                     </div>
-                    ${(isAuthor || userGlobal.role === 1) ? '<img alt="delete" id="comment-delete" src="../images/delete.png" onclick="deleteComment(' + comment.commentId + ')">' : ''}
+                    ${(isAuthor || (userGlobal && userGlobal.role === 1)) ? '<img alt="delete" id="comment-delete" src="../images/delete.png" onclick="deleteComment(' + comment.commentId + ')">' : ''}
             </li>`
         });
         projectComments.appendChild(commentList);
