@@ -48,3 +48,8 @@ creators with the subject FolioHub.
 | Sam Hämäläinen | sam.hamalainen@metropolia.fi | 
 | Soulyvanh Phetsarath | soulyvanh.phetsarath@metropolia.fi |
 
+## Useful Links
+
+- [Figma Mockup](https://www.figma.com/file/mdyjhmZnkIZ526PjswwnYA/FolioHub)
+- [Planner](https://tasks.office.com/metropoliafi.onmicrosoft.com/en/Home/Planner#/plantaskboard?groupId=01441a25-4b80-40f9-8634-8448a29a6cff&planId=LBA_Q0Gq0U-cad4kYhqC7ZYAGWZp)
+
