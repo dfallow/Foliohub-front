@@ -61,8 +61,8 @@ img {
     border-radius: 30px;
     border: none;
     margin: 40px auto 10px;
-    height: 17vw;
-    text-align: justify;
+    height: auto;
+    text-align: center;
     opacity: 0.8;
     overflow: visible;
     word-break: break-all;
@@ -394,7 +394,7 @@ a, a:hover, a:visited, a:active {
     }
 
     #userDesc {
-        height: 150px;
+        height: auto;
         margin: 30px 30px 10px 30px;
     }
 
