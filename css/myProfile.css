@@ -1,0 +1,520 @@
+/* ---- BODY ---- */
+body {
+    height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    position: relative;
+    margin: 0;
+    padding-top: 20px;
+}
+
+/* ---- IMAGES ---- */
+#logo {
+    width: 300px;
+    height: auto;
+    margin: 0;
+}
+
+img {
+    width: 125px;
+    height: 125px;
+    margin-top: 3px;
+}
+
+/* ---- USER INFO ---- */
+.user {
+    margin: auto;
+    padding-top: 10px;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(0,0,0,0.7);
+}
+
+#github, #userImg {
+    height: 20vw;
+    width: 20vw;
+    border-radius: 200px;
+    object-fit: cover;
+
+}
+
+#github {
+    border: white 2px solid;
+    background: white center center;
+}
+
+#userInfo {
+    font-size: 2vh;
+    color: white;
+    opacity: 0.8;
+}
+
+#userDesc {
+    background-color: #E5E5E5;
+    padding: 2vh 3vh;
+    width: 85%;
+    font-size: 2vh;
+    border-radius: 30px;
+    border: none;
+    margin: 40px auto 10px;
+    height: auto;
+    text-align: center;
+    opacity: 0.8;
+    overflow: visible;
+    word-break: break-all;
+    white-space: normal;
+}
+
+#tags {
+    width: 85%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1vh;
+    margin-bottom: 15px;
+}
+
+#tags p {
+    padding: 0.5vh;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5vh;
+    background-color: white;
+    border: 4px solid #e5e5e5;
+    opacity: 0.9;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    min-width: 8vh;
+    margin: 0;
+}
+
+/* ---- SEARCHBAR AND FILTER ---- */
+
+.search-with-filter {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3);
+    border-radius: 50px;
+    align-items: center;
+    height: 5vh;
+}
+
+#searchBar {
+    border-radius: 20px 0 0 20px;
+    margin: 0;
+    height: 100%;
+    opacity: 80%;
+}
+
+#searchBar:focus {
+    outline: none;
+}
+
+.filterBtn {
+    width: 100%;
+    height: 100%;
+    background-color: #EFEFEF;
+    color: black;
+    padding: 4px 0 4px 3px;
+    font-size: 1.8vh;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 20px 20px 0;
+}
+
+.filterBtn:focus {
+    outline: none;
+}
+
+.filterBtn > option {
+    width: 10px;
+    font-size: x-small;
+}
+
+.filterMenu {
+    width: 27%;
+    height: 100%;
+    position: relative;
+    display: inline-block;
+}
+
+.show {
+    display: block;
+}
+
+/* ---- PROJECTS ---- */
+#userProjects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+
+}
+
+a, a:hover, a:visited, a:active {
+    color: inherit;
+    text-decoration: none;
+    z-index: 0;
+}
+
+#projectCard {
+    position: relative;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    width: 100%;
+    height: 15vh;
+    border-radius: 20px 0 0 20px ;
+    align-items: center;
+    background-color: rgba(0,0,0,0.7);
+    overflow: hidden;
+}
+
+#projectImg {
+    display: flex;
+    flex-direction: row;
+    height: 15vh;
+    width: 15vh;
+    margin: 0;
+    align-items: center;
+    justify-content: start;
+    flex-shrink: 0;
+}
+
+#projectImg img {
+    height: 100%;
+    width: 100%;
+    border-radius: 20px 0 0 20px;
+    margin: 0;
+    object-fit: cover;
+    background-position: center center;
+    opacity: 100%;
+}
+
+#projectDetailDiv {
+    height: 100%;
+    width: 50%;
+    margin-left: 1vw;
+    padding: 8px 8px 16px 0;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+#projectName {
+    align-self: flex-start;
+    justify-content: flex-start;
+    font-weight: bold;
+    font-size: 40px;
+    margin: 0 0 1vh 0;
+    opacity: 0.8;
+    width: 100%;
+    overflow: visible;
+    word-break: break-all;
+    white-space: normal;
+}
+
+#shortDesc {
+    font-size: 2vh;
+    max-width: 80%;
+    margin: 0;
+    padding: 0 2vw 0 0;
+    flex-grow: 1;
+    overflow: hidden;
+    opacity: 0.8;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#date {
+    margin-top: auto;
+}
+
+#card-link {
+    width: 90%;
+}
+
+#project-card-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 1vh;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+}
+
+/* ---- PROJECT STATS ---- */
+#project-info {
+    position: absolute;
+    height: 100%;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin-right: 5px;
+    justify-content: start;
+    padding-top: 20px;
+    gap: 10px;
+}
+
+#project-info p:not(#date) {
+    margin: 0;
+}
+
+#project-info div {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+}
+
+#project-info img{
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+    filter: invert(100%);
+}
+
+/* ---- BUTTONS ---- */
+#deleteBtn {
+    display: none;
+}
+
+#editBtn {
+    background-color: lightgray;
+    border: 0 solid black;
+    border-radius: 0 20px 20px 0;
+    font-size: 2vh;
+    flex-grow: 1;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#fab-add-project {
+    position: fixed;
+    background-color: rgba(0,0,0,0.7);
+    width: 140px;
+    height: 140px;
+    border-radius: 200px;
+    bottom: 2vh;
+    right: 2vh;
+    font-size: 70px;
+    color: rgba(255,255,255,0.8);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+}
+
+#fab-add-project:focus, #fab-add-project:hover {
+    box-shadow: none;
+    opacity: 0.9;
+}
+
+#fab-add-project div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: floralwhite;
+    border-radius: 10px;
+}
+
+#vertical-bar {
+    width: 7%;
+    height: 50%;
+}
+
+#horizontal-bar {
+    width: 50%;
+    height: 7%;
+}
+
+/* ---- DESKTOP MEDIA QUERIES ---- */
+
+@media screen and (min-aspect-ratio: 1/1) {
+
+    html {
+        padding-top: 20px;
+    }
+
+    body {
+        width: 900px;
+        margin: auto;
+    }
+
+    /* ---- SEARCHBAR AND FILTER ---- */
+
+    .search-with-filter {
+        width: 90%;
+        margin: 30px auto;
+    }
+
+    .filterBtn > option {
+        width: 10px;
+        font-size: 2vh;
+    }
+
+    /* ---- TOP ROW WITH LOGO ---- */
+    .menuTopRow {
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2vh;
+    }
+
+    .logo-container {
+        height: 100px;
+        width: 100px;
+    }
+
+    #logo {
+        width: 300px;
+        height: auto;
+    }
+
+    /* ---- USER INFO ---- */
+    .user {
+        padding: 20px 40px;
+    }
+
+    #github, #userImg{
+        height: 150px;
+        width: 150px;
+    }
+
+    #userInfo {
+        padding-left: 20px;
+        flex-grow: 1;
+    }
+
+    #userDesc {
+        height: auto;
+        margin: 30px 30px 10px 30px;
+    }
+
+    #tags p {
+        background-color: #e5e5e5;
+    }
+
+    #tags p:hover {
+        background-color: snow;
+        opacity: 1;
+        transition: opacity 0.2s, background-color 0.2s;
+    }
+
+    /* ---- BUTTONS ---- */
+
+    #editBtn {
+        display: none;
+        color: transparent;
+        border-radius: 0 0 0 0;
+    }
+
+    #deleteBtn {
+        display: none;
+        color: transparent;
+        border: none;
+
+    }
+
+    #fab-add-project {
+        height: 70px;
+        width: 70px;
+    }
+
+    /* ---- PROJECTS ---- */
+
+    #userProjects {
+        width: 90%;
+        margin: auto;
+    }
+
+    #projectDetailDiv {
+
+    }
+
+    #shortDesc {
+        overflow: visible;
+        word-break: break-all;
+        white-space: normal;
+        padding-right: 0;
+        max-width: none;
+    }
+
+    #projectName {
+        overflow: visible;
+        word-break: break-all;
+        white-space: normal;
+        font-size: 22px;
+    }
+
+    #card-link {
+        width: 100%;
+    }
+
+    #project-info {
+        gap: 0;
+        padding-top: 10px;
+    }
+
+    #project-info img {
+        height: 20px;
+        width: 20px;
+    }
+
+    #project-info p:not(#date) {
+        margin: 0;
+    }
+
+    #date {
+        margin-bottom: 0;
+        margin-top: auto;
+    }
+
+    #projectCard {
+        width: 100%;
+        transition: display 200ms linear;
+        border-radius: 20px;
+    }
+
+    /* ---- EDIT AND DELETE BUTTONS ON HOVER ---- */
+    .animatedContainer:hover > #card-link {
+        animation: cardLinkHover 200ms forwards;
+    }
+
+    .animatedContainer:hover #projectCard {
+        border-radius: 20px 0 0 20px;
+    }
+
+    .animatedContainer:hover #editBtn {
+        display: block;
+        flex-grow: 1;
+        color: black;
+        cursor: pointer;
+    }
+
+    .animatedContainer:hover #deleteBtn {
+        display: block;
+        background-color: #ff1515;
+        flex-grow: 1;
+        color: white;
+        cursor: pointer;
+        border-radius: 0 20px 20px 0;
+    }
+
+}
+
+@keyframes cardLinkHover {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 85%;
+    }
+}

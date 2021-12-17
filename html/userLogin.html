@@ -5,37 +5,30 @@
     <title>User Login</title>
     <link href="../css/general.css" rel="stylesheet">
     <link href="../css/userLogin.css" rel="stylesheet">
+    <link href="../images/favicon.ico" type="image/x-icon" rel="icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="container">
-        <h1>FolioHub</h1>
+<img id="logo" src="../images/logoLong.png" alt="logo">
 
-        <div class="forms">
-            <h3>Login</h3>
-            <form id="login" action="http://10.114.32.29/foliohub/auth/login" method="post">
-                <div>
-                    <label>Email:</label>
-                    <input type="email" placeholder="example@test.com" name="username">
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input type="password" placeholder="Password" name="password">
-                </div>
-                <div>
-                    <button type="submit">Log In</button>
-                </div>
-            </form>
-            <div class="notUser">
-                <form action="http://10.114.32.29/guest"> <!-- TODO implement guest access -->
-                    <button type="submit">Guest Access</button>
-                </form>
-                <form action="../html/accountCreate.html"> <!-- TODO implement register page -->
-                    <button type="submit">Register</button>
-                </form>
-            </div>
+<div class="forms">
+    <h1>Login</h1>
+    <form id="login" action="" method="post">
+        <div>
+            <input class="mainMobileInput" type="email" placeholder="Email" name="username">
+            <input class="mainMobileInput" type="password" placeholder="Password" name="password">
         </div>
-    </div>
+        <button class="mainMobileButton" type="submit">Log In</button>
+    </form>
+    <a href="accountCreate.html">Create a new account</a>
+</div>
 
+<script src="../constants.js"></script>
+<script src="../js/general.js"></script>
+<script src="../js/serialize.js"></script>
+<script src="../js/userLogin.js"></script>
 </body>
 </html>

@@ -3,8 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>User Profile</title>
+    <link href="../css/general.css" rel="stylesheet">
+    <link href="../css/myProfile.css" rel="stylesheet">
+    <link href="../images/favicon.ico" rel="icon" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
 </head>
 <body>
-<!-- TODO Fix this -->
+
+<div class="menuMobile">
+    <div class="menuTopRow">
+        <div id="menuBtn" class="logo-container" onclick="openDrawer()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <img id="logo" src="../images/logoLong.png">
+        <div class="logo-container" style="visibility: hidden; pointer-events: none" ></div>
+    </div>
+</div>
+
+<div id="side-menu" class="side-nav"><!-- Drawer menu will display here --></div>
+
+<div class="user">
+
+    <img id="userImg" src="../images/profilePic.png">
+
+    <div id="userInfo">
+        <p id="userName">User Name</p>
+        <p id="developerType">Type of Developer</p>
+        <p id="memberSince">Member Since</p>
+    </div>
+
+    <a href="" id="github" target="_blank"></a>
+
+    <p id="userDesc"></p>
+
+    <div id="tags"><!-- Tags will display here --></div>
+
+</div>
+
+
+<div class="search-with-filter">
+    <input type="text" placeholder="Search..." id="searchBar">
+
+    <div class="filterMenu">
+        <select class="filterBtn" onchange=sort(this.value)>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="aZ">A-Z</option>
+            <option value="zA">Z-A</option>
+            <option value="rating">Rating</option>
+            <option value="comments">Comments</option>
+            <option value="privacy">Privacy</option>
+        </select>
+    </div>
+</div>
+
+<ul id="userProjects"><!-- Projects will display here --></ul>
+
+<div id="fab-add-project">
+    <div id="vertical-bar"></div>
+    <div id="horizontal-bar"></div>
+</div>
+
+<script src="../constants.js"></script>
+<script src="../js/general.js"></script>
+<script src="../js/drawer.js"></script>
+<script src="../js/myProfile.js"></script>
+
 </body>
 </html>

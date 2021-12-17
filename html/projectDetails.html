@@ -5,26 +5,60 @@
     <title>Project Details</title>
     <link href="../css/general.css" rel="stylesheet">
     <link href="../css/projectDetails.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
 </head>
+
+<div id="lb-back">
+    <div id="lb-img"></div>
+</div>
+
 <body>
 
-    <div class="container">
-
-        <div class="menu">
-            <img id="logo" src="../images/logo.png">
-            <h1>FolioHub</h1>
-            <img id="profilePic" src="../images/profilePic.png">
+<div class="menuMobile">
+    <div class="menuTopRow">
+        <div id="menuBtn" class="logo-container" onclick="openDrawer()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
         </div>
-
-        <div class="projectDetails">
-            <h2>Project</h2>
-            <ul id="projectList">
-                <!-- home.js creates project list here-->
-            </ul>
-
+        <img id="logo" src="../images/logoLong.png">
+        <div class="logo-container" id="profilePicContainer">
+            <img id="profilePic" src="../images/login.png">
         </div>
+    </div>
+</div>
 
+<div id="side-menu" class="side-nav"></div>
+
+<div id="projectDetails">
+
+    <div id="appOverview">
+        <div id="appOverviewTop"></div>
+        <div id="appOverviewBottom"></div>
     </div>
 
+    <div id="videoMedia"><!-- project media will appear here --></div>
+
+    <div id="imageMedia"><!-- project media will appear here --></div>
+
+    <div id="appLongDescription"><!-- Longer Description of project goes here --></div>
+
+    <div id="comments"><!-- project comments will appear here --></div>
+
+    <div class="user" id="user"><!-- user info goes here --></div>
+
+    <div id="moreInfo"><!-- extra project information here --></div>
+</div>
+
+<script src="../constants.js"></script>
+<script src="../js/general.js"></script>
+<script src="../js/drawer.js"></script>
+<script src="../js/projectDetails.js"></script>
+
+<script>
+
+</script>
 </body>
 </html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Creation</title>
+    <link href="../css/general.css" rel="stylesheet">
+    <link href="../css/accountCreateExtra.css" rel="stylesheet">
+    <link href="../images/favicon.ico" rel="icon" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<form id="register" enctype="multipart/form-data">
+    <div id="regProfilePic">
+        <label for="image-upload" class="custom-file-upload">
+            <p>+</p>
+        </label>
+        <input id="image-upload" type="file" placeholder="Photo" accept="image/*" name="profilePic">
+    </div>
+    <div id="regForm">
+        <input required class="mainMobileInput" type="text" maxlength="30" placeholder="Enter Username..." name="username">
+        <input maxlength="20" class="mainMobileInput" type="text" placeholder="Enter Title..." name="title">
+        <textarea class="mainMobileInput" id="descTextArea"  maxlength="60" placeholder="Short description..." name="description"></textarea>
+        <div id="userTags">
+            <input class="mainMobileInput" pattern="[a-zA-Z]" id="input-user-tag" type="text" placeholder="Enter a Single Tag..." name="tags">
+            <button class="mainMobileButton" id="check-user-tag">Add</button>
+            <div id="tag-error"></div>
+        </div>
+        <div id="user-tags-array"><!-- user tags show here --></div>
+        <input class="mainMobileInput" type="text" placeholder="GitHub / GitLab" name="github">
+        <input style="display: none" class="mainMobileInput" type="text" placeholder="tag1,tag2,tag3,..." name="tags">
+        <input id="dateInput" class="hidden-input" type="text" name="creationDate">
+        <input id="usernameInput" class="hidden-input" type="text" name="email">
+        <input id="passwordInput" class="hidden-input" type="text" name="password">
+    </div>
+    <div id="buttons">
+        <button type="submit" class="mainMobileButton">Save</button>
+        <button onclick="deleteAccount()" id="delete-account-btn" class="mainMobileButton">Delete</button>
+    </div>
+</form>
+
+<script src="../constants.js"></script>
+<script src="../js/general.js"></script>
+<script src="../js/serialize.js"></script>
+<script src="../js/accountCreateExtra.js"></script>
+
+</body>
+</html>

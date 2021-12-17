@@ -5,34 +5,31 @@
     <title>Account Creation</title>
     <link href="../css/general.css" rel="stylesheet">
     <link href="../css/accountCreate.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="container">
+<img id="logo" src="../images/logoLong.png" alt="logo">
 
-    <div class="menu">
-        <img id="logo" src="../images/logo.png">
-        <h1>FolioHub</h1>
-        <img id="profilePic" src="../images/profilePic.png">
+<h1>Create an account</h1>
+
+<form id="register">
+    <div id="regForm">
+        <div class="errorMessage" id="errorEmail">Error</div>
+        <div class="errorMessage" id="errorPass">Error</div>
+        <input required class="mainMobileInput" type="email"  placeholder="Enter Email..." name="email" onfocusin="removeError()" onfocusout="checkEmail()">
+        <input required class="mainMobileInput" type="email" placeholder="Confirm Email..." name="emailC">
+        <input required class="mainMobileInput" type="password" placeholder="Enter Password..." minlength="6" name="password">
+        <input required class="mainMobileInput" type="password" placeholder="Confirm Password..." minlength="6" name="passwordC">
     </div>
+    <button type="submit" class="mainMobileButton">NEXT</button>
+</form>
 
-    <h2>Register</h2>
-
-    <form id="register">
-        <div id="regLeft">
-            <input type="text" placeholder="Enter Username" name="username">
-            <input type="text" placeholder="Enter Title" name="title">
-            <input type="email" placeholder="Enter Email" name="email">
-            <input type="email" placeholder="Confirm Email" name="emailC">
-            <input type="password" placeholder="Enter Password" name="password">
-            <input type="password" placeholder="Confirm Password" name="passwordC">
-        </div>
-        <div id="regRight">
-            <input id="image" type="file" placeholder="Photo" name="profilePic">
-        </div>
-    </form>
-
-</div>
-
+<script src="../constants.js"></script>
+<script src="../js/general.js"></script>
+<script src="../js/serialize.js"></script>
+<script src="../js/accountCreate.js"></script>
 </body>
 </html>
